@@ -1,2 +1,3 @@
-# mark-appleby
-Landing page for mark-appleby.com
+# mark-appleby.com
+
+Simple temporary landing page for https://mark-appleby.com

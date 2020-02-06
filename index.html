@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mark Appleby</title>
+    <style media="screen">
+      @keyframes wave {
+        0% {
+          transform: translate(-50%, -50%) rotate(-6deg);
+        }
+        50% {
+          transform: translate(-50%, -50%) rotate(6deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(-6deg);
+        }
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background-color: #85ebe0;
+        background-image: linear-gradient(#68fad1, #9ddbef);
+      }
+      h1 {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 86px;
+        animation: wave 1s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>👋</h1>
+  </body>
+</html>
