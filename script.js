@@ -22,7 +22,19 @@ var urls = [r + 'posx.jpg', r + 'negx.jpg',
 var textureCube = new THREE.CubeTextureLoader().load(urls)
 textureCube.format = THREE.RGBFormat
 
+// var geometry = new THREE.SphereBufferGeometry(1, 48, 24)
+var geometry = createBoxWithRoundedEdges(1, 1, 1, 0.05, 16)
+var material = new THREE.MeshStandardMaterial({
+  color: 0xf4b822,
+  roughness: 0.1,
+  metalness: 1,
+  envMap: textureCube
+})
+var mesh = new THREE.Mesh(geometry, material)
+scene.add(mesh)
+
 // Create Cube
+/*
 var geometry = createBoxWithRoundedEdges(1, 1, 1, 0.05, 16)
 var material = new THREE.MeshStandardMaterial({
   // color: 0xf4b822,
@@ -32,6 +44,7 @@ var material = new THREE.MeshStandardMaterial({
 })
 var cube = new THREE.Mesh(geometry, material)
 scene.add(cube)
+*/
 
 // Ref: https://discourse.threejs.org/t/round-edged-box/1402
 function createBoxWithRoundedEdges (width, height, depth, radius0, smoothness) {
@@ -56,17 +69,17 @@ function createBoxWithRoundedEdges (width, height, depth, radius0, smoothness) {
 }
 
 // Create Light
-var light = new THREE.DirectionalLight(0xffffff, 3)
-light.position.set(-1, 2, 4)
-scene.add(light)
+var light = new THREE.DirectionalLight(0xffffff, 50)
+light.position.set(-1, 30, 4)
+// scene.add(light)
 
-var controls = new THREE.OrbitControls(camera, renderer.domElement)
+// var controls = new THREE.OrbitControls(camera, renderer.domElement)
 
 // Animate
 function animate () {
   window.requestAnimationFrame(animate)
-  cube.rotation.x += 0.01
-  cube.rotation.y += 0.01
+  mesh.rotation.x += 0.01
+  mesh.rotation.y += 0.01
   renderer.render(scene, camera)
 }
 animate()
