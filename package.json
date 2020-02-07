@@ -1,0 +1,9 @@
+{
+  "name": "mark-appleby",
+  "scrits": {
+    "start": "yarn serve"
+  },
+  "dependencies": {
+    "serve": "^11.3.0"
+  }
+}
