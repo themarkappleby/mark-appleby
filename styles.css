@@ -34,6 +34,7 @@ canvas {
   height: 100%;
   position: relative;
   z-index: 2;
+  pointer-events: none;
 }
 
 .content {
@@ -96,6 +97,7 @@ body.invert .cursor-trail {
 /* =============================================== */
 .cursor,
 .cursor-trail {
+  pointer-events: none;
   display: block;
   border-radius: 50%;
   border: 2px solid black;
