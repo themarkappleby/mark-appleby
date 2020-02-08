@@ -1,6 +1,6 @@
 {
   "name": "mark-appleby",
-  "scrits": {
+  "scripts": {
     "start": "yarn serve"
   },
   "dependencies": {

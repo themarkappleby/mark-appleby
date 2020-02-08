@@ -1,6 +1,6 @@
 /* global window requestAnimationFrame THREE */
 
-var camera, scene, renderer
+var camera, scene, renderer, controls
 
 init()
 animate()
@@ -18,7 +18,7 @@ function init () {
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.set(0, 0, 200)
+  camera.position.set(100, 0, 200)
 
   // Setup Material
   // Ref: https://jsfiddle.net/f2Lommf5/15357/
@@ -29,9 +29,9 @@ function init () {
   var textureCube = new THREE.CubeTextureLoader().load(urls)
   textureCube.format = THREE.RGBFormat
   var material = new THREE.MeshStandardMaterial({
-    color: 0xf4b822,
+    color: 0xbb6b4d,
     roughness: 0,
-    metalness: 0.9,
+    metalness: 0.98,
     envMap: textureCube,
     side: THREE.DoubleSide
   })
@@ -39,40 +39,43 @@ function init () {
   // Add leaves
   var leaves = new THREE.Group()
   for (var z = 0; z <= 2; z++) {
-    for (var x = 0; x <= 5; x++) {
+    for (var x = 0; x <= 10; x++) {
       var rope = getRope(material)
-      rope.position.x = x * 40
+      rope.position.x = x * 20
       rope.position.y = 0
-      rope.position.z = z * 40
+      rope.position.z = z * 30
       leaves.add(rope)
-      for (var y = 0; y <= rand(8, 16); y++) {
+      for (var y = 0; y <= rand(8, 20); y++) {
         var leaf = getLeaf(material)
-        leaf.position.x = x * 40
-        leaf.position.y = y * rand(19, 21) * -1
-        leaf.position.z = z * 40
-        leaf.rotation.y = Math.PI / rand(-0.05, 0.05)
+        leaf.position.x = x * 20
+        leaf.position.y = y * 15 * -1
+        leaf.position.z = z * 30
+        leaf.rotation.y = Math.PI / rand(-0.01, 0.01)
         leaves.add(leaf)
       }
     }
   }
   leaves.position.y = 150
+  leaves.position.x = -100
   scene.add(leaves)
 
-  var hemLight = new THREE.HemisphereLight(0xffffbb, 0xffffff, 5)
+  var hemLight = new THREE.HemisphereLight(0xffffbb, 0xffffff, 8)
   scene.add(hemLight)
 
-  var dirLight = new THREE.DirectionalLight(0xffffff, 5)
-  dirLight.position.y = 8
+  var dirLight = new THREE.DirectionalLight(0xffffff, 100)
+  dirLight.position.y = 200
   scene.add(dirLight)
 
   // Setup orbit controls
-  var controls = new THREE.OrbitControls(camera, renderer.domElement)
+  controls = new THREE.OrbitControls(camera, renderer.domElement)
+  controls.enableDamping = true
+  controls.dampingFactor = 0.05
   controls.minDistance = 200
   controls.maxDistance = 200
 }
 
 function getLeaf (material) {
-  var geometry = new THREE.PlaneGeometry(6, 12)
+  var geometry = new THREE.PlaneGeometry(4, 12)
   var leaf1 = new THREE.Mesh(geometry, material)
   var leaf2 = new THREE.Mesh(geometry, material)
   leaf1.rotation.x = Math.PI / 1.1
@@ -102,6 +105,7 @@ function onWindowResize () {
 // Animate
 function animate () {
   requestAnimationFrame(animate)
+  controls.update()
   render()
 }
 
