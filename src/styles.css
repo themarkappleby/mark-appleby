@@ -12,7 +12,7 @@ body {
   background-image: linear-gradient(white, #eee);
   font-family: 'Lato', sans-serif;
   color: #535353;
-  cursor: none;
+  /* cursor: none; */
 }
 
 canvas {
@@ -53,43 +53,6 @@ h2 {
   font-size: 1.4em;
   letter-spacing: 0.04em;
   margin: 0 0 30px 0;
-}
-
-.social {
-  list-style-type: none;
-  margin: 0 0 0 -10px;
-  padding: 0;
-  display: flex;
-  display: none;
-}
-
-.social a {
-  display: block;
-  padding: 5px 10px;
-  text-decoration: none;
-  color: black;
-  transition: color 0.2s ease-in-out;
-}
-
-.social a:hover {
-  color: blue;
-}
-
-/* =============================================== */
-/* -- Inverted Styles -- */
-/* =============================================== */
-body.invert,
-body.invert h1 {
-  color: white;
-}
-
-body.invert .cursor {
-  border-color: white;
-  background: white;
-}
-
-body.invert .cursor-trail {
-  border-color: white;
 }
 
 /* =============================================== */

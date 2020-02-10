@@ -1,4 +1,8 @@
-/* global window requestAnimationFrame THREE */
+/* global window requestAnimationFrame */
+
+import * as THREE from 'three'
+// import * as THREE from 'js/three.module.js'
+// import THREE from 'three/build/three.module.js'
 
 var camera, scene, renderer, controls
 
@@ -67,11 +71,13 @@ function init () {
   scene.add(dirLight)
 
   // Setup orbit controls
+  /*
   controls = new THREE.OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
   controls.dampingFactor = 0.05
   controls.minDistance = 200
   controls.maxDistance = 200
+  */
 }
 
 function getLeaf (material) {
@@ -105,7 +111,7 @@ function onWindowResize () {
 // Animate
 function animate () {
   requestAnimationFrame(animate)
-  controls.update()
+  // controls.update()
   render()
 }
 

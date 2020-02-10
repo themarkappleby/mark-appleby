@@ -1,3 +1,5 @@
 .DS_Store
 .yarn
 .pnp.js
+node_modules
+dist
