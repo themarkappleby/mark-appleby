@@ -1,8 +1,10 @@
 /* global window requestAnimationFrame */
 
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import content from './content'
 
-var camera, scene, renderer, cube
+var camera, scene, renderer, controls
 
 init()
 animate()
@@ -18,18 +20,25 @@ function init () {
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+  camera.position.y = 1
   camera.position.z = 2
+
+  // Add Orbit Controls
+  controls = new OrbitControls(camera, renderer.domElement)
+  controls.enableDamping = true
+  controls.dampingFactor = 0.1
+  controls.minDistance = 0
+  controls.maxDistance = 200
 
   // Add Lighting
   var dirLight = new THREE.DirectionalLight(0xffffff, 100)
   dirLight.position.y = 200
   scene.add(dirLight)
 
-  // Add Cube
-  var geometry = new THREE.BoxGeometry()
-  var material = new THREE.MeshBasicMaterial({ color: 0x0000ff })
-  cube = new THREE.Mesh(geometry, material)
-  scene.add(cube)
+  // Add Content
+  content.forEach(item => {
+    scene.add(item)
+  })
 }
 
 // Handle Window Resize
@@ -42,10 +51,9 @@ function onWindowResize () {
 
 // Animate
 function animate () {
-  requestAnimationFrame(animate)
-  cube.rotation.x += 0.01
-  cube.rotation.y += 0.01
+  controls.update()
   render()
+  requestAnimationFrame(animate)
 }
 
 // Render
