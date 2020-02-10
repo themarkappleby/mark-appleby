@@ -8,11 +8,8 @@ html, body {
 }
 
 body {
-  background: #eee;
-  background-image: linear-gradient(white, #eee);
   font-family: 'Lato', sans-serif;
   color: #535353;
-  /* cursor: none; */
 }
 
 canvas {
@@ -53,35 +50,4 @@ h2 {
   font-size: 1.4em;
   letter-spacing: 0.04em;
   margin: 0 0 30px 0;
-}
-
-/* =============================================== */
-/* -- Cursor Styles -- */
-/* =============================================== */
-.cursor,
-.cursor-trail {
-  pointer-events: none;
-  display: block;
-  border-radius: 50%;
-  border: 2px solid black;
-  position: fixed;
-  z-index: 99999999;
-  top: 0;
-  left: 0;
-}
-
-.cursor {
-  background: black;
-  width: 16px;
-  height: 16px;
-  margin-left: -8px;
-  margin-top: -8px;
-}
-
-.cursor-trail {
-  width: 24px;
-  height: 24px;
-  margin-left: -12px;
-  margin-top: -12px;
-  opacity: 0.7;
 }

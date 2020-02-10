@@ -11,5 +11,8 @@ module.exports = {
     plugins: [
       PnpWebpackPlugin.moduleLoader(module)
     ]
+  },
+  devServer: {
+    writeToDisk: true
   }
 }

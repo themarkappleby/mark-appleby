@@ -1,7 +1,8 @@
 {
   "name": "mark-appleby",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build": "webpack"
   },
   "dependencies": {
     "three": "^0.113.2",
