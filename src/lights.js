@@ -17,7 +17,6 @@ function dirLight () {
   light.shadow.camera.right = 1.5
   light.shadow.camera.top = 1.5
   light.shadow.camera.bottom = -1.5
-  console.log(light.shadow.camera)
 
   /*
   const cameraHelper = new THREE.CameraHelper(light.shadow.camera)

@@ -836,6 +836,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cannon@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "cannon@npm:0.6.2"
+  checksum: a9c8ceed2c59ef5ab8cd4123cc448de39232043048d8d16ec4157787cc6b66c4659d56f5d77227833544aba44d973e2bd5656d075d3237cc0aca75b68c2fa2bd
+  languageName: node
+  linkType: hard
+
 "caseless@npm:~0.12.0":
   version: 0.12.0
   resolution: "caseless@npm:0.12.0"
@@ -3066,6 +3073,7 @@ fsevents@^1.2.7:
   version: 0.0.0-use.local
   resolution: "mark-appleby@workspace:."
   dependencies:
+    cannon: ^0.6.2
     pnp-webpack-plugin: ^1.6.0
     three: ^0.113.2
     webpack: ^4.41.5
