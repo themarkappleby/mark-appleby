@@ -19,8 +19,7 @@ function init () {
 
   // Create Scene
   scene = new THREE.Scene()
-  // scene.fog = new THREE.Fog(0xFFFFFF, 1, 6)
-  scene.fog = new THREE.FogExp2(0xFFFFFF, 0.08)
+  scene.fog = new THREE.FogExp2(0xFFFFFF, 0.1)
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
