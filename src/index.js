@@ -13,15 +13,18 @@ animate()
 function init () {
   // Create Renderer
   renderer = new THREE.WebGLRenderer()
+  renderer.shadowMap.enabled = true
   renderer.setSize(window.innerWidth, window.innerHeight)
   document.body.appendChild(renderer.domElement)
 
   // Create Scene
   scene = new THREE.Scene()
+  // scene.fog = new THREE.Fog(0xFFFFFF, 1, 6)
+  scene.fog = new THREE.FogExp2(0xFFFFFF, 0.15)
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.y = 1
+  camera.position.y = 2
   camera.position.z = 2
   scene.add(camera)
 
@@ -29,8 +32,8 @@ function init () {
   controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
   controls.dampingFactor = 0.1
-  controls.minDistance = 0
-  controls.maxDistance = 200
+  controls.minDistance = 2
+  // controls.maxDistance = 5
 
   // Add Lights
   lights.forEach(light => scene.add(light))
