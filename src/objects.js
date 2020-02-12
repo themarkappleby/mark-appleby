@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import materials from './materials'
 
 const objects = []
-objects.push(addCube())
+// objects.push(addCube())
 objects.push(addEnv())
 
 function addCube () {

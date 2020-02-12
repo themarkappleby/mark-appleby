@@ -3,11 +3,16 @@
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-// import objects from './objects'
+import objects from './objects'
 import lights from './lights'
 
+// Three shared variables
 var camera, scene, renderer, controls
-var world, shape, body, mesh
+
+// Cannon shared variables
+const TIME_STEP = 1 / 60
+const GRAVITY = -9.82
+var world, body, mesh
 
 initThree()
 initCannon()
@@ -26,8 +31,8 @@ function initThree () {
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.y = 2
-  camera.position.z = 2
+  camera.position.y = 3
+  camera.position.z = 4
   scene.add(camera)
 
   // Add Orbit Controls
@@ -41,13 +46,14 @@ function initThree () {
   lights.forEach(light => scene.add(light))
 
   // Add Objects
-  // objects.forEach(object => scene.add(object))
+  objects.forEach(object => scene.add(object))
 
   // Add Cannon test object
-  var geometry = new THREE.BoxGeometry(1, 1, 1)
+  var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
   var material = new THREE.MeshLambertMaterial({ color: '#eeb92f' })
-
   mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(0, 1, 0)
+  mesh.castShadow = true
   scene.add(mesh)
 }
 
@@ -61,18 +67,21 @@ function onWindowResize () {
 
 function initCannon () {
   world = new CANNON.World()
-  world.gravity.set(0, 0, 0)
+  world.gravity.set(0, GRAVITY, 0)
   world.broadphase = new CANNON.NaiveBroadphase()
   world.solver.iterations = 10
 
-  shape = new CANNON.Box(new CANNON.Vec3(1, 1, 1))
-  body = new CANNON.Body({
-    mass: 1
-  })
-  body.addShape(shape)
-  body.angularVelocity.set(0, 10, 0)
+  body = new CANNON.Body({ mass: 1 })
+  body.addShape(new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)))
+  body.position.set(0, 3, 0)
+  body.angularVelocity.set(8, 8, 8)
   body.angularDamping = 0.5
   world.addBody(body)
+
+  var floor = new CANNON.Body({ mass: 0 })
+  floor.addShape(new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)))
+  floor.position.set(0, 0, 0)
+  world.addBody(floor)
 }
 
 // Animate
@@ -89,8 +98,7 @@ function render () {
 }
 
 function updatePhysics () {
-  // Step the physics world
-  world.step(1 / 60)
+  world.step(TIME_STEP)
   mesh.position.copy(body.position)
   mesh.quaternion.copy(body.quaternion)
 }
