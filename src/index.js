@@ -12,7 +12,7 @@ var camera, scene, renderer, controls
 // Cannon shared variables
 const TIME_STEP = 1 / 60
 const GRAVITY = -9.82
-var world, body, mesh
+var world, cube, mesh
 
 initThree()
 initCannon()
@@ -31,8 +31,8 @@ function initThree () {
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.y = 3
-  camera.position.z = 4
+  camera.position.y = 2
+  camera.position.z = 3
   scene.add(camera)
 
   // Add Orbit Controls
@@ -40,7 +40,7 @@ function initThree () {
   controls.enableDamping = true
   controls.dampingFactor = 0.1
   controls.minDistance = 2
-  // controls.maxDistance = 5
+  controls.maxDistance = 5
 
   // Add Lights
   lights.forEach(light => scene.add(light))
@@ -68,19 +68,21 @@ function onWindowResize () {
 function initCannon () {
   world = new CANNON.World()
   world.gravity.set(0, GRAVITY, 0)
-  world.broadphase = new CANNON.NaiveBroadphase()
-  world.solver.iterations = 10
 
-  body = new CANNON.Body({ mass: 1 })
-  body.addShape(new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)))
-  body.position.set(0, 3, 0)
-  body.angularVelocity.set(8, 8, 8)
-  body.angularDamping = 0.5
-  world.addBody(body)
+  cube = new CANNON.Body({
+    shape: new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)),
+    position: new CANNON.Vec3(0, 3, 0),
+    mass: 30,
+    angularVelocity: new CANNON.Vec3(5, 2, 1),
+    angularDamping: 0.5
+  })
+  world.addBody(cube)
 
-  var floor = new CANNON.Body({ mass: 0 })
-  floor.addShape(new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)))
-  floor.position.set(0, 0, 0)
+  const floor = new CANNON.Body({
+    shape: new CANNON.Box(new CANNON.Vec3(10, 1, 10)),
+    position: new CANNON.Vec3(0, -1.25, 0),
+    mass: 0
+  })
   world.addBody(floor)
 }
 
@@ -99,6 +101,6 @@ function render () {
 
 function updatePhysics () {
   world.step(TIME_STEP)
-  mesh.position.copy(body.position)
-  mesh.quaternion.copy(body.quaternion)
+  mesh.position.copy(cube.position)
+  mesh.quaternion.copy(cube.quaternion)
 }
