@@ -1,10 +1,12 @@
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import materials from './materials'
+import robot from './robot'
 
 const objects = []
-objects.push(addCube())
+// objects.push(addCube())
 objects.push(addEnv())
+objects.push(robot())
 
 function addEnv () {
   var geometry = new THREE.PlaneGeometry(10, 10)
