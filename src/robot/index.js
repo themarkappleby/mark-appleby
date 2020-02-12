@@ -8,9 +8,10 @@ export default function Robot (x = 0, y = 1, z = 0) {
   var robot = new THREE.Group()
 
   var body = Body()
-  var pos = getPositions(body)
+  // var pos = getPositions(body)
   robot.add(body)
 
+  /*
   Object.keys(pos).forEach(face => {
     Object.keys(pos[face]).forEach(horz => {
       if (horz === 'rotation') return
@@ -22,16 +23,19 @@ export default function Robot (x = 0, y = 1, z = 0) {
       })
     })
   })
+  */
 
   robot.position.set(x, y, z)
   return robot
 }
 
+/*
 function getPositions (body) {
+  const SEGMENTS = 3
   var w = body.geometry.parameters.width / 2
   var h = body.geometry.parameters.height / 2
   var d = body.geometry.parameters.depth / 2
-  var o = rand(0.15, 0.25)
+  var o = rand(0.15, 0.25) // offset
 
   return {
     front: {
@@ -71,4 +75,82 @@ function getPositions (body) {
       }
     }
   }
+}
+*/
+
+var segments = get3DSegments([-3, -2, -1], [3, 2, 1])
+console.log(segments)
+
+function get3DSegments (start, end, parts = 5) {
+  var f = {
+    left: start[0],
+    right: end[0],
+    top: end[1],
+    bottom: start[1],
+    front: start[2],
+    back: end[2]
+  }
+
+  var front = get2DSegments(
+    [f.bottom, f.left],
+    [f.top, f.right]
+  )
+  front.forEach(item => {
+    item.forEach(inner => {
+      inner.push(f.front)
+    })
+  })
+
+  var back = get2DSegments(
+    [f.bottom, f.left],
+    [f.top, f.right]
+  )
+  back.forEach(item => {
+    item.forEach(inner => {
+      inner.push(f.back)
+    })
+  })
+
+  // TODO
+  var left = get2DSegments(
+    [f.bottom, f.left],
+    [f.top, f.right]
+  )
+  left.forEach(item => {
+    item.forEach(inner => {
+      inner.push(f.back)
+    })
+  })
+
+  var segments = {
+    front,
+    back,
+    left
+  }
+  return segments
+}
+
+function get2DSegments (start, end, parts = 5) {
+  var segments = []
+  var xSegments = get1DSegments(start[0], end[0], parts)
+  var ySegments = get1DSegments(start[1], end[1], parts)
+  xSegments.forEach(x => {
+    segments.push([])
+    ySegments.forEach(y => {
+      segments[segments.length - 1].push([
+        x, y
+      ])
+    })
+  })
+  return segments
+}
+
+function get1DSegments (start, end, parts = 5) {
+  var segments = []
+  var distance = end - start
+  var step = distance / (parts - 1)
+  for (var i = 0; i < parts; i++) {
+    segments.push(start + (step * i))
+  }
+  return segments
 }

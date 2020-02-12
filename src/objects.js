@@ -9,28 +9,29 @@ objects.push(addEnv())
 objects.push(robot())
 
 function addEnv () {
-  var geometry = new THREE.PlaneGeometry(10, 10)
+  const size = 30
+  var geometry = new THREE.PlaneGeometry(size, size)
 
   var backWall = new THREE.Mesh(geometry, materials.grey)
-  backWall.position.z = -5
-  backWall.position.y = 5
+  backWall.position.z = size / -2
+  backWall.position.y = size / 2
   objects.push(backWall)
 
   var frontWall = new THREE.Mesh(geometry, materials.grey)
-  frontWall.position.z = 5
-  frontWall.position.y = 5
+  frontWall.position.z = size / 2
+  frontWall.position.y = size / 2
   frontWall.rotation.y = THREE.Math.degToRad(180)
   objects.push(frontWall)
 
   var leftWall = new THREE.Mesh(geometry, materials.grey)
-  leftWall.position.x = -5
-  leftWall.position.y = 5
+  leftWall.position.x = size / -2
+  leftWall.position.y = size / 2
   leftWall.rotation.y = THREE.Math.degToRad(90)
   objects.push(leftWall)
 
   var rightWall = new THREE.Mesh(geometry, materials.grey)
-  rightWall.position.x = 5
-  rightWall.position.y = 5
+  rightWall.position.x = size / 2
+  rightWall.position.y = size / 2
   rightWall.rotation.y = THREE.Math.degToRad(-90)
   objects.push(rightWall)
 
@@ -39,8 +40,8 @@ function addEnv () {
   floor.receiveShadow = true
   floor.physics = new CANNON.Body({
     shape: new CANNON.Box(new CANNON.Vec3(
-      5,
-      5,
+      size / 2,
+      size / 2,
       0.1
     )),
     mass: 0

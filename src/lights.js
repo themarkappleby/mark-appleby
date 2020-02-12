@@ -7,18 +7,19 @@ lights.push(dirLight())
 lights.push(ambientLight())
 
 function ambientLight () {
-  const light = new THREE.AmbientLight(0xffffff, 0.5)
+  const light = new THREE.AmbientLight(0xffffff, 0.7)
   return light
 }
 
 function dirLight () {
-  const light = new THREE.DirectionalLight(0xffffff, 0.6)
+  const light = new THREE.DirectionalLight(0xffffff, 0.3)
   light.position.set(2, 4, 2)
   light.castShadow = true
-  light.shadow.camera.left = -1.5
-  light.shadow.camera.right = 1.5
-  light.shadow.camera.top = 1.5
-  light.shadow.camera.bottom = -1.5
+  light.shadow.radius = 5
+  light.shadow.camera.left = -2
+  light.shadow.camera.right = 2
+  light.shadow.camera.top = 2
+  light.shadow.camera.bottom = -2
 
   if (debug) {
     const cameraHelper = new THREE.CameraHelper(light.shadow.camera)

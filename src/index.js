@@ -35,12 +35,12 @@ function initThree () {
   }
 
   // Create Camera
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+  camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000)
   camera.position.y = 1.5
   camera.position.z = 3
   scene.add(camera)
 
-  // Add Orbit Controls
+  // Add Controls
   controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
   controls.dampingFactor = 0.1
