@@ -3,11 +3,11 @@
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import objects from './objects'
+// import objects from './objects'
 import lights from './lights'
 
 var camera, scene, renderer, controls
-var world, shape, body
+var world, shape, body, mesh
 
 initThree()
 initCannon()
@@ -41,7 +41,14 @@ function initThree () {
   lights.forEach(light => scene.add(light))
 
   // Add Objects
-  objects.forEach(object => scene.add(object))
+  // objects.forEach(object => scene.add(object))
+
+  // Add Cannon test object
+  var geometry = new THREE.BoxGeometry(1, 1, 1)
+  var material = new THREE.MeshLambertMaterial({ color: '#eeb92f' })
+
+  mesh = new THREE.Mesh(geometry, material)
+  scene.add(mesh)
 }
 
 // Handle Window Resize
@@ -54,15 +61,16 @@ function onWindowResize () {
 
 function initCannon () {
   world = new CANNON.World()
-  world.gravity.set(0, -9.82, 0)
+  world.gravity.set(0, 0, 0)
   world.broadphase = new CANNON.NaiveBroadphase()
   world.solver.iterations = 10
 
-  shape = new CANNON.Box(new CANNON.Vec3(1, 100, 1))
+  shape = new CANNON.Box(new CANNON.Vec3(1, 1, 1))
   body = new CANNON.Body({
     mass: 1
   })
   body.addShape(shape)
+  body.angularVelocity.set(0, 10, 0)
   body.angularDamping = 0.5
   world.addBody(body)
 }
@@ -83,5 +91,6 @@ function render () {
 function updatePhysics () {
   // Step the physics world
   world.step(1 / 60)
-  console.log(body.position.y)
+  mesh.position.copy(body.position)
+  mesh.quaternion.copy(body.quaternion)
 }
