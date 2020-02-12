@@ -1,3 +1,5 @@
+/* global debug */
+
 import * as THREE from 'three'
 
 const lights = []
@@ -18,10 +20,10 @@ function dirLight () {
   light.shadow.camera.top = 1.5
   light.shadow.camera.bottom = -1.5
 
-  /*
-  const cameraHelper = new THREE.CameraHelper(light.shadow.camera)
-  lights.push(cameraHelper)
-  */
+  if (debug) {
+    const cameraHelper = new THREE.CameraHelper(light.shadow.camera)
+    lights.push(cameraHelper)
+  }
 
   return light
 }

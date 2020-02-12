@@ -1,8 +1,9 @@
-/* global window requestAnimationFrame */
+/* global debug window requestAnimationFrame */
 
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import './utils/CannonDebugRenderer'
 import objects from './objects'
 import lights from './lights'
 
@@ -10,7 +11,7 @@ import lights from './lights'
 var camera, scene, renderer, controls
 
 // Cannon.js shared variables
-var physicsSimulation
+var physicsSimulation, cannonDebugger
 
 // Init Physics Simulation
 function initCannon () {
@@ -28,7 +29,10 @@ function initThree () {
 
   // Create Scene
   scene = new THREE.Scene()
-  scene.fog = new THREE.FogExp2(0xFFFFFF, 0.1)
+  scene.fog = new THREE.FogExp2('#ffffff', 0.1)
+  if (debug) {
+    cannonDebugger = new THREE.CannonDebugRenderer(scene, physicsSimulation)
+  }
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -40,8 +44,8 @@ function initThree () {
   controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
   controls.dampingFactor = 0.1
-  controls.minDistance = 2
-  controls.maxDistance = 5
+  controls.minDistance = 1
+  controls.maxDistance = 8
 
   // Add Lights
   lights.forEach(light => scene.add(light))
@@ -75,6 +79,7 @@ function animate () {
 const TIME_STEP = 1 / 60
 function updatePhysics () {
   physicsSimulation.step(TIME_STEP)
+  if (debug) cannonDebugger.update()
   objects.forEach(object => {
     if (object.physics && object.physics.mass) {
       object.position.copy(object.physics.position)

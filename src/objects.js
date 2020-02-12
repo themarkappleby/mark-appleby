@@ -37,13 +37,13 @@ function addEnv () {
   floor.receiveShadow = true
   floor.physics = new CANNON.Body({
     shape: new CANNON.Box(new CANNON.Vec3(
-      floor.geometry.parameters.width,
-      floor.geometry.parameters.height,
+      5,
+      5,
       0.1
     )),
     mass: 0
   })
-  floor.physics.position.copy(floor.position)
+  floor.physics.position.set(0, -0.1, 0)
   floor.physics.quaternion.copy(floor.quaternion)
 
   return floor
@@ -58,11 +58,7 @@ function addCube () {
   cube.position.set(0, 3, 0)
   cube.castShadow = true
   cube.physics = new CANNON.Body({
-    shape: new CANNON.Box(new CANNON.Vec3(
-      cube.geometry.parameters.width,
-      cube.geometry.parameters.height,
-      cube.geometry.parameters.depth
-    )),
+    shape: new CANNON.Box(new CANNON.Vec3(0.25, 0.25, 0.25)),
     mass: 30,
     angularVelocity: new CANNON.Vec3(5, 2, 1),
     angularDamping: 0.5
