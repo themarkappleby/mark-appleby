@@ -1,11 +1,79 @@
 import * as THREE from 'three'
+import * as CANNON from 'cannon'
 import materials from './materials'
 
 const objects = []
-// objects.push(addCube())
+objects.push(addCube())
 objects.push(addEnv())
 
+function addEnv () {
+  var geometry = new THREE.PlaneGeometry(10, 10)
+
+  var backWall = new THREE.Mesh(geometry, materials.grey)
+  backWall.position.z = -5
+  backWall.position.y = 5
+  objects.push(backWall)
+
+  var frontWall = new THREE.Mesh(geometry, materials.grey)
+  frontWall.position.z = 5
+  frontWall.position.y = 5
+  frontWall.rotation.y = THREE.Math.degToRad(180)
+  objects.push(frontWall)
+
+  var leftWall = new THREE.Mesh(geometry, materials.grey)
+  leftWall.position.x = -5
+  leftWall.position.y = 5
+  leftWall.rotation.y = THREE.Math.degToRad(90)
+  objects.push(leftWall)
+
+  var rightWall = new THREE.Mesh(geometry, materials.grey)
+  rightWall.position.x = 5
+  rightWall.position.y = 5
+  rightWall.rotation.y = THREE.Math.degToRad(-90)
+  objects.push(rightWall)
+
+  var floor = new THREE.Mesh(geometry, materials.grey)
+  floor.rotation.x = THREE.Math.degToRad(-90)
+  floor.receiveShadow = true
+  floor.physics = new CANNON.Body({
+    shape: new CANNON.Box(new CANNON.Vec3(
+      floor.geometry.parameters.width,
+      floor.geometry.parameters.height,
+      0.1
+    )),
+    mass: 0
+  })
+  floor.physics.position.copy(floor.position)
+  floor.physics.quaternion.copy(floor.quaternion)
+
+  return floor
+}
+
 function addCube () {
+  // Add Cannon test cube
+  var cube = new THREE.Mesh(
+    new THREE.BoxGeometry(0.5, 0.5, 0.5),
+    new THREE.MeshLambertMaterial({ color: '#eeb92f' })
+  )
+  cube.position.set(0, 3, 0)
+  cube.castShadow = true
+  cube.physics = new CANNON.Body({
+    shape: new CANNON.Box(new CANNON.Vec3(
+      cube.geometry.parameters.width,
+      cube.geometry.parameters.height,
+      cube.geometry.parameters.depth
+    )),
+    mass: 30,
+    angularVelocity: new CANNON.Vec3(5, 2, 1),
+    angularDamping: 0.5
+  })
+  cube.physics.position.copy(cube.position)
+  cube.physics.quaternion.copy(cube.quaternion)
+  return cube
+}
+
+/*
+function addRobot () {
   var body = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
     materials.black
@@ -47,37 +115,6 @@ function addCube () {
 
   return body
 }
-
-function addEnv () {
-  var geometry = new THREE.PlaneGeometry(10, 10)
-
-  var backWall = new THREE.Mesh(geometry, materials.grey)
-  backWall.position.z = -5
-  backWall.position.y = 5
-  objects.push(backWall)
-
-  var frontWall = new THREE.Mesh(geometry, materials.grey)
-  frontWall.position.z = 5
-  frontWall.position.y = 5
-  frontWall.rotation.y = THREE.Math.degToRad(180)
-  objects.push(frontWall)
-
-  var leftWall = new THREE.Mesh(geometry, materials.grey)
-  leftWall.position.x = -5
-  leftWall.position.y = 5
-  leftWall.rotation.y = THREE.Math.degToRad(90)
-  objects.push(leftWall)
-
-  var rightWall = new THREE.Mesh(geometry, materials.grey)
-  rightWall.position.x = 5
-  rightWall.position.y = 5
-  rightWall.rotation.y = THREE.Math.degToRad(-90)
-  objects.push(rightWall)
-
-  var floor = new THREE.Mesh(geometry, materials.grey)
-  floor.rotation.x = THREE.Math.degToRad(-90)
-  floor.receiveShadow = true
-  return floor
-}
+*/
 
 export default objects

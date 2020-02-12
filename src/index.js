@@ -6,17 +6,18 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import objects from './objects'
 import lights from './lights'
 
-// Three shared variables
+// Three.js shared variables
 var camera, scene, renderer, controls
 
-// Cannon shared variables
-const TIME_STEP = 1 / 60
-const GRAVITY = -9.82
-var world, cube, mesh
+// Cannon.js shared variables
+var physicsSimulation
 
-initThree()
-initCannon()
-animate()
+// Init Physics Simulation
+function initCannon () {
+  const GRAVITY = -9.82
+  physicsSimulation = new CANNON.World()
+  physicsSimulation.gravity.set(0, GRAVITY, 0)
+}
 
 function initThree () {
   // Create Renderer
@@ -31,7 +32,7 @@ function initThree () {
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.y = 2
+  camera.position.y = 1.5
   camera.position.z = 3
   scene.add(camera)
 
@@ -46,15 +47,12 @@ function initThree () {
   lights.forEach(light => scene.add(light))
 
   // Add Objects
-  objects.forEach(object => scene.add(object))
-
-  // Add Cannon test object
-  var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
-  var material = new THREE.MeshLambertMaterial({ color: '#eeb92f' })
-  mesh = new THREE.Mesh(geometry, material)
-  mesh.position.set(0, 1, 0)
-  mesh.castShadow = true
-  scene.add(mesh)
+  objects.forEach(object => {
+    scene.add(object)
+    if (object.physics) {
+      physicsSimulation.addBody(object.physics)
+    }
+  })
 }
 
 // Handle Window Resize
@@ -65,27 +63,6 @@ function onWindowResize () {
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-function initCannon () {
-  world = new CANNON.World()
-  world.gravity.set(0, GRAVITY, 0)
-
-  cube = new CANNON.Body({
-    shape: new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)),
-    position: new CANNON.Vec3(0, 3, 0),
-    mass: 30,
-    angularVelocity: new CANNON.Vec3(5, 2, 1),
-    angularDamping: 0.5
-  })
-  world.addBody(cube)
-
-  const floor = new CANNON.Body({
-    shape: new CANNON.Box(new CANNON.Vec3(10, 1, 10)),
-    position: new CANNON.Vec3(0, -1.25, 0),
-    mass: 0
-  })
-  world.addBody(floor)
-}
-
 // Animate
 function animate () {
   controls.update()
@@ -94,13 +71,23 @@ function animate () {
   requestAnimationFrame(animate)
 }
 
+// Update Physics
+const TIME_STEP = 1 / 60
+function updatePhysics () {
+  physicsSimulation.step(TIME_STEP)
+  objects.forEach(object => {
+    if (object.physics && object.physics.mass) {
+      object.position.copy(object.physics.position)
+      object.quaternion.copy(object.physics.quaternion)
+    }
+  })
+}
+
 // Render
 function render () {
   renderer.render(scene, camera)
 }
 
-function updatePhysics () {
-  world.step(TIME_STEP)
-  mesh.position.copy(cube.position)
-  mesh.quaternion.copy(cube.quaternion)
-}
+initCannon()
+initThree()
+animate()
