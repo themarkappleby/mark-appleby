@@ -44,7 +44,7 @@ function initThree () {
   controls.enableDamping = true
   controls.dampingFactor = 0.1
   controls.minDistance = 1
-  controls.maxDistance = 8
+  controls.maxDistance = 15
   controls.target.set(0, 1, 0)
 
   // Add Lights

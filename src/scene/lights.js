@@ -12,14 +12,15 @@ function ambientLight () {
 }
 
 function dirLight () {
+  const shadowMapSize = 5
   const light = new THREE.DirectionalLight(0xffffff, 0.3)
   light.position.set(2, 4, 2)
   light.castShadow = true
-  light.shadow.radius = 5
-  light.shadow.camera.left = -2
-  light.shadow.camera.right = 2
-  light.shadow.camera.top = 2
-  light.shadow.camera.bottom = -2
+  light.shadow.radius = 3
+  light.shadow.camera.left = shadowMapSize * -1
+  light.shadow.camera.right = shadowMapSize
+  light.shadow.camera.top = shadowMapSize
+  light.shadow.camera.bottom = shadowMapSize * -1
 
   if (debug) {
     const cameraHelper = new THREE.CameraHelper(light.shadow.camera)
