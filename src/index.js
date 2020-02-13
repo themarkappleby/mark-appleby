@@ -36,7 +36,7 @@ function initThree () {
 
   // Create Camera
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.set(-3, 4, 6)
+  camera.position.set(-2, 3, 4)
   scene.add(camera)
 
   // Add Controls
