@@ -6,9 +6,9 @@ import materials from '../materials'
 export default () => {
   var body = new THREE.Mesh(
     new THREE.BoxGeometry(
-      rand(0.5, 1.5),
-      rand(0.5, 1.5),
-      rand(0.5, 1.5)
+      rand(1, 2),
+      rand(1, 2),
+      rand(1, 2)
     ),
     materials.black
   )

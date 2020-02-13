@@ -1,20 +1,74 @@
+/* global rand */
 import * as THREE from 'three'
 
 /*
-getBoxSegments
-Given a box geometry return a 3D matrix of vertices mapped out against the provided geometry. Parts determines the numbers of rows/columns
-per face. And inset determines how far from the edges the vertices
+initJointMatrix
+Given a box geometry return a 3D matrix of vertices mapped against the
+provided geometry. "Parts" determines the numbers of rows/columns
+per face. And "inset" determines how far from the edges the vertices
 should start.
 */
-
-export default function getBoxSegments ({ mesh, parts, inset }) {
+export function initJointMatrix ({ mesh, parts, inset }) {
   const { width, height, depth } = mesh.geometry.parameters
-  var segments = get3DSegments(
+  var joints = get3DSegments(
     [width / -2, height / -2, depth / -2],
     [width / 2, height / 2, depth / 2],
     parts, inset
   )
-  return segments
+  return joints
+}
+
+/*
+getRandomJoints
+Given a 3D joint matrix, return an array of N unique random joints.
+Where N is defined by count.
+*/
+export function getRandomJoints (matrix, count) {
+  var joints = []
+  for (var i = 0; i < count; i++) {
+    var randomJoint = getRandomJoint(matrix)
+    var unique = true
+    joints.forEach(joint => {
+      if (sameJoint(randomJoint, joint)) { unique = false }
+    })
+    if (unique) {
+      joints.push(randomJoint)
+    } else {
+      i--
+    }
+  }
+  return joints
+}
+
+/*
+getRandomJoint
+Given a 3D joint matrix, return a single random joint.
+*/
+export function getRandomJoint (matrix) {
+  var face = matrix[rand(Object.keys(matrix))]
+  var row = rand(face.vertices)
+  var joint = rand(row)
+  return {
+    position: joint,
+    rotation: face.rotation
+  }
+}
+
+/*
+sameJoint
+Given joint1 and joint2 return either "true" if the two are identical,
+or "false" if they are not.
+*/
+function sameJoint (joint1, joint2) {
+  console.log(joint1, joint2)
+  var same = true
+  joint1.position.forEach((pos, i) => {
+    if (joint2.position[i] !== pos) same = false
+  })
+  joint1.rotation.forEach((rot, i) => {
+    if (joint2.rotation[i] !== rot) same = false
+  })
+  return same
 }
 
 function get3DSegments (start, end, parts, inset) {
