@@ -35,9 +35,8 @@ function initThree () {
   }
 
   // Create Camera
-  camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.y = 1.5
-  camera.position.z = 3
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000)
+  camera.position.set(-3, 4, 6)
   scene.add(camera)
 
   // Add Controls
@@ -46,6 +45,7 @@ function initThree () {
   controls.dampingFactor = 0.1
   controls.minDistance = 1
   controls.maxDistance = 8
+  controls.target.set(0, 1, 0)
 
   // Add Lights
   lights.forEach(light => scene.add(light))
