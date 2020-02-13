@@ -1,15 +1,11 @@
-/* global rand */
+/* global */
 
 import * as THREE from 'three'
-import materials from '../materials'
+import materials from '../utils/materials'
 
-export default () => {
+export default (width, height, depth) => {
   var body = new THREE.Mesh(
-    new THREE.BoxGeometry(
-      rand(1, 2),
-      rand(1, 2),
-      rand(1, 2)
-    ),
+    new THREE.BoxGeometry(width, height, depth),
     materials.black
   )
   body.receiveShadow = true

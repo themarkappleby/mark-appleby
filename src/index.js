@@ -4,8 +4,8 @@ import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import './utils/CannonDebugRenderer'
-import objects from './objects'
-import lights from './lights'
+import objects from './scene/objects'
+import lights from './scene/lights'
 
 // Three.js shared variables
 var camera, scene, renderer, controls
@@ -29,7 +29,7 @@ function initThree () {
 
   // Create Scene
   scene = new THREE.Scene()
-  scene.fog = new THREE.FogExp2('#ffffff', 0.1)
+  scene.fog = new THREE.FogExp2('#ffffff', 0.08)
   if (debug) {
     cannonDebugger = new THREE.CannonDebugRenderer(scene, physicsSimulation)
   }

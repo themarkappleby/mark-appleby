@@ -1,4 +1,4 @@
-import robot from './robot'
+import robot from '../robot'
 import stage from './stage'
 
 const objects = []

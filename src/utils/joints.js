@@ -27,14 +27,18 @@ export function getRandomJoints (matrix, count) {
   var joints = []
   for (var i = 0; i < count; i++) {
     var randomJoint = getRandomJoint(matrix)
-    var unique = true
-    joints.forEach(joint => {
-      if (sameJoint(randomJoint, joint)) { unique = false }
-    })
-    if (unique) {
-      joints.push(randomJoint)
-    } else {
+    if (randomJoint.face === 'bottom') {
       i--
+    } else {
+      var unique = true
+      joints.forEach(joint => {
+        if (sameJoint(randomJoint, joint)) { unique = false }
+      })
+      if (unique) {
+        joints.push(randomJoint)
+      } else {
+        i--
+      }
     }
   }
   return joints
@@ -45,10 +49,12 @@ getRandomJoint
 Given a 3D joint matrix, return a single random joint.
 */
 export function getRandomJoint (matrix) {
-  var face = matrix[rand(Object.keys(matrix))]
+  var faceName = rand(Object.keys(matrix))
+  var face = matrix[faceName]
   var row = rand(face.vertices)
   var joint = rand(row)
   return {
+    face: faceName,
     position: joint,
     rotation: face.rotation
   }

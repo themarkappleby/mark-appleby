@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import materials from '../../materials'
+import materials from '../../utils/materials'
 
 function Light () {
   var light = new THREE.Group()
