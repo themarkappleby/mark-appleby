@@ -66,7 +66,6 @@ Given joint1 and joint2 return either "true" if the two are identical,
 or "false" if they are not.
 */
 function sameJoint (joint1, joint2) {
-  console.log(joint1, joint2)
   var same = true
   joint1.position.forEach((pos, i) => {
     if (joint2.position[i] !== pos) same = false

@@ -4,6 +4,7 @@ import materials from '../utils/materials'
 
 export default function addStage (size) {
   var stage = new THREE.Group()
+  stage.name = 'Stage'
 
   var geometry = new THREE.PlaneGeometry(size, size)
 

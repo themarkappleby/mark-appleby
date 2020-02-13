@@ -3,6 +3,7 @@ import materials from '../../utils/materials'
 
 function Light () {
   var light = new THREE.Group()
+  light.name = 'Light'
 
   // Create bulb
   var bulb = new THREE.Mesh(

@@ -11,35 +11,52 @@ import lights from './scene/lights'
 var camera, scene, renderer, controls
 
 // Cannon.js shared variables
-var physicsSimulation, cannonDebugger
+var physicsSimulation, cannonDebugger, physicsObjects
 
-// Init Physics Simulation
+// Init physics simulation
 function initCannon () {
   const GRAVITY = -9.82
   physicsSimulation = new CANNON.World()
   physicsSimulation.gravity.set(0, GRAVITY, 0)
+  physicsObjects = []
+  extractPhysicsObjects(objects)
+  physicsObjects.forEach(object => {
+    physicsSimulation.addBody(object.physics)
+  })
+}
+
+// Extract all physics objects recursively
+function extractPhysicsObjects (objectGroup) {
+  objectGroup.forEach(object => {
+    if (object.physics) {
+      physicsObjects.push(object)
+    }
+    if (object.children) {
+      extractPhysicsObjects(object.children)
+    }
+  })
 }
 
 function initThree () {
-  // Create Renderer
+  // Create renderer
   renderer = new THREE.WebGLRenderer()
   renderer.shadowMap.enabled = true
   renderer.setSize(window.innerWidth, window.innerHeight)
   document.body.appendChild(renderer.domElement)
 
-  // Create Scene
+  // Create scene
   scene = new THREE.Scene()
   scene.fog = new THREE.FogExp2('#ffffff', 0.08)
   if (debug) {
     cannonDebugger = new THREE.CannonDebugRenderer(scene, physicsSimulation)
   }
 
-  // Create Camera
+  // Create camera
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000)
   camera.position.set(-1, 5, 8)
   scene.add(camera)
 
-  // Add Controls
+  // Add controls
   controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
   controls.dampingFactor = 0.1
@@ -47,19 +64,14 @@ function initThree () {
   controls.maxDistance = 15
   controls.target.set(0, 1, 0)
 
-  // Add Lights
+  // Add lights
   lights.forEach(light => scene.add(light))
 
-  // Add Objects
-  objects.forEach(object => {
-    scene.add(object)
-    if (object.physics) {
-      physicsSimulation.addBody(object.physics)
-    }
-  })
+  // Add objects
+  objects.forEach(object => scene.add(object))
 }
 
-// Handle Window Resize
+// Handle window resize
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize () {
   camera.aspect = window.innerWidth / window.innerHeight
@@ -75,13 +87,13 @@ function animate () {
   requestAnimationFrame(animate)
 }
 
-// Update Physics
+// Update physics
 const TIME_STEP = 1 / 60
 function updatePhysics () {
   physicsSimulation.step(TIME_STEP)
   if (debug) cannonDebugger.update()
-  objects.forEach(object => {
-    if (object.physics && object.physics.mass) {
+  physicsObjects.forEach(object => {
+    if (object.physics.mass) {
       object.position.copy(object.physics.position)
       object.quaternion.copy(object.physics.quaternion)
     }

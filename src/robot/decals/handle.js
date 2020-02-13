@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 function Handle (colour) {
   var handle = new THREE.Group()
+  handle.name = 'Handle'
   var geometry = new THREE.CylinderGeometry(0.05, 0.05, 0.35, 32)
 
   // Create bar

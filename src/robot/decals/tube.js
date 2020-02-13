@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 function Tube (colour) {
   var tube = new THREE.Group()
+  tube.name = 'Tube'
 
   // Create stalk
   var stalk = new THREE.Mesh(

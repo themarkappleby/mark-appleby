@@ -8,5 +8,6 @@ export default (width, height, depth) => {
   )
   body.receiveShadow = true
   body.castShadow = true
+  body.name = 'Body'
   return body
 }
