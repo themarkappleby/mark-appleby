@@ -3,6 +3,7 @@
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import Body from './body'
+import Wheel from './wheel'
 import decals from './decals'
 import materials from '../utils/materials'
 import { initJointMatrix, getRandomJoints } from '../utils/joints'
@@ -23,13 +24,11 @@ export default function Robot (x = 0, y = 0, z = 0) {
     inset: rand(0.1, 0.3)
   })
 
-  /*
-  // Position specific decal at bottom left on front face
-  var testDecal = decals.handle(colour)
-  testDecal.position.set(...jointMatrix.front.vertices[0][0])
-  testDecal.rotation.set(...jointMatrix.front.rotation)
-  robot.add(testDecal)
-  */
+  // Position specific part at bottom left on front face for testing
+  var testPart = Wheel(rand(0.1, 0.6), rand(0.1, 0.4), colour)
+  testPart.position.set(...jointMatrix.front.vertices[0][0])
+  testPart.rotation.set(...jointMatrix.front.rotation)
+  robot.add(testPart)
 
   var randomJoints = getRandomJoints(jointMatrix, rand(1, 3, true))
   randomJoints.forEach(joint => {

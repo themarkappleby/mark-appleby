@@ -1,5 +1,3 @@
-/* global */
-
 import * as THREE from 'three'
 import materials from '../utils/materials'
 
