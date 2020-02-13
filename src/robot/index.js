@@ -3,13 +3,11 @@
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import Body from './body'
-import Light from './light'
-import Tube from './tube'
+import decals from './decals'
 import materials from '../materials'
 import { initJointMatrix, getRandomJoints } from '../utils/joints'
 
 export default function Robot (x = 0, y = 0, z = 0) {
-  var decals = [Light, Tube]
   var colour = materials.colours[rand(Object.keys(materials.colours))]
   var robot = new THREE.Group()
   var body = Body()
@@ -21,9 +19,17 @@ export default function Robot (x = 0, y = 0, z = 0) {
     inset: rand(0.2, 0.4)
   })
 
+  /*
+  // Position specific decal at bottom left on front face
+  var testDecal = decals.handle(colour)
+  testDecal.position.set(...jointMatrix.front.vertices[0][0])
+  testDecal.rotation.set(...jointMatrix.front.rotation)
+  robot.add(testDecal)
+  */
+
   var randomJoints = getRandomJoints(jointMatrix, rand(1, 10, true))
   randomJoints.forEach(joint => {
-    var decal = rand(decals)(colour)
+    var decal = decals[rand(Object.keys(decals))](colour)
     decal.position.set(...joint.position)
     decal.rotation.set(...joint.rotation)
     robot.add(decal)
