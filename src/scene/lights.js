@@ -7,13 +7,13 @@ lights.push(dirLight())
 lights.push(ambientLight())
 
 function ambientLight () {
-  const light = new THREE.AmbientLight(0xffffff, 0.7)
+  const light = new THREE.AmbientLight(0xffffff, 0.9)
   return light
 }
 
 function dirLight () {
   const shadowMapSize = 5
-  const light = new THREE.DirectionalLight(0xffffff, 0.3)
+  const light = new THREE.DirectionalLight(0xffffff, 0.4)
   light.position.set(2, 4, 2)
   light.castShadow = true
   light.shadow.radius = 3
