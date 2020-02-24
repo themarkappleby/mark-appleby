@@ -4,31 +4,22 @@
     <meta charset="utf-8">
     <title>Mark Appleby - Creative Developer</title>
     <link href="https://fonts.googleapis.com/css?family=Vollkorn:700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css">
-    <script>
-      window.debug = false;
-      function rand (min, max, whole) {
-        if (Array.isArray(min)) {
-          var index = rand(0, min.length, true)
-          return min[index]
-        } else if (whole) {
-          return Math.floor(Math.random() * (max - min)) + min;
-        } else {
-          return Math.random() * (max - min) + min;
-        }
-      }
-    </script>
   </head>
   <body>
-    <div class="base"></div>
-    <div class="container">
-      <div class="content">
-        <div id="logo"></div>
-        <h1 id="name">Mark Appleby</h1>
-        <h2 id="role">Creative Developer</h2>
+    <main class="container" role="main">
+      <div class="left">
+        <header class="header">
+          <div class="header-logo"></div>
+          <h1 class="header-name">Mark Appleby</h1>
+          <h2 class="header-role">Creative Developer</h2>
+        </header>
       </div>
-    </div>
+      <div class="right">
+        <canvas class="canvas"></canvas>
+      </div>
+    </main>
+
+    <script>window.debug = false;</script>
     <script type="text/javascript" src="dist/main.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.4/lottie.min.js"></script>
   </body>
 </html>

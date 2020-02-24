@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
-import materials from '../utils/materials'
+import { materials } from '../utils'
 
 export default function Stage (size = 40) {
   var stage = new THREE.Group()

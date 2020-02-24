@@ -1,6 +1,18 @@
+import './styles/styles.scss'
 import lottie from 'lottie-web'
 import gsap from 'gsap'
 import { initThree, initCannon, animate } from './three'
+
+var logo = lottie.loadAnimation({
+  container: document.querySelector('.header-logo'),
+  renderer: 'svg',
+  loop: false,
+  autoplay: true,
+  path: 'assets/logo.json'
+})
+logo.onComplete = function () {
+  setTimeout(() => tl.play(), 500)
+}
 
 var headingsIntro = {
   y: 16,
@@ -9,21 +21,9 @@ var headingsIntro = {
   ease: 'power3'
 }
 var tl = gsap.timeline({ onComplete: initCannon })
-tl.from('#name', headingsIntro)
-tl.from('#role', headingsIntro)
+tl.from('.header-name', headingsIntro)
+tl.from('.header-role', headingsIntro)
 tl.pause()
 
 initThree()
 animate()
-
-var logo = lottie.loadAnimation({
-  container: document.getElementById('logo'),
-  renderer: 'svg',
-  loop: false,
-  autoplay: true,
-  path: 'assets/logo.json'
-})
-
-logo.onComplete = function () {
-  setTimeout(() => tl.play(), 500)
-}

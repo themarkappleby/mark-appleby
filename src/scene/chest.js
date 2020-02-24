@@ -1,8 +1,6 @@
-/* global rand */
-
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
-import materials from '../utils/materials'
+import { materials, rand } from '../utils'
 
 export default function Chest () {
   var chest = new THREE.Mesh(

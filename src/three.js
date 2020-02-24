@@ -1,17 +1,15 @@
-/* global debug window requestAnimationFrame */
+/* global debug window */
 
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import './utils/CannonDebugRenderer'
-import Chest from './scene/chest'
-import Stage from './scene/stage'
-import lights from './scene/lights'
+import { Chest, Stage, lights } from './scene'
 
 // Three.js shared variables
 var camera, scene, renderer //, controls
 var chest = Chest()
 var stage = Stage()
+var canvas = document.querySelector('.canvas')
 
 // Cannon.js shared variables
 var physicsSimulation, cannonDebugger
@@ -27,10 +25,9 @@ export function initCannon () {
 
 export function initThree () {
   // Create renderer
-  renderer = new THREE.WebGLRenderer()
+  renderer = new THREE.WebGLRenderer({ canvas })
   renderer.shadowMap.enabled = true
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  document.body.appendChild(renderer.domElement)
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
 
   // Create scene
   scene = new THREE.Scene()
@@ -40,20 +37,10 @@ export function initThree () {
   }
 
   // Create camera
-  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.set(-1.8, 1.2, 4.5)
-  camera.target = new THREE.Vector3(-1.8, 1.5, 0)
+  camera = new THREE.PerspectiveCamera(50, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000)
+  camera.position.set(0, 1.2, 4.5)
+  camera.target = new THREE.Vector3(0, 1.5, 0)
   scene.add(camera)
-
-  // Add controls
-  /*
-  controls = new OrbitControls(camera, renderer.domElement)
-  controls.enableDamping = true
-  controls.dampingFactor = 0.1
-  controls.minDistance = 1
-  controls.maxDistance = 15
-  controls.target.set(-1.5, 1.5, 0)
-  */
 
   // Add lights
   lights.forEach(light => scene.add(light))
@@ -68,17 +55,16 @@ export function initThree () {
 // Handle window resize
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize () {
-  camera.aspect = window.innerWidth / window.innerHeight
+  camera.aspect = canvas.offsetWidth / canvas.offsetHeight
   camera.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
 }
 
 // Animate
 export function animate () {
-  // controls.update()
   if (physicsSimulation) updatePhysics()
   render()
-  requestAnimationFrame(animate)
+  window.requestAnimationFrame(animate)
 }
 
 // Update physics
