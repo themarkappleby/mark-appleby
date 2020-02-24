@@ -20,10 +20,12 @@ var headingsIntro = {
   duration: 0.6,
   ease: 'power3'
 }
-var tl = gsap.timeline({ onComplete: initCannon })
+// var tl = gsap.timeline({ onComplete: initCannon })
+var tl = gsap.timeline()
 tl.from('.header-name', headingsIntro)
 tl.from('.header-role', headingsIntro)
 tl.pause()
 
-initThree()
-animate()
+initThree(function () {
+  animate()
+})

@@ -11,7 +11,7 @@ const materials = {
   },
   grey: new THREE.MeshLambertMaterial({ color: '#eeeeee' }),
   black: new THREE.MeshLambertMaterial({ color: '#1d1c21', wireframe: debug }),
-  white: new THREE.MeshLambertMaterial({ color: '#ffffff', wireframe: debug }),
+  white: new THREE.MeshLambertMaterial({ color: '#ffffff' }),
   toon: new THREE.MeshToonMaterial({ color: '#ffffff', wireframe: debug }),
   glass: new THREE.MeshPhongMaterial({ color: '#e7e9f1', shininess: 500 })
 }

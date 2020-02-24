@@ -1,8 +1,53 @@
 import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as CANNON from 'cannon'
 import { materials, rand } from '../utils'
 
-export default function Chest () {
+var loader = new GLTFLoader()
+
+export default function loadChest (cb) {
+  loader.load(
+    'assets/chest.glb',
+    function (gltf) {
+      var chest = new THREE.Mesh(
+        gltf.scene.children[0].geometry,
+        materials.white
+      )
+      chest.position.set(0, 8, 0)
+      chest.rotation.set(
+        THREE.Math.degToRad(rand(-10, 10)),
+        THREE.Math.degToRad(rand(-35, -30)),
+        THREE.Math.degToRad(rand(-10, 10))
+      )
+      chest.receiveShadow = true
+      chest.castShadow = true
+      chest.scale.set(0.5, 0.5, 0.5)
+      chest.name = 'Chest'
+
+      initPhysics(chest)
+
+      cb(chest)
+    }
+  )
+}
+
+function initPhysics (mesh) {
+  var bounds = mesh.geometry.boundingBox.max
+  var x = bounds.x / 2
+  var y = bounds.y / 2
+  var z = bounds.z / 2
+  console.log('bounds', bounds)
+
+  mesh.physics = new CANNON.Body({
+    // shape: new CANNON.Box(new CANNON.Vec3(0.75, 0.5, 0.5)),
+    shape: new CANNON.Box(new CANNON.Vec3(x, y, z)),
+    mass: 5000
+  })
+  mesh.physics.position.copy(mesh.position)
+  mesh.physics.quaternion.copy(mesh.quaternion)
+}
+
+export function ChestOld () {
   var chest = new THREE.Mesh(
     new THREE.BoxGeometry(1.5, 1, 1),
     materials.white
