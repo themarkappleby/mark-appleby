@@ -2185,6 +2185,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"gsap@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "gsap@npm:3.2.0"
+  checksum: 6fd1ba4e01a20ded09b1d2b4d7bfedd473280ebdfdd03019d9800d0da1e1b3c5f5e38427233d3ba9585c3734986773ee511c4a7ce44ddb49adf5a63ff7e0fd5d
+  languageName: node
+  linkType: hard
+
 "handle-thing@npm:^2.0.0":
   version: 2.0.0
   resolution: "handle-thing@npm:2.0.0"
@@ -3018,6 +3025,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"lottie-web@npm:^5.6.5":
+  version: 5.6.5
+  resolution: "lottie-web@npm:5.6.5"
+  checksum: 1e1805e037bf30e89fca61da59bfa331c668834e31249cfad80bd10de90ec94d8d7366543d5bd39197275616972a684d58b9a42cb80162470c41b5728d94ce6c
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^5.1.1":
   version: 5.1.1
   resolution: "lru-cache@npm:5.1.1"
@@ -3074,6 +3088,8 @@ fsevents@^1.2.7:
   resolution: "mark-appleby@workspace:."
   dependencies:
     cannon: ^0.6.2
+    gsap: ^3.2.0
+    lottie-web: ^5.6.5
     pnp-webpack-plugin: ^1.6.0
     three: ^0.113.2
     webpack: ^4.41.5
