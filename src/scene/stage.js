@@ -50,6 +50,7 @@ export default function Stage (size = 40) {
   stage.physics.position.set(0, -0.1, 0)
   stage.physics.quaternion.copy(floor.quaternion)
   stage.add(floor)
+  console.log('stage', stage)
 
   return stage
 }

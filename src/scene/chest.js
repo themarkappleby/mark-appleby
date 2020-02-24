@@ -9,20 +9,32 @@ export default function loadChest (cb) {
   loader.load(
     'assets/chest.glb',
     function (gltf) {
-      var chest = new THREE.Mesh(
+      var chest = new THREE.Group()
+
+      var base = new THREE.Mesh(
         gltf.scene.children[0].geometry,
         materials.white
       )
+      base.receiveShadow = true
+      base.castShadow = true
+
+      var outline = new THREE.Mesh(
+        gltf.scene.children[0].geometry,
+        materials.outline
+      )
+      var scale = 1.03
+      outline.scale.set(scale, scale, scale)
+      chest.add(outline)
+
+      chest.scale.set(0.5, 0.5, 0.5)
+      chest.name = 'Chest'
       chest.position.set(0, 8, 0)
       chest.rotation.set(
         THREE.Math.degToRad(rand(-10, 10)),
         THREE.Math.degToRad(rand(-35, -30)),
         THREE.Math.degToRad(rand(-10, 10))
       )
-      chest.receiveShadow = true
-      chest.castShadow = true
-      chest.scale.set(0.5, 0.5, 0.5)
-      chest.name = 'Chest'
+      chest.add(base)
 
       initPhysics(chest)
 
@@ -32,9 +44,11 @@ export default function loadChest (cb) {
 }
 
 function initPhysics (mesh) {
-  var bounds = mesh.geometry.boundingBox.max
+  var bounds = new THREE.Box3().setFromObject(mesh).max
+
+  // var bounds = mesh.geometry.boundingBox.max
   var x = bounds.x / 2
-  var y = bounds.y / 2
+  var y = bounds.y / 30
   var z = bounds.z / 2
   console.log('bounds', bounds)
 
@@ -47,6 +61,7 @@ function initPhysics (mesh) {
   mesh.physics.quaternion.copy(mesh.quaternion)
 }
 
+/*
 export function ChestOld () {
   var chest = new THREE.Mesh(
     new THREE.BoxGeometry(1.5, 1, 1),
@@ -71,3 +86,4 @@ export function ChestOld () {
 
   return chest
 }
+*/
