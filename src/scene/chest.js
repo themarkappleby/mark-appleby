@@ -11,13 +11,17 @@ export default function loadChest (cb) {
     function (gltf) {
       var chest = new THREE.Group()
 
+      var mat = materials.white
+      mat.flatShading = true
+
       var base = new THREE.Mesh(
         gltf.scene.children[0].geometry,
-        materials.white
+        mat
       )
       base.receiveShadow = true
       base.castShadow = true
 
+      /*
       var outline = new THREE.Mesh(
         gltf.scene.children[0].geometry,
         materials.outline
@@ -25,8 +29,9 @@ export default function loadChest (cb) {
       var scale = 1.03
       outline.scale.set(scale, scale, scale)
       chest.add(outline)
+      */
 
-      chest.scale.set(0.5, 0.5, 0.5)
+      // chest.scale.set(0.5, 0.5, 0.5)
       chest.name = 'Chest'
       chest.position.set(0, 8, 0)
       chest.rotation.set(
