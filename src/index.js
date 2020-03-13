@@ -1,7 +1,7 @@
 import './styles/styles.scss'
 import lottie from 'lottie-web'
 import gsap from 'gsap'
-import { initThree, initCannon, animate } from './three'
+import { initThree } from './three'
 
 var logo = lottie.loadAnimation({
   container: document.querySelector('.header-logo'),
@@ -26,6 +26,4 @@ tl.from('.header-name', headingsIntro)
 tl.from('.header-role', headingsIntro)
 tl.pause()
 
-initThree(function () {
-  animate()
-})
+initThree()
