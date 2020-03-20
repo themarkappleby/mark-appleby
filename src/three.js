@@ -20,24 +20,12 @@ export function initThree () {
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
 
-  // Create scene
-  // scene = new THREE.Scene()
-  // scene.fog = new THREE.FogExp2('#ffffff', 0.08)
-
   getScene('scene.glb', function (gltf) {
-    console.log('gltf', gltf)
     scene = gltf.scene
-    // scene.fog = new THREE.FogExp2('#ffffff', 0.08)
+    scene.fog = new THREE.FogExp2('#ffffff', 0.01)
 
-    scene.children.forEach(child => {
-      const oldMat = child.material
-      if (oldMat) {
-        const newMat = new THREE.MeshBasicMaterial({
-          color: '#ffffff',
-          map: oldMat.emissiveMap
-        })
-        child.material = newMat
-      }
+    scene.traverse(node => {
+      node.frustumCulled = false
     })
 
     // Create camera
@@ -58,22 +46,6 @@ export function initThree () {
     */
     controls.target.set(0, 2, 0)
 
-    // Add light
-    /*
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4)
-    scene.add(ambientLight)
-    const shadowMapSize = 5
-    const light = new THREE.DirectionalLight(0xffffff, 0.5)
-    light.position.set(2, 4, 2)
-    light.castShadow = true
-    light.shadow.radius = 3
-    light.shadow.camera.left = shadowMapSize * -1
-    light.shadow.camera.right = shadowMapSize
-    light.shadow.camera.top = shadowMapSize
-    light.shadow.camera.bottom = shadowMapSize * -1
-    scene.add(light)
-    */
-
     playAnimations(gltf)
 
     run()
@@ -87,17 +59,10 @@ function playAnimations (mesh) {
   console.log('clips', clips)
 
   // Play a specific animation
-  var clip = THREE.AnimationClip.findByName(clips, 'ChestFall')
+  var clip = THREE.AnimationClip.findByName(clips, 'Chest Fall')
   var action = mixer.clipAction(clip)
   console.log('action', action)
   action.play()
-
-  /*
-  // Play all animations
-  clips.forEach(function (clip) {
-    mixer.clipAction(clip).play()
-  })
-  */
 }
 
 // Import Blender models/textures/animations
