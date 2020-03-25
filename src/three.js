@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-const FRAME_RATE = 24 / 1000
+const FRAME_RATE = 20 / 1000
 
 // Three.js shared variables
 var camera, scene, renderer, controls, mixer
@@ -12,15 +12,20 @@ var canvas = document.querySelector('.canvas')
 
 export function initThree () {
   // Create renderer
-  renderer = new THREE.WebGLRenderer({ canvas })
+  renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true
+  })
   renderer.shadowMap.enabled = true
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
 
   // Ref: https://discourse.threejs.org/t/exporting-blender-scene-lighting-issues/11887/5
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
+  renderer.toneMappingExposure = 1.5
 
-  getScene('scene.glb', function (gltf) {
+  getScene('scene-blue.glb', function (gltf) {
     scene = gltf.scene
 
     scene.traverse(node => {
@@ -32,8 +37,8 @@ export function initThree () {
 
     // Create camera
     camera = new THREE.PerspectiveCamera(50, canvas.offsetWidth / canvas.offsetHeight, 0.01, 30000)
-    camera.position.set(0, 2, 18)
-    camera.zoom = 2
+    camera.position.set(0, 3, 10)
+    camera.fov = 55
     camera.updateProjectionMatrix()
     scene.add(camera)
 
@@ -43,7 +48,9 @@ export function initThree () {
     controls.dampingFactor = 0.1
     controls.target.set(0, 3, 0)
 
-    playAnimations(gltf)
+    setTimeout(() => {
+      playAnimations(gltf)
+    }, 3000)
 
     run()
   })
@@ -69,8 +76,9 @@ function getSkybox () {
     material.side = THREE.BackSide
   })
 
-  const skyboxGeo = new THREE.BoxGeometry(10000, 10000, 10000)
+  const skyboxGeo = new THREE.BoxGeometry(125, 125, 125)
   const skybox = new THREE.Mesh(skyboxGeo, materialArray)
+  skybox.position.set(0, 20, -50)
   return skybox
 }
 
@@ -103,8 +111,8 @@ function onWindowResize () {
 
 // Run Three.js view
 function run () {
-  controls.update()
-  mixer.update(FRAME_RATE)
+  if (controls) controls.update()
+  if (mixer) mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
   window.requestAnimationFrame(run)
 }
