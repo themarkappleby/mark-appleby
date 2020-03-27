@@ -17,13 +17,14 @@ logo.onComplete = function () {
 var headingsIntro = {
   y: 16,
   opacity: 0,
-  duration: 0.6,
+  duration: 0.4,
   ease: 'power3'
 }
 // var tl = gsap.timeline({ onComplete: initCannon })
 var tl = gsap.timeline()
 tl.from('.header-name', headingsIntro)
 tl.from('.header-role', headingsIntro)
+tl.to('.right-overlay', { opacity: 0, duration: 2 })
 tl.pause()
 
 initThree()

@@ -50,7 +50,7 @@ export function initThree () {
 
     setTimeout(() => {
       playAnimations(gltf)
-    }, 3000)
+    }, 5000)
 
     run()
   })
@@ -105,6 +105,7 @@ function getScene (file, cb) {
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize () {
   camera.aspect = canvas.offsetWidth / canvas.offsetHeight
+  camera.focus = 100
   camera.updateProjectionMatrix()
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
 }
