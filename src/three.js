@@ -129,8 +129,8 @@ function run () {
   if (controls) {
     controls.update()
   } else {
-    camera.position.x += (mouseX - camera.position.x) * 0.00005
-    camera.position.y += (-(mouseY) - camera.position.y) * 0.000025
+    camera.position.x += (-(mouseX) - camera.position.x) * 0.00005
+    camera.position.y += (mouseY - camera.position.y) * 0.000025
     if (camera.position.x < -2) camera.position.x = -2
     if (camera.position.x > 2) camera.position.x = 2
     if (camera.position.y < 0.75) camera.position.y = 0.75
