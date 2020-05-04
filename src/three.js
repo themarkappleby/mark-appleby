@@ -1,10 +1,16 @@
 /* global window */
 
-const ADD_CONTROLS = false
+/*
+=======================================================
+   = FILE HERE FOR REFERENCE ONLY - NOT LOADED =
+=======================================================
+*/
 
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+
+const ADD_CONTROLS = false
 
 const FRAME_RATE = 20 / 1000
 
@@ -44,9 +50,6 @@ export function initThree () {
       node.frustumCulled = false
     })
 
-    // Add skybox
-    scene.add(getSkybox())
-
     // Create camera
     camera = new THREE.PerspectiveCamera(50, canvas.offsetWidth / canvas.offsetHeight, 0.01, 30000)
     camera.position.set(0, 3, 10)
@@ -64,32 +67,6 @@ export function initThree () {
 
     run()
   })
-}
-
-function getSkybox () {
-  const materialArray = []
-  const textureFt = new THREE.TextureLoader().load('assets/skybox_ft.jpg')
-  const textureBk = new THREE.TextureLoader().load('assets/skybox_bk.jpg')
-  const textureUp = new THREE.TextureLoader().load('assets/skybox_up.jpg')
-  const textureDn = new THREE.TextureLoader().load('assets/skybox_dn.jpg')
-  const textureRt = new THREE.TextureLoader().load('assets/skybox_rt.jpg')
-  const textureLf = new THREE.TextureLoader().load('assets/skybox_lf.jpg')
-
-  materialArray.push(new THREE.MeshBasicMaterial({ map: textureFt }))
-  materialArray.push(new THREE.MeshBasicMaterial({ map: textureBk }))
-  materialArray.push(new THREE.MeshBasicMaterial({ map: textureUp }))
-  materialArray.push(new THREE.MeshBasicMaterial({ map: textureDn }))
-  materialArray.push(new THREE.MeshBasicMaterial({ map: textureRt }))
-  materialArray.push(new THREE.MeshBasicMaterial({ map: textureLf }))
-
-  materialArray.forEach(material => {
-    material.side = THREE.BackSide
-  })
-
-  const skyboxGeo = new THREE.BoxGeometry(125, 125, 125)
-  const skybox = new THREE.Mesh(skyboxGeo, materialArray)
-  skybox.position.set(0, 20, -50)
-  return skybox
 }
 
 export function playAnimations () {

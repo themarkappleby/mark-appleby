@@ -63,6 +63,7 @@
 
 .home-chest {
   width: 50%;
+  height: 100%;
   display: flex;
   justify-content: center;
   padding-right: 10%;
@@ -74,8 +75,7 @@
   }
 }
 
-.home-chest-placeholder {
-  width: 50%;
-  background: #eee;
-  padding-top: 50%;
+.home-canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
