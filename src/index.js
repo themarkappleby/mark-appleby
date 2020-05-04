@@ -1,4 +1,6 @@
 import './styles/styles.scss'
+
+/*
 import lottie from 'lottie-web'
 import gsap from 'gsap'
 import { initThree, playAnimations } from './three'
@@ -30,3 +32,4 @@ tl.to('.right-overlay', { opacity: 0, duration: 2 })
 tl.pause()
 
 initThree()
+*/

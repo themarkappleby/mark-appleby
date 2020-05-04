@@ -1,0 +1,69 @@
+$bp: 500px;
+
+body, p {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 34px;
+  @media (max-width: $bp) {
+    font-size: 16px;
+    line-height: 30px;
+  }
+}
+
+p {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: underline;
+  color: black;
+}
+
+h1, h2, h3, h4, h5, h6, p,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-top: 0;
+}
+
+h1, .h1 {
+  font-size: 300px;
+  font-weight: 900;
+  @media (max-width: $bp) {
+    display: none;
+  }
+}
+
+h2, .h2 {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 44px;
+  margin-bottom: 21px;
+  @media (max-width: $bp) {
+    display: block;
+    font-size: 28px;
+    line-height: 37px;
+  }
+}
+
+h3, .h3 {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 44px;
+  margin-bottom: 21px;
+  @media (max-width: $bp) {
+    display: block;
+    font-size: 28px;
+    line-height: 37px;
+  }
+}
+
+h4, .h4 {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2.86px;
+  @media (max-width: $bp) {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2.38px;
+  }
+}
