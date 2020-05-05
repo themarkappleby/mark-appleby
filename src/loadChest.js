@@ -107,6 +107,7 @@ function initRenderer (canvas) {
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
   renderer.toneMappingExposure = 2
+  renderer.setPixelRatio(window.devicePixelRatio)
   return renderer
 }
 
