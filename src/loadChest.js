@@ -8,11 +8,15 @@ function loadChest ({ path, canvas }) {
   const camera = initCamera(canvas)
   loadScene(path, scene => {
     scene.traverse(node => {
+      if (node.material && node.material.roughness) {
+        node.material.roughness = 0
+      }
       node.castShadow = true
     })
     scene.add(initFloor())
     scene.add(initLight())
     render(renderer, scene, camera)
+    initMouseTracking(renderer, scene)
   })
 }
 
@@ -70,8 +74,33 @@ function initLight () {
 function render (renderer, scene, camera) {
   renderer.render(scene, camera)
   requestAnimationFrame(() => {
-    scene.children[1].rotation.y += 0.01
     render(renderer, scene, camera)
+  })
+}
+
+function initMouseTracking (renderer, scene) {
+  window.addEventListener('mousemove', function (e) {
+    const canvas = renderer.domElement
+    const width = canvas.width
+    const height = canvas.height
+    const left = canvas.offsetLeft
+    const top = canvas.offsetTop
+    const mouseX = e.clientX
+    const mouseY = e.clientY
+
+    const canvasCenterX = left + width / 2
+    const canvasCenterY = top + height / 2
+
+    const x = mouseX - canvasCenterX
+    const y = -(mouseY - canvasCenterY)
+    const z = 3000
+
+    const mouse3DPosition = new THREE.Vector3(x, y, z)
+    const mouse3DPositionFar = new THREE.Vector3(x, y, z * 5)
+    const chest = scene.children[1]
+    const island = scene.children[2]
+    chest.lookAt(mouse3DPosition)
+    island.lookAt(mouse3DPositionFar)
   })
 }
 
