@@ -9,17 +9,48 @@ function loadChest ({ path, canvas }) {
   const renderer = initRenderer(canvas)
   const camera = initCamera(canvas)
   loadScene(path, scene => {
+    scene.childrenMap = {}
     scene.traverse(node => {
+      scene.childrenMap[node.name] = node
       if (node.material && node.material.roughness) {
         node.material.roughness = 0
       }
       node.castShadow = true
     })
+    console.log(scene.childrenMap)
     scene.add(initFloor())
     scene.add(initLight())
     render(renderer, scene, camera)
-    initMouseTracking(renderer, scene)
+    initMouseTracking(renderer, scene, camera)
     animate(scene)
+  })
+}
+
+function chestUp (scene) {
+  TweenMax.to(scene.childrenMap.Chest_Bone.position, {
+    y: -0.6,
+    duration: 0.4,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Lid_Bone.rotation, {
+    x: THREE.Math.degToRad(-92),
+    duration: 0.4,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Latch_Bone.rotation, {
+    x: THREE.Math.degToRad(-50),
+    duration: 0.3,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Left_Handle_Bone.rotation, {
+    z: THREE.Math.degToRad(120),
+    duration: 0.35,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Right_Handle_Bone.rotation, {
+    z: THREE.Math.degToRad(240),
+    duration: 0.2,
+    ease: Power1.easeOut
   })
 }
 
@@ -95,7 +126,10 @@ function render (renderer, scene, camera) {
   })
 }
 
-function initMouseTracking (renderer, scene) {
+function initMouseTracking (renderer, scene, camera) {
+  const raycaster = new THREE.Raycaster()
+  // const mouse = new THREE.Vector2()
+
   window.addEventListener('mousemove', function (e) {
     const canvas = renderer.domElement
     const width = canvas.width
@@ -104,20 +138,46 @@ function initMouseTracking (renderer, scene) {
     const top = canvas.offsetTop
     const mouseX = e.clientX
     const mouseY = e.clientY
-
     const canvasCenterX = left + width / 2
     const canvasCenterY = top + height / 2
+
+    /*
+    // mouse.x = (mouseX / width) * 2 - 1
+    // mouse.y = -(mouseY / height) * 2 + 1
+    mouse.x = mouseX - left
+    mouse.y = mouseY - top
+    console.log(mouse.x, mouse.y)
+    raycaster.setFromCamera(mouse, camera)
+    var intersects = raycaster.intersectObjects(scene.children)
+    // console.log(intersects)
+    */
 
     const x = mouseX - canvasCenterX
     const y = -(mouseY - canvasCenterY)
     const z = 3000
 
+    const mouse2DPosition = new THREE.Vector2(x, y)
     const mouse3DPosition = new THREE.Vector3(x, y, z)
     const mouse3DPositionFar = new THREE.Vector3(x, y, z * 5)
     const chest = scene.children[1]
     const island = scene.children[2]
     chest.lookAt(mouse3DPosition)
     island.lookAt(mouse3DPositionFar)
+
+    var canvasPosition = renderer.domElement.getBoundingClientRect()
+    var mouseX2 = e.clientX - canvasPosition.left
+    var mouseY2 = e.clientY - canvasPosition.top
+    var mouseVector = new THREE.Vector2(2 * (mouseX2 / window.innerWidth) - 1, 1 - 2 * (mouseY2 / window.innerHeight))
+
+    raycaster.setFromCamera(mouseVector, camera)
+    var meshes = [
+      scene.childrenMap['Island  Mesh_0'],
+      scene.childrenMap['Island  Mesh_1'],
+      scene.childrenMap['Island  Mesh_2']
+    ]
+    // console.log('meshes', meshes)
+    var intersects = raycaster.intersectObjects(scene.children, true)
+    console.log(intersects)
   })
 }
 
