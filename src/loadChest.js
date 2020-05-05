@@ -54,6 +54,34 @@ function chestUp (scene) {
   })
 }
 
+function chestDown (scene) {
+  TweenMax.to(scene.childrenMap.Chest_Bone.position, {
+    y: -0.727278470993042,
+    duration: 0.4,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Lid_Bone.rotation, {
+    x: -1.570795955400299,
+    duration: 0.4,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Latch_Bone.rotation, {
+    x: -1.5707958499653127,
+    duration: 0.3,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Left_Handle_Bone.rotation, {
+    z: 3.141592653589793,
+    duration: 0.35,
+    ease: Power1.easeOut
+  })
+  TweenMax.to(scene.childrenMap.Right_Handle_Bone.rotation, {
+    z: 3.141592653589793,
+    duration: 0.2,
+    ease: Power1.easeOut
+  })
+}
+
 function animate (scene) {
   const island = scene.children[2]
   float(island)
@@ -103,6 +131,7 @@ function initFloor () {
   floor.receiveShadow = true
   floor.position.y = -1.8
   floor.rotation.x = THREE.Math.degToRad(-90)
+  floor.name = 'Floor'
   return floor
 }
 
@@ -128,8 +157,6 @@ function render (renderer, scene, camera) {
 
 function initMouseTracking (renderer, scene, camera) {
   const raycaster = new THREE.Raycaster()
-  // const mouse = new THREE.Vector2()
-
   window.addEventListener('mousemove', function (e) {
     const canvas = renderer.domElement
     const width = canvas.width
@@ -138,25 +165,16 @@ function initMouseTracking (renderer, scene, camera) {
     const top = canvas.offsetTop
     const mouseX = e.clientX
     const mouseY = e.clientY
+    const mouseX2 = e.clientX - left
+    const mouseY2 = e.clientY - top
     const canvasCenterX = left + width / 2
     const canvasCenterY = top + height / 2
-
-    /*
-    // mouse.x = (mouseX / width) * 2 - 1
-    // mouse.y = -(mouseY / height) * 2 + 1
-    mouse.x = mouseX - left
-    mouse.y = mouseY - top
-    console.log(mouse.x, mouse.y)
-    raycaster.setFromCamera(mouse, camera)
-    var intersects = raycaster.intersectObjects(scene.children)
-    // console.log(intersects)
-    */
 
     const x = mouseX - canvasCenterX
     const y = -(mouseY - canvasCenterY)
     const z = 3000
 
-    const mouse2DPosition = new THREE.Vector2(x, y)
+    const mouse2DPosition = new THREE.Vector2(2 * (mouseX2 / width) - 1, 1 - 2 * (mouseY2 / height))
     const mouse3DPosition = new THREE.Vector3(x, y, z)
     const mouse3DPositionFar = new THREE.Vector3(x, y, z * 5)
     const chest = scene.children[1]
@@ -164,20 +182,15 @@ function initMouseTracking (renderer, scene, camera) {
     chest.lookAt(mouse3DPosition)
     island.lookAt(mouse3DPositionFar)
 
-    var canvasPosition = renderer.domElement.getBoundingClientRect()
-    var mouseX2 = e.clientX - canvasPosition.left
-    var mouseY2 = e.clientY - canvasPosition.top
-    var mouseVector = new THREE.Vector2(2 * (mouseX2 / window.innerWidth) - 1, 1 - 2 * (mouseY2 / window.innerHeight))
-
-    raycaster.setFromCamera(mouseVector, camera)
-    var meshes = [
-      scene.childrenMap['Island  Mesh_0'],
-      scene.childrenMap['Island  Mesh_1'],
-      scene.childrenMap['Island  Mesh_2']
-    ]
-    // console.log('meshes', meshes)
+    raycaster.setFromCamera(mouse2DPosition, camera)
     var intersects = raycaster.intersectObjects(scene.children, true)
+
     console.log(intersects)
+    if (intersects.length > 0 && intersects[0].object.name !== 'Floor') {
+      chestUp(scene)
+    } else {
+      chestDown(scene)
+    }
   })
 }
 
