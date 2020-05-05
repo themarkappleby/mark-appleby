@@ -2,6 +2,8 @@
 
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { TweenMax, Power1 } from 'gsap'
+import rand from './utils/rand'
 
 function loadChest ({ path, canvas }) {
   const renderer = initRenderer(canvas)
@@ -17,6 +19,21 @@ function loadChest ({ path, canvas }) {
     scene.add(initLight())
     render(renderer, scene, camera)
     initMouseTracking(renderer, scene)
+    animate(scene)
+  })
+}
+
+function animate (scene) {
+  const island = scene.children[2]
+  float(island)
+}
+
+function float (island) {
+  TweenMax.to(island.position, {
+    y: rand(-0.3, -0.2, false),
+    duration: rand(1, 1.5, false),
+    ease: Power1.easeInOut,
+    onComplete: () => { float(island) }
   })
 }
 
