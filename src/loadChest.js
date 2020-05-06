@@ -17,7 +17,6 @@ function loadChest ({ path, canvas }) {
       }
       node.castShadow = true
     })
-    console.log(scene.childrenMap)
     scene.add(initFloor())
     scene.add(initLight())
     render(renderer, scene, camera)
@@ -186,7 +185,6 @@ function initMouseTracking (renderer, scene, camera) {
     raycaster.setFromCamera(mouse2DPosition, camera)
     var intersects = raycaster.intersectObjects(scene.children, true)
 
-    console.log(intersects)
     if (intersects.length > 0 && intersects[0].object.name !== 'Floor') {
       chestUp(scene)
     } else {

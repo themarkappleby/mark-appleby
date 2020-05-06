@@ -1,3 +1,13 @@
+body {
+  overflow: hidden;
+  /* NOTE: This is likely a temporary solution. At the moment,
+  it is needed due to the logo emitter on the homepage. When
+  a logo reaches beyond the height of the viewport a scrollbar
+  appears which causes the homepage text to narrow and thus
+  results in a flickering additional line-break.
+  */
+}
+
 .home-background {
   top: 0;
   left: 0;
@@ -79,4 +89,29 @@
   width: 100% !important;
   height: 100% !important;
   cursor: pointer;
+}
+
+.home-logos-trigger {
+  position: relative;
+  &:hover {
+    .home-logos {
+      display: block;
+    }
+  }
+}
+
+.home-logos {
+  // display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  img {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 64px;
+    opacity: 0;
+  }
 }

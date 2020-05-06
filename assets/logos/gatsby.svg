@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Gatsby-Logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Gatsby-Logo" fill-rule="nonzero">
+            <path d="M25,14 L18,14 L18,16 L22.8,16 C22.1,19 19.9,21.5 17,22.5 L5.5,11 C6.7,7.5 10.1,5 14,5 C17,5 19.7,6.5 21.4,8.8 L22.9,7.5 C20.9,4.8 17.7,3 14,3 C8.8,3 4.4,6.7 3.3,11.6 L16.5,24.8 C21.3,23.6 25,19.2 25,14 Z M3,14.1 C3,16.9 4.1,19.6 6.2,21.7 C8.3,23.8 11.1,24.9 13.8,24.9 L3,14.1 Z" id="Shape" fill="#FFFFFF"></path>
+            <path d="M14,0 C6.3,0 0,6.3 0,14 C0,21.7 6.3,28 14,28 C21.7,28 28,21.7 28,14 C28,6.3 21.7,0 14,0 Z M6.2,21.8 C4.1,19.7 3,16.9 3,14.2 L13.9,25 C11.1,24.9 8.3,23.9 6.2,21.8 Z M16.4,24.7 L3.3,11.6 C4.4,6.7 8.8,3 14,3 C17.7,3 20.9,4.8 22.9,7.5 L21.4,8.8 C19.7,6.5 17,5 14,5 C10.1,5 6.8,7.5 5.5,11 L17,22.5 C19.9,21.5 22.1,19 22.8,16 L18,16 L18,14 L25,14 C25,19.2 21.3,23.6 16.4,24.7 Z" id="Shape" fill="#663399"></path>
+        </g>
+    </g>
+</svg>
