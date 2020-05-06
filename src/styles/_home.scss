@@ -92,26 +92,37 @@ body {
 }
 
 .home-logos-trigger {
-  position: relative;
-  &:hover {
-    .home-logos {
-      display: block;
-    }
+  display: inline-block;
+}
+
+.home-logos img {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  opacity: 0;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  25% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
   }
 }
 
-.home-logos {
-  // display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  pointer-events: none;
-  img {
-    position: absolute;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    width: 64px;
-    opacity: 0;
-  }
+.pulse {
+  animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  animation-name: pulse;
 }
