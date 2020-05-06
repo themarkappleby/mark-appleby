@@ -165,41 +165,41 @@ function render (renderer, scene, camera) {
 }
 
 function initMouseTracking (renderer, scene, camera) {
+  const canvas = renderer.domElement
   const raycaster = new THREE.Raycaster()
-  window.addEventListener('mousemove', function (e) {
-    const canvas = renderer.domElement
-    const width = canvas.width
-    const height = canvas.height
-    const left = canvas.offsetLeft
-    const top = canvas.offsetTop
-    const mouseX = e.clientX
-    const mouseY = e.clientY
-    const mouseX2 = e.clientX - left
-    const mouseY2 = e.clientY - top
-    const canvasCenterX = left + width / 2
-    const canvasCenterY = top + height / 2
+  window.onmousemove = event => {
+    const pos = getPickPosition(event, canvas)
 
-    const x = mouseX - canvasCenterX
-    const y = -(mouseY - canvasCenterY)
-    const z = 3000
+    const chest = scene.childrenMap.Chest_Empty
+    chest.lookAt(new THREE.Vector3(pos.x, pos.y, 5))
 
-    const mouse2DPosition = new THREE.Vector2(2 * (mouseX2 / width) - 1, 1 - 2 * (mouseY2 / height))
-    const mouse3DPosition = new THREE.Vector3(x, y, z)
-    const mouse3DPositionFar = new THREE.Vector3(x, y, z * 5)
-    const chest = scene.children[1]
-    const island = scene.children[2]
-    chest.lookAt(mouse3DPosition)
-    island.lookAt(mouse3DPositionFar)
+    const island = scene.childrenMap.Island
+    island.lookAt(new THREE.Vector3(pos.x, pos.y, 30))
 
-    raycaster.setFromCamera(mouse2DPosition, camera)
-    var intersects = raycaster.intersectObjects(scene.children, true)
-
-    if (intersects.length > 0 && intersects[0].object.name !== 'Floor') {
+    raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
+    var intersects = raycaster.intersectObjects(chest.children, true)
+    if (intersects.length) {
       chestUp(scene)
     } else {
       chestDown(scene)
     }
-  })
+  }
+}
+
+function getPickPosition (event, canvas) {
+  const pos = getCanvasRelativePosition(event, canvas)
+  return {
+    x: (pos.x / canvas.width) * 2 - 1,
+    y: (pos.y / canvas.height) * -2 + 1
+  }
+}
+
+function getCanvasRelativePosition (event, canvas) {
+  const rect = canvas.getBoundingClientRect()
+  return {
+    x: (event.clientX - rect.left) * canvas.width / rect.width,
+    y: (event.clientY - rect.top) * canvas.height / rect.height
+  }
 }
 
 export default loadChest
