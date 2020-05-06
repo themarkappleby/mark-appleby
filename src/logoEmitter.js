@@ -1,66 +1,76 @@
 import rand from './utils/rand'
 
+let logoPool = []
 const activeLogos = []
-let timer = null
+let running = false
 
 function initLogoEmitter () {
   const logoContainer = document.querySelector('[data-src="logos"]')
-  const logos = logoContainer.children
+  logoPool = Array.from(logoContainer.children)
 
   const trigger = document.querySelector('[data-action="emit-logos"]')
-  trigger.onmouseenter = e => {
-    emit(getRandomLogo(logos))
-    timer = window.setInterval(() => {
-      emit(getRandomLogo(logos))
-    }, 500)
-  }
-  trigger.onmouseleave = e => {
-    clearInterval(timer)
+  trigger.onclick = e => {
+    e.preventDefault()
+    if (!running) {
+      running = true
+      window.requestAnimationFrame(step)
+    }
+    const logo = randomLogo()
+    if (logo) { emit(logo) }
   }
 }
 
-function getRandomLogo (logos) {
-  const randomIndex = rand(0, logos.length - 1)
-  const logo = logos[randomIndex]
+function randomLogo () {
+  const randomIndex = rand(0, logoPool.length - 1)
+  const logo = logoPool[randomIndex]
   return logo
 }
 
 const GRAVITY = 0.3
 
 function emit (logo) {
+  const index = logoPool.indexOf(logo)
+  if (index > -1) {
+    logoPool.splice(index, 1)
+  }
+  logo.style.opacity = 1
   activeLogos.push({
+    name: logo.alt,
     el: logo,
     x: 0,
     y: 0,
     rotation: 0,
     life: 0,
-    death: rand(60, 70),
+    death: 100,
     vector: {
-      x: rand(-3, 3),
-      y: rand(-10, -5),
-      rotation: rand(-3, 3)
+      x: rand(-2, 2),
+      y: rand(-8, -12),
+      rotation: 1
     }
   })
-  step()
+  // step()
 }
 
 function step () {
   activeLogos.forEach(function (logo, index, object) {
     logo.life++
     if (logo.life > logo.death) {
-      object.splice(index, 1)
       logo.el.style.opacity = 0
+      logoPool.push(logo.el)
+      object.splice(index, 1)
     } else {
       logo.vector.y += GRAVITY
       logo.x += logo.vector.x
       logo.y += logo.vector.y
       logo.rotation += logo.vector.rotation
 
-      logo.el.style.opacity = 1 - (logo.life / 8) / logo.death
       logo.el.style.transform = `translate3d(${logo.x}px, ${logo.y}px, 0) scale(${1 - ((logo.life / 4) / logo.death)}) rotate(${logo.rotation}deg)`
     }
   })
-  if (activeLogos.length) {
+  if (!activeLogos.length) {
+    running = false
+  }
+  if (running) {
     window.requestAnimationFrame(step)
   }
 }
