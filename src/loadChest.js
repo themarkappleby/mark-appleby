@@ -171,7 +171,7 @@ function initMouseTracking (renderer, scene, camera) {
     const pos = getPickPosition(event, canvas)
 
     const chest = scene.childrenMap.Chest_Empty
-    chest.lookAt(new THREE.Vector3(pos.x, pos.y, 5))
+    chest.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
 
     const island = scene.childrenMap.Island
     island.lookAt(new THREE.Vector3(pos.x, pos.y, 30))
