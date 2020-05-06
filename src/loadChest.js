@@ -21,8 +21,17 @@ function loadChest ({ path, canvas }) {
     scene.add(initLight())
     render(renderer, scene, camera)
     initMouseTracking(renderer, scene, camera)
+    initResizeTracking(renderer, canvas, camera)
     animate(scene)
   })
+}
+
+function initResizeTracking (renderer, canvas, camera) {
+  window.onresize = () => {
+    camera.aspect = canvas.offsetWidth / canvas.offsetHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
+  }
 }
 
 function chestUp (scene) {
