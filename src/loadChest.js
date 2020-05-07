@@ -2,7 +2,7 @@
 
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { TweenMax, Power1 } from 'gsap'
+import { TweenMax, TimelineMax, Power1, Back } from 'gsap'
 import rand from './utils/rand'
 
 function loadChest ({ path, canvas }) {
@@ -91,17 +91,76 @@ function chestDown (scene) {
 }
 
 function animate (scene) {
-  const island = scene.children[2]
-  float(island)
+  const island = scene.childrenMap.Island
+  const chest = scene.childrenMap.Chest_Empty
+
+  const tl = new TimelineMax()
+  tl.from(island.scale, {
+    x: 0,
+    y: 0,
+    z: 0,
+    duration: 0.7,
+    ease: Back.easeOut
+  })
+  tl.from(chest.scale, {
+    x: 0,
+    y: 0,
+    z: 0,
+    duration: 0.4,
+    ease: Back.easeOut
+  }, '-=0.2')
+  tl.from(chest.position, {
+    y: 0.15,
+    duration: 0.4,
+    ease: Power1.easeInOut
+  }, '-=0.2')
+  tl.to(island.position, 3, { y: -0.35, ease: Power1.easeInOut })
+  tl.to(island.position, 3, { y: -0.25, ease: Power1.easeInOut })
+  tl.to(island.position, 3, {
+    repeat: -1,
+    yoyo: true,
+    y: -0.35,
+    ease: Power1.easeInOut
+  })
+  tl.to(chest.position, 4, {
+    repeat: -1,
+    yoyo: true,
+    y: -0.1,
+    ease: Power1.easeInOut
+  }, '-=9')
+
+  /*
+  popIn(island, () => {
+    float(island, -0.35, -0.25)
+  })
+  popIn(chest, () => {
+    float(chest, -0.1, 0.05)
+  })
+  */
 }
 
-function float (island) {
-  TweenMax.to(island.position, {
-    y: rand(-0.3, -0.2, false),
-    duration: rand(1, 1.5, false),
-    ease: Power1.easeInOut,
-    onComplete: () => { float(island) }
+function popIn (el, cb) {
+  TweenMax.from(el.scale, {
+    x: 0,
+    y: 0,
+    z: 0,
+    duration: 0.5,
+    ease: Back.easeOut,
+    onComplete: cb
   })
+}
+
+function float (el, low, high) {
+  const tl = new TimelineMax()
+  tl.to(el.position, 3, { y: low, ease: Power1.easeInOut })
+  tl.to(el.position, 3, { y: high, ease: Power1.easeInOut })
+  tl.to(el.position, 3, {
+    repeat: -1,
+    yoyo: true,
+    y: low,
+    ease: Power1.easeInOut
+  })
+  tl.play()
 }
 
 function initRenderer (canvas) {
