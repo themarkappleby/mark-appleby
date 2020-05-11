@@ -5,10 +5,14 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { TweenMax, TimelineMax, Power1, Back } from 'gsap'
 import rand from './utils/rand'
 
+const FRAME_RATE = 20 / 1000
+
 function loadChest ({ path, canvas }) {
   const renderer = initRenderer(canvas)
   const camera = initCamera(canvas)
-  loadScene(path, scene => {
+  loadGLTF(path, gltf => {
+    console.log('gltf', gltf)
+    const scene = gltf.scene
     scene.childrenMap = {}
     scene.traverse(node => {
       scene.childrenMap[node.name] = node
@@ -19,11 +23,21 @@ function loadChest ({ path, canvas }) {
     })
     scene.add(initFloor())
     scene.add(initLight())
-    render(renderer, scene, camera)
-    initMouseTracking(renderer, scene, camera)
+    const mixer = getAnimationMixer(scene, gltf.animations)
+    render(renderer, scene, camera, mixer)
+    // initMouseTracking(renderer, scene, camera)
     initResizeTracking(renderer, canvas, camera)
     animate(scene)
   })
+}
+
+function getAnimationMixer (scene, clips) {
+  const mixer = new THREE.AnimationMixer(scene)
+  var clip = THREE.AnimationClip.findByName(clips, 'intro')
+  var action = mixer.clipAction(clip)
+  action.clampWhenFinished = true
+  action.setLoop(THREE.LoopOnce).play()
+  return mixer
 }
 
 function initResizeTracking (renderer, canvas, camera) {
@@ -34,6 +48,7 @@ function initResizeTracking (renderer, canvas, camera) {
   }
 }
 
+/*
 function chestUp (scene) {
   TweenMax.to(scene.childrenMap.Chest_Bone.position, {
     y: -0.6,
@@ -89,8 +104,10 @@ function chestDown (scene) {
     ease: Power1.easeOut
   })
 }
+*/
 
 function animate (scene) {
+  /*
   const island = scene.childrenMap.Island
   const chest = scene.childrenMap.Chest_Empty
 
@@ -128,6 +145,7 @@ function animate (scene) {
     y: -0.1,
     ease: Power1.easeInOut
   }, '-=9')
+  */
 
   /*
   popIn(island, () => {
@@ -139,6 +157,7 @@ function animate (scene) {
   */
 }
 
+/*
 function popIn (el, cb) {
   TweenMax.from(el.scale, {
     x: 0,
@@ -162,6 +181,7 @@ function float (el, low, high) {
   })
   tl.play()
 }
+*/
 
 function initRenderer (canvas) {
   const renderer = new THREE.WebGLRenderer({
@@ -186,14 +206,14 @@ function initCamera (canvas) {
   return camera
 }
 
-function loadScene (path, cb) {
+function loadGLTF (path, cb) {
   var loader = new GLTFLoader()
-  loader.load(path, gltf => { cb(gltf.scene) })
+  loader.load(path, gltf => { cb(gltf) })
 }
 
 function initFloor () {
   const geometry = new THREE.PlaneGeometry(10, 10)
-  const material = new THREE.ShadowMaterial()
+  const material = new THREE.MeshStandardMaterial()
   material.opacity = 0.07
   const floor = new THREE.Mesh(geometry, material)
   floor.receiveShadow = true
@@ -216,13 +236,16 @@ function initLight () {
   return light
 }
 
-function render (renderer, scene, camera) {
+function render (renderer, scene, camera, mixer) {
+  mixer.update(FRAME_RATE)
+  console.log(mixer)
   renderer.render(scene, camera)
   requestAnimationFrame(() => {
-    render(renderer, scene, camera)
+    render(renderer, scene, camera, mixer)
   })
 }
 
+/*
 function initMouseTracking (renderer, scene, camera) {
   const canvas = renderer.domElement
   const raycaster = new THREE.Raycaster()
@@ -244,6 +267,7 @@ function initMouseTracking (renderer, scene, camera) {
     }
   }
 }
+*/
 
 function getPickPosition (event, canvas) {
   const pos = getCanvasRelativePosition(event, canvas)
