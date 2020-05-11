@@ -2,8 +2,8 @@
 
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { TweenMax, TimelineMax, Power1, Back } from 'gsap'
-import rand from './utils/rand'
+// import { TweenMax, TimelineMax, Power1, Back } from 'gsap'
+// import rand from './utils/rand'
 
 const FRAME_RATE = 20 / 1000
 
@@ -11,29 +11,36 @@ function loadChest ({ path, canvas }) {
   const renderer = initRenderer(canvas)
   const camera = initCamera(canvas)
   loadGLTF(path, gltf => {
-    console.log('gltf', gltf)
-    const scene = gltf.scene
+    // console.log('gltf', gltf)
+    const scene = new THREE.Scene()
+    scene.children = gltf.scene.children
+    // const scene = gltf.scene
+    // console.log('Imported Scene', scene)
+    // console.log('Default Scene', basicScene)
     scene.childrenMap = {}
     scene.traverse(node => {
       scene.childrenMap[node.name] = node
       if (node.material && node.material.roughness) {
         node.material.roughness = 0
       }
+      node.frustumCulled = false // TODO: something weird with chest geometry, needs investigation
       node.castShadow = true
     })
     scene.add(initFloor())
     scene.add(initLight())
+
     const mixer = getAnimationMixer(scene, gltf.animations)
     render(renderer, scene, camera, mixer)
     // initMouseTracking(renderer, scene, camera)
     initResizeTracking(renderer, canvas, camera)
-    animate(scene)
+    // animate(scene)
   })
 }
 
 function getAnimationMixer (scene, clips) {
   const mixer = new THREE.AnimationMixer(scene)
-  var clip = THREE.AnimationClip.findByName(clips, 'intro')
+  var clip = clips[0]
+  // var clip = THREE.AnimationClip.findByName(clips, 'intro')
   var action = mixer.clipAction(clip)
   action.clampWhenFinished = true
   action.setLoop(THREE.LoopOnce).play()
@@ -106,69 +113,16 @@ function chestDown (scene) {
 }
 */
 
+/*
 function animate (scene) {
-  /*
   const island = scene.childrenMap.Island
   const chest = scene.childrenMap.Chest_Empty
-
-  const tl = new TimelineMax()
-  tl.from(island.scale, {
-    x: 0,
-    y: 0,
-    z: 0,
-    duration: 0.7,
-    ease: Back.easeOut
-  })
-  tl.from(chest.scale, {
-    x: 0,
-    y: 0,
-    z: 0,
-    duration: 0.4,
-    ease: Back.easeOut
-  }, '-=0.2')
-  tl.from(chest.position, {
-    y: 0.15,
-    duration: 0.4,
-    ease: Power1.easeInOut
-  }, '-=0.2')
-  tl.to(island.position, 3, { y: -0.35, ease: Power1.easeInOut })
-  tl.to(island.position, 3, { y: -0.25, ease: Power1.easeInOut })
-  tl.to(island.position, 3, {
-    repeat: -1,
-    yoyo: true,
-    y: -0.35,
-    ease: Power1.easeInOut
-  })
-  tl.to(chest.position, 4, {
-    repeat: -1,
-    yoyo: true,
-    y: -0.1,
-    ease: Power1.easeInOut
-  }, '-=9')
-  */
-
-  /*
-  popIn(island, () => {
-    float(island, -0.35, -0.25)
-  })
-  popIn(chest, () => {
-    float(chest, -0.1, 0.05)
-  })
-  */
+  float(island, -0.35, -0.25)
+  float(chest, -0.1, 0.05)
 }
+*/
 
 /*
-function popIn (el, cb) {
-  TweenMax.from(el.scale, {
-    x: 0,
-    y: 0,
-    z: 0,
-    duration: 0.5,
-    ease: Back.easeOut,
-    onComplete: cb
-  })
-}
-
 function float (el, low, high) {
   const tl = new TimelineMax()
   tl.to(el.position, 3, { y: low, ease: Power1.easeInOut })
@@ -193,6 +147,7 @@ function initRenderer (canvas) {
   renderer.shadowMap.enabled = true
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
+  renderer.toneMapping = THREE.Uncharted2ToneMapping
   renderer.toneMappingExposure = 2
   renderer.setPixelRatio(window.devicePixelRatio)
   return renderer
@@ -225,8 +180,10 @@ function initFloor () {
 
 function initLight () {
   const shadowMapSize = 15
-  const light = new THREE.DirectionalLight(0xffffff, 0.4)
-  light.position.set(0, 8, 0)
+  // const light = new THREE.DirectionalLight(0xffffff, 0.4)
+  const light = new THREE.DirectionalLight(0xffffff, 5)
+  // light.position.set(0, 8, 0)
+  light.position.set(3, 3, 3)
   light.castShadow = true
   light.shadow.radius = 3
   light.shadow.camera.left = shadowMapSize * -1
@@ -238,7 +195,7 @@ function initLight () {
 
 function render (renderer, scene, camera, mixer) {
   mixer.update(FRAME_RATE)
-  console.log(mixer)
+  // console.log(mixer)
   renderer.render(scene, camera)
   requestAnimationFrame(() => {
     render(renderer, scene, camera, mixer)
@@ -269,6 +226,7 @@ function initMouseTracking (renderer, scene, camera) {
 }
 */
 
+/*
 function getPickPosition (event, canvas) {
   const pos = getCanvasRelativePosition(event, canvas)
   return {
@@ -276,7 +234,9 @@ function getPickPosition (event, canvas) {
     y: (pos.y / canvas.height) * -2 + 1
   }
 }
+*/
 
+/*
 function getCanvasRelativePosition (event, canvas) {
   const rect = canvas.getBoundingClientRect()
   return {
@@ -284,5 +244,6 @@ function getCanvasRelativePosition (event, canvas) {
     y: (event.clientY - rect.top) * canvas.height / rect.height
   }
 }
+*/
 
 export default loadChest
