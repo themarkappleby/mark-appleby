@@ -148,7 +148,7 @@ function initRenderer (canvas) {
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
   renderer.toneMapping = THREE.Uncharted2ToneMapping
-  renderer.toneMappingExposure = 2
+  renderer.toneMappingExposure = 1.8
   renderer.setPixelRatio(window.devicePixelRatio)
   return renderer
 }
@@ -179,11 +179,11 @@ function initFloor () {
 }
 
 function initLight () {
-  const shadowMapSize = 15
+  const shadowMapSize = 2
   // const light = new THREE.DirectionalLight(0xffffff, 0.4)
   const light = new THREE.DirectionalLight(0xffffff, 5)
-  // light.position.set(0, 8, 0)
-  light.position.set(3, 3, 3)
+  light.position.set(0, 5, 0)
+  // light.position.set(3, 3, 3)
   light.castShadow = true
   light.shadow.radius = 3
   light.shadow.camera.left = shadowMapSize * -1
