@@ -39,8 +39,7 @@ function loadChest ({ path, canvas }) {
 
 function getAnimationMixer (scene, clips) {
   const mixer = new THREE.AnimationMixer(scene)
-  var clip = clips[0]
-  // var clip = THREE.AnimationClip.findByName(clips, 'intro')
+  var clip = THREE.AnimationClip.findByName(clips, 'intro')
   var action = mixer.clipAction(clip)
   action.clampWhenFinished = true
   action.setLoop(THREE.LoopOnce).play()
@@ -147,8 +146,8 @@ function initRenderer (canvas) {
   renderer.shadowMap.enabled = true
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
-  renderer.toneMapping = THREE.Uncharted2ToneMapping
-  renderer.toneMappingExposure = 1.8
+  renderer.toneMapping = THREE.LinearToneMapping
+  renderer.toneMappingExposure = 2
   renderer.setPixelRatio(window.devicePixelRatio)
   return renderer
 }
@@ -181,7 +180,7 @@ function initFloor () {
 function initLight () {
   const shadowMapSize = 2
   // const light = new THREE.DirectionalLight(0xffffff, 0.4)
-  const light = new THREE.DirectionalLight(0xffffff, 5)
+  const light = new THREE.DirectionalLight(0xffffff, 0.4)
   light.position.set(0, 5, 0)
   // light.position.set(3, 3, 3)
   light.castShadow = true
