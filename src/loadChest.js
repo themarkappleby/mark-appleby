@@ -2,35 +2,31 @@
 
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-// import { TweenMax, TimelineMax, Power1, Back } from 'gsap'
 
 const FRAME_RATE = 20 / 1000
-const helpers = []
+const GLB_PATH = 'assets/chest.glb'
 
-function loadChest ({ path, canvas }) {
+function loadChest ({ canvas }) {
   const renderer = initRenderer(canvas)
   const camera = initCamera(canvas)
-  loadGLTF(path, gltf => {
+  loadGLTF(GLB_PATH, gltf => {
     const scene = new THREE.Scene()
     scene.children = gltf.scene.children
     scene.traverse(node => { node.castShadow = true })
     scene.add(initFloor())
     scene.add(initLight())
-    const pickHelper = initPickHelper()
-    scene.add(pickHelper)
-    scene.elements = {
-      pickHelper: pickHelper,
-      chestAndIsland: scene.getObjectByName('chest_and_island')
-    }
-
+    scene.add(initPickHelper())
     const mixer = getAnimationMixer(scene, gltf.animations)
+    scene.mixer = mixer
+    const intro = getAction(scene, 'intro')
+    intro.play()
     render(renderer, scene, camera, mixer)
     initMouseTracking(renderer, scene, camera)
     initResizeTracking(renderer, canvas, camera)
   })
 }
 
-// Three JS Raycasting does not work with skinned meshes (of which the Chest is one), as noted here: https://stackoverflow.com/questions/55462615/three-js-raycast-on-skinning-mesh. Since my geometry is simply a GPU picking library like: https://github.com/bzztbomb/three_js_gpu_picking seems like overkills. Instead I'll have a simple transparent cube follow the mesh and act as the pick target.
+// Target for mouse events
 function initPickHelper () {
   const geometry = new THREE.BoxGeometry(1.8, 1.5, 2)
   const material = new THREE.MeshBasicMaterial({
@@ -40,16 +36,22 @@ function initPickHelper () {
   })
   const pickHelper = new THREE.Mesh(geometry, material)
   pickHelper.position.set(0.1, 0.8, 1)
+  pickHelper.name = 'pickHelper'
   return pickHelper
 }
 
 function getAnimationMixer (scene, clips) {
   const mixer = new THREE.AnimationMixer(scene)
-  var clip = THREE.AnimationClip.findByName(clips, 'intro')
-  var action = mixer.clipAction(clip)
-  action.clampWhenFinished = true
-  action.setLoop(THREE.LoopOnce).play()
+  mixer.clips = clips
   return mixer
+}
+
+function getAction (scene, name) {
+  var clip = THREE.AnimationClip.findByName(scene.mixer.clips, name)
+  var action = scene.mixer.clipAction(clip)
+  action.clampWhenFinished = true
+  action.setLoop(THREE.LoopOnce)
+  return action
 }
 
 function initResizeTracking (renderer, canvas, camera) {
@@ -117,14 +119,19 @@ function initLight () {
 function initMouseTracking (renderer, scene, camera) {
   const canvas = renderer.domElement
   const raycaster = new THREE.Raycaster()
-  const pickHelper = scene.elements.pickHelper
+  const pickHelper = scene.getObjectByName('pickHelper')
+  const chestAndIsland = scene.getObjectByName('chest_and_island')
+  const hover = getAction(scene, 'hover')
   window.onmousemove = event => {
     const pos = getPickPosition(event, canvas)
-    scene.elements.chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
+    chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
     raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
     var intersects = raycaster.intersectObjects([pickHelper])
+    // TODO: fire only once when intersect state changes
     if (intersects.length) {
-      console.log(intersects)
+      hover.fadeIn(2).play()
+    } else {
+      hover.fadeOut(2).play()
     }
   }
 }
@@ -147,9 +154,6 @@ function getCanvasRelativePosition (event, canvas) {
 
 function render (renderer, scene, camera, mixer) {
   mixer.update(FRAME_RATE)
-  helpers.forEach(helper => {
-    helper.update()
-  })
   renderer.render(scene, camera)
   requestAnimationFrame(() => {
     render(renderer, scene, camera, mixer)
