@@ -6,6 +6,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 const FRAME_RATE = 20 / 1000
 const GLB_PATH = 'assets/chest.glb'
 
+window.state = {
+  chestHover: false
+}
+
 function loadChest ({ canvas }) {
   const renderer = initRenderer(canvas)
   const camera = initCamera(canvas)
@@ -18,7 +22,10 @@ function loadChest ({ canvas }) {
     scene.add(initPickHelper())
     const mixer = getAnimationMixer(scene, gltf.animations)
     scene.mixer = mixer
-    const intro = getAction(scene, 'intro')
+    const intro = getAction(scene, 'intro', {
+      clamp: true,
+      loop: false
+    })
     intro.play()
     render(renderer, scene, camera, mixer)
     initMouseTracking(renderer, scene, camera)
@@ -46,11 +53,17 @@ function getAnimationMixer (scene, clips) {
   return mixer
 }
 
-function getAction (scene, name) {
+function getAction (scene, name, options) {
   var clip = THREE.AnimationClip.findByName(scene.mixer.clips, name)
   var action = scene.mixer.clipAction(clip)
-  action.clampWhenFinished = true
-  action.setLoop(THREE.LoopOnce)
+  if (options.clamp) {
+    action.clampWhenFinished = true
+  }
+  if (options.loop) {
+    action.setLoop(THREE.LoopRepeat)
+  } else {
+    action.setLoop(THREE.LoopOnce)
+  }
   return action
 }
 
@@ -121,19 +134,37 @@ function initMouseTracking (renderer, scene, camera) {
   const raycaster = new THREE.Raycaster()
   const pickHelper = scene.getObjectByName('pickHelper')
   const chestAndIsland = scene.getObjectByName('chest_and_island')
-  const hover = getAction(scene, 'hover')
+  const hover = getAction(scene, 'hover', {
+    clamp: false,
+    loop: true
+  })
   window.onmousemove = event => {
     const pos = getPickPosition(event, canvas)
     chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
     raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
     var intersects = raycaster.intersectObjects([pickHelper])
-    // TODO: fire only once when intersect state changes
+
     if (intersects.length) {
-      hover.fadeIn(2).play()
+      update('chestHover', true, () => {
+        hover.enabled = true
+        hover.fadeIn(0.6).play()
+        console.log('fadeIn', hover)
+      })
     } else {
-      hover.fadeOut(2).play()
+      update('chestHover', false, () => {
+        hover.fadeOut(0.4).play()
+        console.log('fadeOut', hover)
+      })
     }
   }
+}
+
+function update (path, newValue, cb) {
+  const previousValue = window.state[path]
+  if (previousValue !== newValue) {
+    cb(previousValue, newValue)
+  }
+  window.state[path] = newValue
 }
 
 function getPickPosition (event, canvas) {
