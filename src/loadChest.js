@@ -7,10 +7,11 @@ const FRAME_RATE = 20 / 1000
 const GLB_PATH = 'assets/chest.glb'
 
 window.state = {
+  scene: 'intro',
   chestHover: false,
   set: (name, value, changed) => {
     const previousValue = window.state[name]
-    if (previousValue !== value) {
+    if (previousValue !== value && changed) {
       changed(previousValue, value)
     }
     window.state[name] = value
@@ -145,21 +146,26 @@ function initMouseTracking (renderer, scene, camera) {
   window.onmousemove = event => {
     const pos = getPickPosition(event, canvas)
     chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
-    raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
-    var intersects = raycaster.intersectObjects([pickHelper])
-
-    if (intersects.length) {
-      window.state.set('chestHover', true, () => {
-        // scene.animations.hover.enabled = true
-        // scene.animations.hover.fadeIn(0.3).play()
-        scene.animations.ecobee.reset()
-        scene.animations.ecobee.fadeIn(0.3).play()
-      })
-    } else {
-      window.state.set('chestHover', false, () => {
-        // scene.animations.hover.fadeOut(0.3).play()
-        scene.animations.ecobee.fadeOut(0.3).play()
-      })
+    if (window.state.scene === 'intro') {
+      raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
+      var intersects = raycaster.intersectObjects([pickHelper])
+      if (intersects.length) {
+        window.state.set('chestHover', true, () => {
+          scene.animations.hover.enabled = true
+          scene.animations.hover.fadeIn(0.3).play()
+        })
+      } else {
+        window.state.set('chestHover', false, () => {
+          scene.animations.hover.fadeOut(0.3).play()
+        })
+      }
+    }
+  }
+  window.onclick = event => {
+    if (window.state.chestHover) {
+      window.state.set('scene', 'ecobee')
+      scene.animations.ecobee.play()
+      scene.animations.hover.crossFadeTo(scene.animations.ecobee, 0.5)
     }
   }
 }
