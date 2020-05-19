@@ -7,7 +7,14 @@ const FRAME_RATE = 20 / 1000
 const GLB_PATH = 'assets/chest.glb'
 
 window.state = {
-  chestHover: false
+  chestHover: false,
+  set: (name, value, changed) => {
+    const previousValue = window.state[name]
+    if (previousValue !== value) {
+      changed(previousValue, value)
+    }
+    window.state[name] = value
+  }
 }
 
 function loadChest ({ canvas }) {
@@ -20,17 +27,38 @@ function loadChest ({ canvas }) {
     scene.add(initFloor())
     scene.add(initLight())
     scene.add(initPickHelper())
-    const mixer = getAnimationMixer(scene, gltf.animations)
-    scene.mixer = mixer
-    const intro = getAction(scene, 'intro', {
-      clamp: true,
-      loop: false
-    })
-    intro.play()
-    render(renderer, scene, camera, mixer)
     initMouseTracking(renderer, scene, camera)
     initResizeTracking(renderer, canvas, camera)
+    initAnimations(scene, gltf.animations)
+    render(renderer, scene, camera)
+    scene.animations.intro.play()
   })
+}
+
+function initAnimations (scene, clips) {
+  scene.mixer = new THREE.AnimationMixer(scene)
+  scene.animations = {}
+
+  // Intro
+  const intro = getClipAction('intro', scene, clips)
+  intro.setLoop(THREE.LoopOnce)
+  scene.animations.intro = intro
+
+  // Hover
+  const hover = getClipAction('hover', scene, clips)
+  hover.setLoop(THREE.LoopRepeat)
+  scene.animations.hover = hover
+
+  // ecobee
+  const ecobee = getClipAction('ecobee', scene, clips)
+  ecobee.setLoop(THREE.LoopOnce)
+  ecobee.clampWhenFinished = true
+  scene.animations.ecobee = ecobee
+}
+
+function getClipAction (name, scene, clips) {
+  const clip = THREE.AnimationClip.findByName(clips, name)
+  return scene.mixer.clipAction(clip)
 }
 
 // Target for mouse events
@@ -45,26 +73,6 @@ function initPickHelper () {
   pickHelper.position.set(0.1, 0.8, 1)
   pickHelper.name = 'pickHelper'
   return pickHelper
-}
-
-function getAnimationMixer (scene, clips) {
-  const mixer = new THREE.AnimationMixer(scene)
-  mixer.clips = clips
-  return mixer
-}
-
-function getAction (scene, name, options) {
-  var clip = THREE.AnimationClip.findByName(scene.mixer.clips, name)
-  var action = scene.mixer.clipAction(clip)
-  if (options.clamp) {
-    action.clampWhenFinished = true
-  }
-  if (options.loop) {
-    action.setLoop(THREE.LoopRepeat)
-  } else {
-    action.setLoop(THREE.LoopOnce)
-  }
-  return action
 }
 
 function initResizeTracking (renderer, canvas, camera) {
@@ -134,10 +142,6 @@ function initMouseTracking (renderer, scene, camera) {
   const raycaster = new THREE.Raycaster()
   const pickHelper = scene.getObjectByName('pickHelper')
   const chestAndIsland = scene.getObjectByName('chest_and_island')
-  const hover = getAction(scene, 'hover', {
-    clamp: false,
-    loop: true
-  })
   window.onmousemove = event => {
     const pos = getPickPosition(event, canvas)
     chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
@@ -145,26 +149,19 @@ function initMouseTracking (renderer, scene, camera) {
     var intersects = raycaster.intersectObjects([pickHelper])
 
     if (intersects.length) {
-      update('chestHover', true, () => {
-        hover.enabled = true
-        hover.fadeIn(0.6).play()
-        console.log('fadeIn', hover)
+      window.state.set('chestHover', true, () => {
+        // scene.animations.hover.enabled = true
+        // scene.animations.hover.fadeIn(0.3).play()
+        scene.animations.ecobee.reset()
+        scene.animations.ecobee.fadeIn(0.3).play()
       })
     } else {
-      update('chestHover', false, () => {
-        hover.fadeOut(0.4).play()
-        console.log('fadeOut', hover)
+      window.state.set('chestHover', false, () => {
+        // scene.animations.hover.fadeOut(0.3).play()
+        scene.animations.ecobee.fadeOut(0.3).play()
       })
     }
   }
-}
-
-function update (path, newValue, cb) {
-  const previousValue = window.state[path]
-  if (previousValue !== newValue) {
-    cb(previousValue, newValue)
-  }
-  window.state[path] = newValue
 }
 
 function getPickPosition (event, canvas) {
@@ -183,11 +180,11 @@ function getCanvasRelativePosition (event, canvas) {
   }
 }
 
-function render (renderer, scene, camera, mixer) {
-  mixer.update(FRAME_RATE)
+function render (renderer, scene, camera) {
+  scene.mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
   requestAnimationFrame(() => {
-    render(renderer, scene, camera, mixer)
+    render(renderer, scene, camera)
   })
 }
 
