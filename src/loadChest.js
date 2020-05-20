@@ -33,6 +33,9 @@ function loadChest ({ canvas }) {
     initAnimations(scene, gltf.animations)
     render(renderer, scene, camera)
     scene.animations.intro.play()
+    window.setTimeout(() => {
+      scene.animations.intro.fadeOut(1)
+    }, 1000)
   })
 }
 
@@ -43,6 +46,7 @@ function initAnimations (scene, clips) {
   // Intro
   const intro = getClipAction('intro', scene, clips)
   intro.setLoop(THREE.LoopOnce)
+  intro.clampWhenFinished = true
   scene.animations.intro = intro
 
   // Hover
