@@ -27,7 +27,6 @@ function loadChest ({ canvas }) {
     scene.traverse(node => { node.castShadow = true })
     scene.add(initFloor())
     scene.add(initLight())
-    scene.add(initPickHelper())
     initMouseTracking(renderer, scene, camera)
     initResizeTracking(renderer, canvas, camera)
     initAnimations(scene, gltf.animations)
@@ -35,6 +34,7 @@ function loadChest ({ canvas }) {
     scene.animations.intro.play()
     window.setTimeout(() => {
       scene.animations.intro.fadeOut(1)
+      scene.add(initPickHelper())
     }, 1000)
   })
 }
@@ -145,22 +145,22 @@ function initLight () {
 function initMouseTracking (renderer, scene, camera) {
   const canvas = renderer.domElement
   const raycaster = new THREE.Raycaster()
-  const pickHelper = scene.getObjectByName('pickHelper')
   const chestAndIsland = scene.getObjectByName('chest_and_island')
   window.onmousemove = event => {
+    const pickHelper = scene.getObjectByName('pickHelper')
     const pos = getPickPosition(event, canvas)
     chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
-    if (window.state.scene === 'intro') {
+    if (pickHelper && window.state.scene === 'intro') {
       raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
       var intersects = raycaster.intersectObjects([pickHelper])
       if (intersects.length) {
         window.state.set('chestHover', true, () => {
           scene.animations.hover.enabled = true
-          scene.animations.hover.fadeIn(0.3).play()
+          scene.animations.hover.fadeIn(0.7).play()
         })
       } else {
         window.state.set('chestHover', false, () => {
-          scene.animations.hover.fadeOut(0.3).play()
+          scene.animations.hover.fadeOut(0.7).play()
         })
       }
     }
