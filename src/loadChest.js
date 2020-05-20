@@ -143,13 +143,14 @@ function initLight () {
 }
 
 function initMouseTracking (renderer, scene, camera) {
+  const LOOK_AT_FACTOR = 10
   const canvas = renderer.domElement
   const raycaster = new THREE.Raycaster()
   const chestAndIsland = scene.getObjectByName('chest_and_island')
   window.onmousemove = event => {
     const pickHelper = scene.getObjectByName('pickHelper')
     const pos = getPickPosition(event, canvas)
-    chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, 15))
+    chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, LOOK_AT_FACTOR))
     if (pickHelper && window.state.scene === 'intro') {
       raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
       var intersects = raycaster.intersectObjects([pickHelper])
