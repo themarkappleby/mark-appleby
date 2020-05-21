@@ -38,7 +38,7 @@ function initRenderer () {
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
   renderer.toneMapping = THREE.LinearToneMapping
-  renderer.toneMappingExposure = 2.25
+  renderer.toneMappingExposure = 1.8
   renderer.setPixelRatio(window.devicePixelRatio)
 }
 
