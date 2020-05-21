@@ -101,18 +101,18 @@ function initLight () {
 }
 
 function initResizeTracking () {
-  window.onresize = () => {
+  window.addEventListener('resize', () => {
     camera.aspect = canvas.offsetWidth / canvas.offsetHeight
     camera.updateProjectionMatrix()
     renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
-  }
+  })
 }
 
 function initMouseTracking () {
   const LOOK_AT_FACTOR = 10
   const raycaster = new THREE.Raycaster()
   const chestAndIsland = scene.getObjectByName('chest_and_island')
-  window.onmousemove = event => {
+  window.addEventListener('mousemove', event => {
     const pickHelper = scene.getObjectByName('pickHelper')
     const pos = getPickPosition(event)
     chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, LOOK_AT_FACTOR))
@@ -130,14 +130,14 @@ function initMouseTracking () {
         })
       }
     }
-  }
-  window.onclick = event => {
+  })
+  window.addEventListener('click', event => {
     if (window.state.chestHover) {
       window.state.set('scene', 'ecobee')
       animations.ecobee.play()
       animations.hover.crossFadeTo(animations.ecobee, 0.5)
     }
-  }
+  })
 }
 
 // Target for mouse events
@@ -173,17 +173,11 @@ function getCanvasRelativePosition (event) {
 function initAnimations (clips) {
   animations = {}
   scene.mixer = new THREE.AnimationMixer(scene)
-
-  // Intro
   animations.intro = getClipAction('intro', clips)
   animations.intro.setLoop(THREE.LoopOnce)
   animations.intro.clampWhenFinished = true
-
-  // Hover
   animations.hover = getClipAction('hover', clips)
   animations.hover.setLoop(THREE.LoopRepeat)
-
-  // ecobee
   animations.ecobee = getClipAction('ecobee', clips)
   animations.ecobee.setLoop(THREE.LoopOnce)
   animations.ecobee.clampWhenFinished = true
