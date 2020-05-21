@@ -9,7 +9,6 @@ let renderer, canvas, camera, scene, animations, target, targetWeight, mouse
 
 function init (params) {
   canvas = params.canvas
-  initState()
   initRenderer()
   initCamera()
   initResizeTracking()
@@ -26,20 +25,6 @@ function init (params) {
       initMouseTracking()
     }, 1000)
   })
-}
-
-function initState () {
-  window.state = {
-    scene: 'intro',
-    chestHover: false,
-    set: (name, value, changed) => {
-      const previousValue = window.state[name]
-      if (previousValue !== value && changed) {
-        changed(previousValue, value)
-      }
-      window.state[name] = value
-    }
-  }
 }
 
 function initRenderer () {
