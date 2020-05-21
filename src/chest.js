@@ -117,6 +117,7 @@ function initMouseTracking () {
 
 function mouseMoveTracking () {
   target = new THREE.Vector3()
+  target.z = 50
   window.addEventListener('mousemove', event => {
     mouse = getRelativeMousePosition(event)
     targetWeight = 1 - getMouseDistanceFromCenter()
@@ -203,7 +204,7 @@ function render () {
     const chest = scene.getObjectByName('chest_and_island')
     target.x += (mouse.x - target.x) * 0.04
     target.y += (mouse.y - target.y) * 0.04
-    target.z = 8
+    target.z -= (target.z - 8) * 0.04
     chest.lookAt(target)
   }
   if (targetWeight !== undefined && window.state.scene === 'intro') {
