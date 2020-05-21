@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const FRAME_RATE = 20 / 1000
 
-let renderer, canvas, camera, scene, animations, target, mouse
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse
 
 function init (params) {
   canvas = params.canvas
@@ -19,6 +19,8 @@ function init (params) {
     initMouseTracking()
     render()
     animations.intro.play()
+    animations.hover.play()
+    animations.hover.weight = 0
     window.setTimeout(() => {
       animations.intro.fadeOut(1)
       // scene.add(initPickHelper())
@@ -114,6 +116,7 @@ function initMouseTracking () {
   // const raycaster = new THREE.Raycaster()
   window.addEventListener('mousemove', event => {
     mouse = getRelativeMousePosition(event)
+    targetWeight = 1 - getMouseDistanceFromCenter()
     // const pickHelper = scene.getObjectByName('pickHelper')
     /*
     if (pickHelper && window.state.scene === 'intro') {
@@ -141,6 +144,17 @@ function initMouseTracking () {
     }
   })
   */
+}
+
+function getMouseDistanceFromCenter () {
+  let distance = 0
+  let x = mouse.x
+  let y = mouse.y
+  if (x < 0) x *= -1
+  if (y < 0) y *= -1
+  distance = (x + y) / 2
+  if (distance > 1) distance = 1
+  return distance
 }
 
 // Target for mouse events
@@ -200,6 +214,9 @@ function render () {
     target.y += (mouse.y - target.y) * 0.04
     target.z = 8
     chest.lookAt(target)
+  }
+  if (targetWeight !== null && animations.hover.weight !== null) {
+    animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
   }
   scene.mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
