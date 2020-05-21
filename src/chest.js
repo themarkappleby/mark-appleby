@@ -16,14 +16,14 @@ function init (params) {
   loadGLTF(params.file, gltf => {
     initScene(gltf.scene)
     initAnimations(gltf.animations)
-    initMouseTracking()
     render()
     animations.intro.play()
     animations.hover.play()
     animations.hover.weight = 0
     window.setTimeout(() => {
       animations.intro.fadeOut(1)
-      // scene.add(initPickHelper())
+      scene.add(initPickHelper())
+      initMouseTracking()
     }, 1000)
   })
 }
@@ -111,39 +111,33 @@ function initResizeTracking () {
 }
 
 function initMouseTracking () {
-  target = new THREE.Vector3()
+  mouseMoveTracking()
+  mouseClickTracking()
+}
 
-  // const raycaster = new THREE.Raycaster()
+function mouseMoveTracking () {
+  target = new THREE.Vector3()
   window.addEventListener('mousemove', event => {
     mouse = getRelativeMousePosition(event)
     targetWeight = 1 - getMouseDistanceFromCenter()
-    // const pickHelper = scene.getObjectByName('pickHelper')
-    /*
+  })
+}
+
+function mouseClickTracking () {
+  const raycaster = new THREE.Raycaster()
+  window.addEventListener('click', event => {
+    mouse = getRelativeMousePosition(event)
+    const pickHelper = scene.getObjectByName('pickHelper')
     if (pickHelper && window.state.scene === 'intro') {
-      raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
+      raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
       var intersects = raycaster.intersectObjects([pickHelper])
       if (intersects.length) {
-        window.state.set('chestHover', true, () => {
-          animations.hover.enabled = true
-          animations.hover.fadeIn(0.7).play()
-        })
-      } else {
-        window.state.set('chestHover', false, () => {
-          animations.hover.fadeOut(0.7).play()
-        })
+        animations.ecobee.play()
+        animations.hover.crossFadeTo(animations.ecobee, 0.5)
+        window.state.set('scene', 'ecobee')
       }
     }
-    */
   })
-  /*
-  window.addEventListener('click', event => {
-    if (window.state.chestHover) {
-      window.state.set('scene', 'ecobee')
-      animations.ecobee.play()
-      animations.hover.crossFadeTo(animations.ecobee, 0.5)
-    }
-  })
-  */
 }
 
 function getMouseDistanceFromCenter () {
@@ -157,8 +151,6 @@ function getMouseDistanceFromCenter () {
   return distance
 }
 
-// Target for mouse events
-/*
 function initPickHelper () {
   const geometry = new THREE.BoxGeometry(1.8, 1.5, 2)
   const material = new THREE.MeshBasicMaterial({
@@ -171,7 +163,6 @@ function initPickHelper () {
   pickHelper.name = 'pickHelper'
   return pickHelper
 }
-*/
 
 function getRelativeMousePosition (event) {
   const pos = getRelativeCanvasPosition(event)
@@ -215,7 +206,7 @@ function render () {
     target.z = 8
     chest.lookAt(target)
   }
-  if (targetWeight !== null && animations.hover.weight !== null) {
+  if (targetWeight !== undefined && window.state.scene === 'intro') {
     animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
   }
   scene.mixer.update(FRAME_RATE)
@@ -224,5 +215,3 @@ function render () {
 }
 
 export default init
-
-// 10
