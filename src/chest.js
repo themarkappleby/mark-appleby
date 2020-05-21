@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const FRAME_RATE = 20 / 1000
 
-let renderer, canvas, camera, scene, animations
+let renderer, canvas, camera, scene, animations, target, mouse
 
 function init (params) {
   canvas = params.canvas
@@ -21,7 +21,7 @@ function init (params) {
     animations.intro.play()
     window.setTimeout(() => {
       animations.intro.fadeOut(1)
-      scene.add(initPickHelper())
+      // scene.add(initPickHelper())
     }, 1000)
   })
 }
@@ -109,13 +109,13 @@ function initResizeTracking () {
 }
 
 function initMouseTracking () {
-  const LOOK_AT_FACTOR = 10
-  const raycaster = new THREE.Raycaster()
-  const chestAndIsland = scene.getObjectByName('chest_and_island')
+  target = new THREE.Vector3()
+
+  // const raycaster = new THREE.Raycaster()
   window.addEventListener('mousemove', event => {
-    const pickHelper = scene.getObjectByName('pickHelper')
-    const pos = getPickPosition(event)
-    chestAndIsland.lookAt(new THREE.Vector3(pos.x, pos.y, LOOK_AT_FACTOR))
+    mouse = getRelativeMousePosition(event)
+    // const pickHelper = scene.getObjectByName('pickHelper')
+    /*
     if (pickHelper && window.state.scene === 'intro') {
       raycaster.setFromCamera(new THREE.Vector2(pos.x, pos.y), camera)
       var intersects = raycaster.intersectObjects([pickHelper])
@@ -130,7 +130,9 @@ function initMouseTracking () {
         })
       }
     }
+    */
   })
+  /*
   window.addEventListener('click', event => {
     if (window.state.chestHover) {
       window.state.set('scene', 'ecobee')
@@ -138,9 +140,11 @@ function initMouseTracking () {
       animations.hover.crossFadeTo(animations.ecobee, 0.5)
     }
   })
+  */
 }
 
 // Target for mouse events
+/*
 function initPickHelper () {
   const geometry = new THREE.BoxGeometry(1.8, 1.5, 2)
   const material = new THREE.MeshBasicMaterial({
@@ -153,16 +157,17 @@ function initPickHelper () {
   pickHelper.name = 'pickHelper'
   return pickHelper
 }
+*/
 
-function getPickPosition (event) {
-  const pos = getCanvasRelativePosition(event)
+function getRelativeMousePosition (event) {
+  const pos = getRelativeCanvasPosition(event)
   return {
     x: (pos.x / canvas.width) * 2 - 1,
     y: (pos.y / canvas.height) * -2 + 1
   }
 }
 
-function getCanvasRelativePosition (event) {
+function getRelativeCanvasPosition (event) {
   const rect = canvas.getBoundingClientRect()
   return {
     x: (event.clientX - rect.left) * canvas.width / rect.width,
@@ -189,9 +194,18 @@ function getClipAction (name, clips) {
 }
 
 function render () {
+  if (mouse) {
+    const chest = scene.getObjectByName('chest_and_island')
+    target.x += (mouse.x - target.x) * 0.04
+    target.y += (mouse.y - target.y) * 0.04
+    target.z = 8
+    chest.lookAt(target)
+  }
   scene.mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
   requestAnimationFrame(render)
 }
 
 export default init
+
+// 10
