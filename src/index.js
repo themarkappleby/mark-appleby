@@ -1,12 +1,14 @@
 import './styles/styles.scss'
-import loadChest from './loadChest'
+import initChest from './chest'
 import initLogoEmitter from './logoEmitter'
 
 const loadingOverlay = document.querySelector('.loading')
 loadingOverlay.classList.add('loading--out')
+initLogoEmitter()
 
 window.setTimeout(() => {
-  loadChest({ canvas: document.querySelector('.home-canvas') })
+  initChest({
+    file: 'assets/chest.glb',
+    canvas: document.querySelector('.home-canvas')
+  })
 }, 1500)
-
-initLogoEmitter()

@@ -5,7 +5,7 @@ const activeLogos = []
 let running = false
 const mouse = {}
 
-function initLogoEmitter () {
+function init () {
   document.onmousemove = e => {
     mouse.x = e.clientX
     mouse.y = e.clientY
@@ -86,4 +86,4 @@ function step () {
   }
 }
 
-export default initLogoEmitter
+export default init
