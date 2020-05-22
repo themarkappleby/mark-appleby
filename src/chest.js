@@ -38,7 +38,7 @@ function initRenderer () {
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
   renderer.toneMapping = THREE.LinearToneMapping
-  renderer.toneMappingExposure = 1.8
+  renderer.toneMappingExposure = 2.5
   renderer.setPixelRatio(window.devicePixelRatio)
 }
 
@@ -64,11 +64,11 @@ function initScene (gltfScene) {
 
 function initFloor () {
   const geometry = new THREE.PlaneGeometry(10, 10)
-  const material = new THREE.MeshStandardMaterial()
-  material.opacity = 0.07
+  const material = new THREE.ShadowMaterial()
+  material.opacity = 0.05
   const floor = new THREE.Mesh(geometry, material)
   floor.receiveShadow = true
-  floor.position.y = -1.8
+  floor.position.y = -2
   floor.rotation.x = THREE.Math.degToRad(-90)
   floor.name = 'Floor'
   return floor
@@ -145,7 +145,7 @@ function initPickHelper () {
     transparent: true
   })
   const pickHelper = new THREE.Mesh(geometry, material)
-  pickHelper.position.set(0.1, 0.8, 1)
+  pickHelper.position.set(-0.05, 0.6, 1)
   pickHelper.name = 'pickHelper'
   return pickHelper
 }

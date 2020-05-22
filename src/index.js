@@ -27,9 +27,10 @@ window.addEventListener('statechange', state => {
 
 function ecobeeTransition () {
   var tl = gsap.timeline()
-  tl.to('.home', { left: '-19%', duration: 2, ease: Power1.easeOut })
-  tl.to('.home-copy', { opacity: 0, duration: 2, ease: Power1.easeOut }, 0)
-  tl.to('.home-background', { opacity: 0, duration: 2, ease: Power1.easeOut }, 0)
+  tl.to('.home-chest', { left: '-20%', duration: 2, ease: Power1.easeOut })
+  tl.to('.home-copy', { left: '-20%', opacity: 0, duration: 2, ease: Power1.easeOut }, 0)
+  tl.to('.home-background', { left: '-100%', duration: 2, ease: Power1.easeOut }, 0)
   tl.to('.main', { backgroundColor: '#5dbe7b', duration: 2, ease: Power1.easeOut }, 0.5)
+  tl.to('.ecobee-title', { opacity: 1, duration: 2, ease: Power1.easeOut }, 1)
   tl.play()
 }

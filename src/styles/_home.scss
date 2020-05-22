@@ -11,13 +11,13 @@ body {
 .home-background {
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 200vw;
   height: 100vh;
   position: absolute;
   &:before {
     content: '';
     display: block;
-    background-image: linear-gradient(rgba(black,0) 0%, rgba(black,1) 92%, rgba(black,0) 100%);
+    background-image: linear-gradient(to bottom, rgba(black,0) 0%, rgba(black,1) 92%, rgba(black,0) 100%);
     opacity: 10%;
     width: 100%;
     height: 270px;
@@ -33,7 +33,7 @@ body {
     top: 0;
     left: 0;
     background-image: linear-gradient(to right, white, rgba(white, 0));
-    width: 100%;
+    width: 50%;
     height: 100%;
   }
   @media (max-width: $bp) {
@@ -63,6 +63,8 @@ body {
   padding-left: 10%;
   padding-right: 5%;
   padding-bottom: 60px;
+  position: relative;
+  z-index: 2;
   @media (max-width: $bp) {
     width: 100%;
     height: 50%;
@@ -77,6 +79,8 @@ body {
   display: flex;
   justify-content: center;
   padding-right: 10%;
+  position: relative;
+  z-index: 2;
   @media (max-width: $bp) {
     order: -1;
     width: 100%;
@@ -105,6 +109,7 @@ body {
   margin-left: -30px;
   margin-top: -30px;
   opacity: 0;
+  z-index: 3;
 }
 
 @keyframes pulse {
@@ -126,4 +131,14 @@ body {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   animation-name: pulse;
+}
+
+.ecobee-title {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  z-index: 1;
+  color: #eeff97;
+  opacity: 0;
 }
