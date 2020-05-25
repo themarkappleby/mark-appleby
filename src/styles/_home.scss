@@ -164,6 +164,17 @@ body.scene--ecobee {
   margin-bottom: 36px;
 }
 
+.project-preview {
+  max-width: 510px;
+  height: 300px;
+  overflow: hidden;
+  border: 2px solid black;
+  background: #3c648c;
+  img {
+    margin-top: 150px;
+  }
+}
+
 .contact {
   padding-bottom: 500px;
 }

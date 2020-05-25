@@ -1,9 +1,12 @@
 import gsap, { Power1 } from 'gsap'
+import Rellax from 'rellax'
 import './styles/styles.scss'
 import initState from './utils/state'
 import initChest from './chest'
 import initLogoEmitter from './logoEmitter'
 initState()
+
+var rellax = new Rellax('.rellax')
 
 // Debug value to instantly start on specific scene
 const START_SCENE = 'ecobee'

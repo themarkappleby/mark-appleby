@@ -3418,6 +3418,7 @@ fsevents@^1.2.7:
     gsap: ^3.2.0
     node-sass: ^4.13.1
     pnp-webpack-plugin: ^1.6.0
+    rellax: ^1.12.1
     sass-loader: ^8.0.2
     style-loader: ^1.1.3
     three: ^0.116.1
@@ -4850,6 +4851,13 @@ fsevents@^1.2.7:
     define-properties: ^1.1.3
     es-abstract: ^1.17.0-next.1
   checksum: 5abd9f4cd3899eff74a409e8f662fc095853f42d8229f232b1d86bc8ac6885eba21ea80ef0f1a7fa0ebaf441775caaf39bebca6d4a772eb56a0c20f9ef0ee65f
+  languageName: node
+  linkType: hard
+
+"rellax@npm:^1.12.1":
+  version: 1.12.1
+  resolution: "rellax@npm:1.12.1"
+  checksum: 3409fbdd80cc15aafbab560e5e09308b70a5c1cffb5b0957d6137659476865d85152e0baf43cfc7d9bdf2475a7d5b720462e66e4c7d2a9d9f020222abd7e34ab
   languageName: node
   linkType: hard
 
