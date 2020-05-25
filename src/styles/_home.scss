@@ -176,7 +176,9 @@ body.scene--ecobee {
   border: 8px solid #1d7d16;
   background: #3c648c;
   margin-top: 100px;
-  box-shadow: 0 0 200px rgba(white, 0.5);
+  margin-right: 60px;
+  box-shadow: 0 0 300px rgba(white, 0.8);
+  transform: perspective(1000px) rotateY(-20deg);
   img {
     margin-top: 50px;
   }
@@ -204,5 +206,12 @@ body.scene--ecobee {
   }
   &-item {
     margin-bottom: 25px;
+    a {
+      transition: color 0.2s ease-in-out;
+      text-decoration: none;
+      &:hover {
+        color: #5dbe7b;
+      }
+    }
   }
 }
