@@ -1,11 +1,15 @@
 body {
-  overflow: hidden;
-  /* NOTE: This is likely a temporary solution. At the moment,
-  it is needed due to the logo emitter on the homepage. When
-  a logo reaches beyond the height of the viewport a scrollbar
-  appears which causes the homepage text to narrow and thus
-  results in a flickering additional line-break.
-  */
+  overflow-x: hidden;
+}
+
+body.scene--loading,
+body.scene--intro {
+  overflow-y: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .home-background {
@@ -61,7 +65,7 @@ body {
 .home-copy {
   width: 50%;
   padding-left: 10%;
-  padding-right: 5%;
+  padding-right: 3%;
   padding-bottom: 60px;
   position: relative;
   z-index: 2;
@@ -133,6 +137,14 @@ body {
   animation-name: pulse;
 }
 
+/*
+body.scene--ecobee {
+  transition: background 2s ease-out;
+  transition-delay: 0.5s;
+  background-color: #5dbe7b;
+}
+*/
+
 .ecobee-title {
   position: absolute;
   top: 38%;
@@ -141,4 +153,17 @@ body {
   z-index: 1;
   color: #eeff97;
   opacity: 0;
+}
+
+.project {
+  color: white;
+  padding-bottom: 500px;
+}
+
+.project-logo {
+  margin-bottom: 36px;
+}
+
+.contact {
+  padding-bottom: 500px;
 }

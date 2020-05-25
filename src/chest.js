@@ -16,14 +16,20 @@ function init (params) {
     initScene(gltf.scene)
     initAnimations(gltf.animations)
     render()
-    animations.intro.play()
-    animations.hover.play()
-    animations.hover.weight = 0
-    window.setTimeout(() => {
-      animations.intro.fadeOut(1)
-      scene.add(initPickHelper())
+    if (params.instant) {
+      animations.ecobee.timeScale = 100
+      animations.ecobee.play()
       initMouseTracking()
-    }, 1000)
+    } else {
+      animations.intro.play()
+      animations.hover.play()
+      animations.hover.weight = 0
+      window.setTimeout(() => {
+        animations.intro.fadeOut(1)
+        scene.add(initPickHelper())
+        initMouseTracking()
+      }, 1000)
+    }
   })
 }
 
