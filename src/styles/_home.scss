@@ -175,6 +175,8 @@ body.scene--ecobee {
   overflow: hidden;
   border: 8px solid #1d7d16;
   background: #3c648c;
+  margin-top: 100px;
+  box-shadow: 0 0 200px rgba(white, 0.5);
   img {
     margin-top: 50px;
   }
@@ -182,4 +184,25 @@ body.scene--ecobee {
 
 .contact {
   padding-bottom: 500px;
+}
+
+.grid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  background: white;
+  color: black;
+  display: flex;
+  margin-top: 200px;
+  &-image {
+    object-fit: cover;
+  }
+  &-content {
+    padding: 90px 135px;
+  }
+  &-item {
+    margin-bottom: 25px;
+  }
 }
