@@ -9,8 +9,8 @@ initState()
 Rellax('.rellax')
 
 // Debug value to instantly start on specific scene
-// const START_SCENE = null
-const START_SCENE = 'ecobee'
+const START_SCENE = null
+// const START_SCENE = 'ecobee'
 
 window.addEventListener('statechange', state => {
   if (state.name === 'scene' && state.value === 'ecobee') {
@@ -20,13 +20,14 @@ window.addEventListener('statechange', state => {
 
 if (START_SCENE) {
   window.state.set('scene', START_SCENE)
+  gsap.to('.loading', { opacity: 0, duration: 0 })
+  chestIntro()
 } else {
   window.state.set('scene', 'loading')
+  introTransition(chestIntro)
 }
 
-gsap.to('.loading', { opacity: 0, duration: START_SCENE ? 0 : 2 })
-
-window.setTimeout(() => {
+function chestIntro () {
   if (!START_SCENE) {
     window.scrollTo(0, 0)
     window.state.set('scene', 'intro')
@@ -36,9 +37,18 @@ window.setTimeout(() => {
     canvas: document.querySelector('.home-canvas'),
     instant: START_SCENE
   })
-}, 1000)
+}
 
 initLogoEmitter()
+
+function introTransition (cb) {
+  var tl = gsap.timeline()
+  tl.to('.loading', { opacity: 0, duration: 0 })
+  tl.from('.home-title', { opacity: 0, duration: 2 })
+  tl.from('.home-text', { opacity: 0, duration: 2 }, '-=0.75')
+  tl.from('.home-background', { opacity: 0, duration: 2 }, '-=1.5')
+  window.setTimeout(cb, 1700)
+}
 
 function ecobeeTransition () {
   var tl = gsap.timeline()
