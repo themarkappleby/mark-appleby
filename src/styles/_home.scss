@@ -8,7 +8,8 @@ body.scene--intro {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1150px;
+  padding: 0 20px;
   margin: 0 auto;
 }
 
@@ -160,6 +161,10 @@ body.scene--ecobee {
   padding-bottom: 500px;
 }
 
+.project-intro {
+  max-width: 385px;
+}
+
 .project-logo {
   margin-bottom: 36px;
 }
@@ -168,10 +173,10 @@ body.scene--ecobee {
   max-width: 510px;
   height: 300px;
   overflow: hidden;
-  border: 2px solid black;
+  border: 8px solid #1d7d16;
   background: #3c648c;
   img {
-    margin-top: 150px;
+    margin-top: 50px;
   }
 }
 
