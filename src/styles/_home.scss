@@ -102,7 +102,7 @@ body {
     .hero-title {
       color: #eeff97;
     }
-    .project-preview {
+    .project-previewFrame {
       border-color: #1d7d16;
     }
     .item:hover {
@@ -114,7 +114,7 @@ body {
     .hero-title {
       color: #ffe0c2;
     }
-    .project-preview {
+    .project-previewFrame {
       border-color: #322121;
     }
     .item:hover {
@@ -126,7 +126,7 @@ body {
     .hero-title {
       color: #5abed7;
     }
-    .project-preview {
+    .project-previewFrame {
       border-color: #322121;
     }
     .item:hover {
@@ -188,25 +188,47 @@ body {
 }
 
 .project {
+  margin-top: 80px;
   &-intro {
     max-width: 385px;
+    position: relative;
+    z-index: 2;
   }
   &-logo {
     margin-bottom: 36px;
   }
   &-preview {
-    max-width: 510px;
-    height: 300px;
-    overflow: hidden;
-    border-width: 8px;
-    border-style: solid;
-    background: black;
     margin-top: 100px;
     margin-right: 60px;
-    box-shadow: 0 0 300px rgba(white, 0.8);
-    transform: perspective(1000px) rotateY(-20deg);
-    img {
-      margin-top: 50px;
+    position: relative;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 33%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1000px;
+      height: 600px;
+      background-image: url('/assets/living-room.jpg');
+      background-size: cover;
+      background-position: center center;
+      opacity: 0.5;
+      filter: blur(2px);
+      box-shadow: 150px 150px 100px 0 #5dbe7b inset, -150px -150px 100px 0 #5dbe7b inset;
+    }
+    &Frame {
+      max-width: 510px;
+      height: 300px;
+      overflow: hidden;
+      border-width: 8px;
+      border-style: solid;
+      background-color: white;
+      box-shadow: 0 0 300px rgba(white, 0.8);
+      transform: perspective(1000px) rotateY(-20deg);
+      img {
+        margin-top: 100px;
+      }
     }
   }
 }
@@ -236,6 +258,7 @@ body {
 
 .gradient-background {
   padding: 200px 0;
+  margin-top: 50px;
   background-image: linear-gradient(to bottom, rgba(white, 0), white 90%);
 }
 

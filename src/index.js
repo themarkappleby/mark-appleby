@@ -73,9 +73,9 @@ function ecobeeTransition () {
   }, START_SCENE ? 0 : 0.5)
   tl.to('.ecobee .hero-title', {
     opacity: 1,
-    duration: START_SCENE ? 0 : 2,
+    duration: START_SCENE ? 0 : 3,
     ease: Power1.easeOut
-  }, START_SCENE ? 0 : 1)
+  }, START_SCENE ? 0 : 2)
   tl.play()
 }
 
