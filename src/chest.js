@@ -8,8 +8,7 @@ const FRAME_RATE = 20 / 1000
 let renderer, canvas, camera, scene, animations, target, targetWeight, mouse
 
 function init (params) {
-  canvas = params.canvas
-  initRenderer()
+  initRenderer(params.container)
   initCamera()
   initResizeTracking()
   loadGLTF(params.file, gltf => {
@@ -33,19 +32,20 @@ function init (params) {
   })
 }
 
-function initRenderer () {
+function initRenderer (container) {
   renderer = new THREE.WebGLRenderer({
-    canvas,
     alpha: true,
     antialias: true
   })
-  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
+  renderer.setSize(container.offsetWidth, container.offsetHeight, false)
   renderer.shadowMap.enabled = true
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
   renderer.toneMapping = THREE.LinearToneMapping
   renderer.toneMappingExposure = 2.5
   renderer.setPixelRatio(window.devicePixelRatio)
+  canvas = renderer.domElement
+  container.appendChild(canvas)
 }
 
 function initCamera () {

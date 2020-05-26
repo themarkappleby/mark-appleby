@@ -1,3 +1,5 @@
+/* global IntersectionObserver */
+
 import gsap, { Power1 } from 'gsap'
 import Rellax from 'rellax'
 import './styles/styles.scss'
@@ -34,7 +36,7 @@ function chestIntro () {
   }
   initChest({
     file: 'assets/chest.glb',
-    canvas: document.querySelector('.ecobee .hero-chest'),
+    container: document.querySelector('.ecobee .hero-chest'),
     instant: START_SCENE
   })
 }
@@ -60,6 +62,7 @@ function ecobeeTransition () {
   })
   tl.to('.ecobee .hero-chest', {
     left: '-25%',
+    marginLeft: 0,
     duration: START_SCENE ? 0 : 2,
     ease: Power1.easeOut
   }, 0)
@@ -75,3 +78,15 @@ function ecobeeTransition () {
   }, START_SCENE ? 0 : 1)
   tl.play()
 }
+
+const observer = new IntersectionObserver((e) => {
+  e.forEach(item => {
+    if (item.isIntersecting) {
+      const canvas = document.querySelector('.hero-chest canvas')
+      item.target.appendChild(canvas)
+    }
+  })
+})
+
+observer.observe(document.querySelector('.ecobee .hero-chest'))
+observer.observe(document.querySelector('.audi .hero-chest'))
