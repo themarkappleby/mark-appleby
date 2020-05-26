@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6, p,
 h1, .h1 {
   font-size: 300px;
   font-weight: 900;
+  line-height: 0;
   @media (max-width: $bp) {
     display: none;
   }
