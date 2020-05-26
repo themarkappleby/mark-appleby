@@ -146,6 +146,12 @@ body.scene--ecobee {
 }
 */
 
+/*
+.project.ecboee {
+  background-color: #5dbe7b;
+}
+*/
+
 .ecobee-title {
   position: absolute;
   top: 38%;
@@ -197,7 +203,7 @@ body.scene--ecobee {
   background: white;
   color: black;
   display: flex;
-  margin-top: 200px;
+  box-shadow: 0 0 120px rgba(black, 0.2);
   &-image {
     object-fit: cover;
   }
@@ -213,5 +219,29 @@ body.scene--ecobee {
         color: #5dbe7b;
       }
     }
+  }
+}
+
+.gradient-background {
+  padding: 200px 0;
+  background-image: linear-gradient(to bottom, rgba(white, 0), white 90%);
+}
+
+.badges {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  .badge {
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    font-size: 38px;
+    font-weight: 800;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 50%;
+    background: #e4e4e4;
+    margin: 0 16px;
   }
 }

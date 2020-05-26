@@ -9,8 +9,8 @@ initState()
 Rellax('.rellax')
 
 // Debug value to instantly start on specific scene
-const START_SCENE = null
-// const START_SCENE = 'ecobee'
+// const START_SCENE = null
+const START_SCENE = 'ecobee'
 
 window.addEventListener('statechange', state => {
   if (state.name === 'scene' && state.value === 'ecobee') {
