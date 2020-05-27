@@ -75,3 +75,26 @@
   animation-fill-mode: both;
   animation-name: pulse;
 }
+
+@media (max-width: 1050px) {
+  .ecobee {
+    .hero {
+      flex-direction: column-reverse;
+    }
+    .hero-chest {
+      width: 100vw;
+      height: 60vh;
+      margin-left: 0;
+    }
+  }
+  .home {
+    width: 100vw;
+    height: 40vh;
+  }
+  .home-copy {
+    padding: 0 30px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+}

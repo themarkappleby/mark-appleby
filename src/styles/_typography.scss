@@ -31,9 +31,6 @@ h1, .h1 {
   font-size: 300px;
   font-weight: 900;
   line-height: 0;
-  @media (max-width: $bp) {
-    display: none;
-  }
 }
 
 h2, .h2 {
@@ -41,8 +38,7 @@ h2, .h2 {
   font-weight: 900;
   line-height: 54px;
   margin-bottom: 21px;
-  @media (max-width: $bp) {
-    display: block;
+  @media (max-width: 600px) {
     font-size: 28px;
     line-height: 37px;
   }
