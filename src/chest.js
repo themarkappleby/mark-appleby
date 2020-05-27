@@ -15,6 +15,10 @@ function init (params, cb) {
   loadGLTF(params.file, gltf => {
     initScene(gltf.scene)
     initAnimations(gltf.animations)
+    if (window.state.scene !== 'loading') {
+      scene.add(initPickHelper())
+      initMouseTracking()
+    }
     render()
     animations.intro.play()
     animations.intro.paused = true
@@ -43,12 +47,7 @@ function gotoAndPlay (animation) {
 }
 
 function gotoAndStop (animation, end) {
-  // TODO only initialize these if they haven't already been initialized
-  scene.add(initPickHelper())
-  initMouseTracking()
-
-  animations.intro.stop()
-  animations.hover.stop()
+  scene.mixer.stopAllAction()
   if (end) {
     animations[animation].timeScale = 100
     animations[animation].play()
@@ -146,7 +145,7 @@ function mouseClickTracking () {
   window.addEventListener('click', event => {
     mouse = getRelativeMousePosition(event)
     const pickHelper = scene.getObjectByName('pickHelper')
-    if (pickHelper && window.state.scene === 'intro') {
+    if (pickHelper) {
       raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
       var intersects = raycaster.intersectObjects([pickHelper])
       if (intersects.length) {

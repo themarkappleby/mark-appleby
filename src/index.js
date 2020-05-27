@@ -12,7 +12,7 @@ let chest = null
 const transitions = {}
 
 initState({
-  scene: 'loading' // default is 'loading'
+  scene: 'ecobee' // default is 'loading'
 })
 
 loadChest(loaded)
@@ -30,8 +30,13 @@ function loaded () {
 }
 
 function chestClickHandler () {
-  if (window.state.scene === 'intro') {
-    transitions.ecobee()
+  switch (window.state.scene) {
+    case 'intro':
+      transitions.ecobee()
+      break
+    case 'ecobee':
+      transitions.audi()
+      break
   }
 }
 
@@ -86,12 +91,38 @@ transitions.ecobee = instant => {
   window.state.set('scene', 'ecobee')
 }
 
+transitions.audi = instant => {
+  chest.gotoAndPlay('intro') // TODO audi
+  var tl = gsap.timeline()
+  tl.to('.audi .hero-white', {
+    opacity: 0,
+    duration: 2,
+    ease: Power1.easeOut
+  }, 0.5)
+  tl.to('.audi .hero-title', {
+    opacity: 1,
+    duration: instant ? 0 : 3,
+    ease: Power1.easeOut
+  }, instant ? 0 : 2)
+  tl.play()
+  if (instant) tl.totalProgress(1)
+  window.state.set('scene', 'audi')
+}
+
 function initChestObserver () {
   const observer = new IntersectionObserver((e) => {
     e.forEach(item => {
       if (item.isIntersecting) {
         if (chest && chest.canvas) {
+          const section = item.target.dataset.section
           item.target.appendChild(chest.canvas)
+          if (window.state.scene === 'ecobee') {
+            if (section === 'ecobee') {
+              chest.gotoAndStop('ecobee', true)
+            } else if (section === 'audi') {
+              chest.gotoAndStop('intro', true)
+            }
+          }
         }
       }
     })
