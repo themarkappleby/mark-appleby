@@ -3,103 +3,114 @@
 import gsap, { Power1 } from 'gsap'
 import Rellax from 'rellax'
 import './styles/styles.scss'
+import './logoEmitter'
+import './utils/screenSize'
 import initState from './utils/state'
 import initChest from './chest'
-import initLogoEmitter from './logoEmitter'
-initState()
 
-Rellax('.rellax')
+let chest = null
+const transitions = {}
 
-// Debug value to instantly start on specific scene
-const START_SCENE = null
-// const START_SCENE = 'ecobee'
-
-window.addEventListener('statechange', state => {
-  if (state.name === 'scene' && state.value === 'ecobee') {
-    ecobeeTransition()
-  }
+initState({
+  scene: 'loading' // default is 'loading'
 })
 
-if (START_SCENE) {
-  window.state.set('scene', START_SCENE)
-  gsap.to('.loading', { opacity: 0, duration: 0 })
-  chestIntro()
-} else {
-  window.state.set('scene', 'loading')
-  introTransition(chestIntro)
-}
+loadChest(loaded)
 
-function chestIntro () {
-  if (!START_SCENE) {
+function loaded () {
+  if (window.state.scene === 'loading') {
     window.scrollTo(0, 0)
-    window.state.set('scene', 'intro')
+    transitions.intro()
+  } else {
+    document.querySelector('.loading').style.opacity = 0
+    transitions[window.state.scene](true)
   }
-  initChest({
-    file: 'assets/chest.glb',
-    container: document.querySelector('.ecobee .hero-chest'),
-    instant: START_SCENE
-  })
+  initChestObserver()
+  Rellax()
 }
 
-initLogoEmitter()
+function chestClickHandler () {
+  if (window.state.scene === 'intro') {
+    transitions.ecobee()
+  }
+}
 
-function introTransition (cb) {
+transitions.intro = instant => {
+  if (instant) {
+    chest.gotoAndStop('intro', true)
+  } else {
+    window.setTimeout(() => {
+      chest.gotoAndPlay('intro')
+    }, 1700)
+  }
   var tl = gsap.timeline()
   tl.to('.loading', { opacity: 0, duration: 0 })
   tl.from('.home-title', { opacity: 0, duration: 2 })
   tl.from('.home-text', { opacity: 0, duration: 2 }, '-=0.75')
   tl.from('.ecobee .hero-horizon', { opacity: 0, duration: 2 }, '-=1.5')
-  window.setTimeout(cb, 1700)
+  if (instant) tl.totalProgress(1)
+  window.state.set('scene', 'intro')
 }
 
-function ecobeeTransition () {
+transitions.ecobee = instant => {
+  if (instant) {
+    chest.gotoAndStop('ecobee', true)
+  } else {
+    chest.gotoAndPlay('ecobee')
+  }
   var tl = gsap.timeline()
   tl.to('.home', {
     left: '-25%',
     opacity: 0,
-    duration: START_SCENE ? 0 : 2,
+    duration: 2,
     ease: Power1.easeOut
   })
   tl.to('.ecobee .hero-chest', {
     left: '-25%',
     marginLeft: 0,
-    duration: START_SCENE ? 0 : 2,
+    duration: 2,
     ease: Power1.easeOut
   }, 0)
   tl.to('.ecobee .hero-white', {
     opacity: 0,
-    duration: START_SCENE ? 0 : 2,
+    duration: 2,
     ease: Power1.easeOut
-  }, START_SCENE ? 0 : 0.5)
+  }, 0.5)
   tl.to('.ecobee .hero-title', {
     opacity: 1,
-    duration: START_SCENE ? 0 : 3,
+    duration: instant ? 0 : 3,
     ease: Power1.easeOut
-  }, START_SCENE ? 0 : 2)
+  }, instant ? 0 : 2)
   tl.play()
+  if (instant) tl.totalProgress(1)
+  window.state.set('scene', 'ecobee')
 }
 
-const observer = new IntersectionObserver((e) => {
-  e.forEach(item => {
-    if (item.isIntersecting) {
-      const canvas = document.querySelector('.hero-chest canvas')
-      if (canvas) {
-        item.target.appendChild(canvas)
+function initChestObserver () {
+  const observer = new IntersectionObserver((e) => {
+    e.forEach(item => {
+      if (item.isIntersecting) {
+        if (chest && chest.canvas) {
+          item.target.appendChild(chest.canvas)
+        }
       }
+    })
+  })
+  observer.observe(document.querySelector('.ecobee .hero-chest'))
+  observer.observe(document.querySelector('.audi .hero-chest'))
+}
+
+function loadChest (cb) {
+  initChest({
+    file: 'assets/chest.glb',
+    container: document.querySelector('.ecobee .hero-chest'),
+    onClick: chestClickHandler
+  }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      chest = data
+      cb()
     }
   })
-})
-
-observer.observe(document.querySelector('.ecobee .hero-chest'))
-observer.observe(document.querySelector('.audi .hero-chest'))
-
-function displaySize (e) {
-  const width = window.innerWidth
-  const height = window.innerHeight
-  sizeDisplay.innerText = `${width}  /  ${height}`
-}
-const sizeDisplay = document.getElementById('size')
-if (sizeDisplay) {
-  window.addEventListener('resize', displaySize)
-  window.addEventListener('load', displaySize)
 }

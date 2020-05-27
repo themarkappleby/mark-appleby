@@ -5,9 +5,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const FRAME_RATE = 20 / 1000
 
-let renderer, canvas, camera, scene, animations, target, targetWeight, mouse
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, clickHandler
 
-function init (params) {
+function init (params, cb) {
+  clickHandler = params.onClick
   initRenderer(params.container)
   initCamera()
   initResizeTracking()
@@ -15,21 +16,46 @@ function init (params) {
     initScene(gltf.scene)
     initAnimations(gltf.animations)
     render()
-    if (params.instant) {
-      animations.ecobee.timeScale = 100
-      animations.ecobee.play()
-      initMouseTracking()
-    } else {
-      animations.intro.play()
-      animations.hover.play()
-      animations.hover.weight = 0
-      window.setTimeout(() => {
-        animations.intro.fadeOut(1)
-        scene.add(initPickHelper())
-        initMouseTracking()
-      }, 1000)
-    }
+    animations.intro.play()
+    animations.intro.paused = true
+    cb(null, {
+      canvas,
+      gotoAndPlay,
+      gotoAndStop
+    })
   })
+}
+
+function gotoAndPlay (animation) {
+  if (animation === 'intro') {
+    animations.intro.paused = false
+    animations.hover.play()
+    animations.hover.weight = 0
+    window.setTimeout(() => {
+      animations.intro.fadeOut(1)
+      scene.add(initPickHelper())
+      initMouseTracking()
+    }, 1000)
+  } else {
+    animations[animation].play()
+    animations.hover.fadeOut(0.5)
+  }
+}
+
+function gotoAndStop (animation, end) {
+  // TODO only initialize these if they haven't already been initialized
+  scene.add(initPickHelper())
+  initMouseTracking()
+
+  animations.intro.stop()
+  animations.hover.stop()
+  if (end) {
+    animations[animation].timeScale = 100
+    animations[animation].play()
+  } else {
+    animations[animation].reset()
+    animations[animation].stop()
+  }
 }
 
 function initRenderer (container) {
@@ -124,9 +150,7 @@ function mouseClickTracking () {
       raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
       var intersects = raycaster.intersectObjects([pickHelper])
       if (intersects.length) {
-        animations.ecobee.play()
-        animations.hover.crossFadeTo(animations.ecobee, 0.5)
-        window.state.set('scene', 'ecobee')
+        clickHandler()
       }
     }
   })

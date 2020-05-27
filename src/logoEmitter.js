@@ -86,4 +86,4 @@ function step () {
   }
 }
 
-export default init
+init()
