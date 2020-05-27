@@ -41,19 +41,26 @@ function gotoAndPlay (animation) {
       initMouseTracking()
     }, 1000)
   } else {
-    animations[animation].play()
+    if (animations[animation].paused) {
+      animations[animation].paused = false
+    } else {
+      animations[animation].play()
+    }
     animations.hover.fadeOut(0.5)
   }
 }
 
 function gotoAndStop (animation, end) {
   scene.mixer.stopAllAction()
+  // TODO fix hover, not working for Audi chest currently
+  animations.hover.fadeIn(0.5)
   if (end) {
     animations[animation].timeScale = 100
     animations[animation].play()
   } else {
     animations[animation].reset()
-    animations[animation].stop()
+    animations[animation].play()
+    animations[animation].paused = true
   }
 }
 
@@ -206,6 +213,9 @@ function initAnimations (clips) {
   animations.ecobee = getClipAction('ecobee', clips)
   animations.ecobee.setLoop(THREE.LoopOnce)
   animations.ecobee.clampWhenFinished = true
+  animations.audi = getClipAction('audi', clips)
+  animations.audi.setLoop(THREE.LoopOnce)
+  animations.audi.clampWhenFinished = true
 }
 
 function getClipAction (name, clips) {
@@ -221,7 +231,7 @@ function render () {
     target.z -= (target.z - 8) * 0.04
     chest.lookAt(target)
   }
-  if (targetWeight !== undefined && window.state.scene === 'intro') {
+  if (targetWeight !== undefined) {
     animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
   }
   scene.mixer.update(FRAME_RATE)

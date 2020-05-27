@@ -12,7 +12,7 @@ let chest = null
 const transitions = {}
 
 initState({
-  scene: 'ecobee' // default is 'loading'
+  scene: 'loading' // default is 'loading'
 })
 
 loadChest(loaded)
@@ -92,7 +92,7 @@ transitions.ecobee = instant => {
 }
 
 transitions.audi = instant => {
-  chest.gotoAndPlay('intro') // TODO audi
+  chest.gotoAndPlay('audi') // TODO audi
   var tl = gsap.timeline()
   tl.to('.audi .hero-white', {
     opacity: 0,
@@ -120,7 +120,7 @@ function initChestObserver () {
             if (section === 'ecobee') {
               chest.gotoAndStop('ecobee', true)
             } else if (section === 'audi') {
-              chest.gotoAndStop('intro', true)
+              chest.gotoAndStop('audi')
             }
           }
         }
