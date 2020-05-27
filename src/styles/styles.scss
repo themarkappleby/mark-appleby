@@ -12,5 +12,29 @@ html, body {
 
 $bp: 768px;
 
+body {
+  overflow-x: hidden;
+  &.scene--loading,
+  &.scene--intro {
+    overflow-y: hidden;
+  }
+}
+
+.container {
+  max-width: 1150px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: flex;
+  justify-content: space-between;
+}
+
 @import 'typography';
 @import 'home';
+@import 'hero';
+@import 'project';
+@import 'card';
+@import 'badges';
+@import 'sections';
