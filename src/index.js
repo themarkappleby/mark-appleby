@@ -83,10 +83,23 @@ const observer = new IntersectionObserver((e) => {
   e.forEach(item => {
     if (item.isIntersecting) {
       const canvas = document.querySelector('.hero-chest canvas')
-      item.target.appendChild(canvas)
+      if (canvas) {
+        item.target.appendChild(canvas)
+      }
     }
   })
 })
 
 observer.observe(document.querySelector('.ecobee .hero-chest'))
 observer.observe(document.querySelector('.audi .hero-chest'))
+
+function displaySize (e) {
+  const width = window.innerWidth
+  const height = window.innerHeight
+  sizeDisplay.innerText = `${width}  /  ${height}`
+}
+const sizeDisplay = document.getElementById('size')
+if (sizeDisplay) {
+  window.addEventListener('resize', displaySize)
+  window.addEventListener('load', displaySize)
+}
