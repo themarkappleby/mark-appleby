@@ -3332,6 +3332,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"lottie-web@npm:^5.6.10":
+  version: 5.6.10
+  resolution: "lottie-web@npm:5.6.10"
+  checksum: 6db2e96a384f9afd696eeeb94d75605d7cbb7bd47313267e7f04c7e85fbcf4167069abfe455d65cfd4b480a9cc8f348939d3d06d92a5d4606cde0371997e61c2
+  languageName: node
+  linkType: hard
+
 "loud-rejection@npm:^1.0.0":
   version: 1.6.0
   resolution: "loud-rejection@npm:1.6.0"
@@ -3416,6 +3423,7 @@ fsevents@^1.2.7:
   dependencies:
     css-loader: ^3.4.2
     gsap: ^3.2.0
+    lottie-web: ^5.6.10
     node-sass: ^4.13.1
     pnp-webpack-plugin: ^1.6.0
     rellax: ^1.12.1

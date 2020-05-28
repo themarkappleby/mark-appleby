@@ -1,6 +1,7 @@
 /* global IntersectionObserver */
 
 import gsap, { Power1 } from 'gsap'
+import lottie from 'lottie-web'
 import Rellax from 'rellax'
 import './styles/styles.scss'
 import './logoEmitter'
@@ -117,12 +118,18 @@ function initChestObserver () {
       if (item.isIntersecting) {
         if (chest && chest.canvas) {
           const section = item.target.dataset.section
-          item.target.appendChild(chest.canvas)
-          if (window.state.scene === 'ecobee') {
-            if (section === 'ecobee') {
-              chest.gotoAndStop('ecobee', true)
-            } else if (section === 'audi') {
-              chest.gotoAndStop('audi')
+          if (section === 'footer') {
+            window.setTimeout(() => {
+              lottie.play()
+            }, 500)
+          } else {
+            item.target.appendChild(chest.canvas)
+            if (window.state.scene === 'ecobee') {
+              if (section === 'ecobee') {
+                chest.gotoAndStop('ecobee', true)
+              } else if (section === 'audi') {
+                chest.gotoAndStop('audi')
+              }
             }
           }
         }
@@ -133,6 +140,7 @@ function initChestObserver () {
   observer.observe(document.querySelector('.audi .hero-chest'))
   observer.observe(document.querySelector('.worldvision .hero-chest'))
   observer.observe(document.querySelector('.contact .hero-chest'))
+  observer.observe(document.querySelector('.footer-logo'))
 }
 
 function loadChest (cb) {
@@ -149,3 +157,11 @@ function loadChest (cb) {
     }
   })
 }
+
+lottie.loadAnimation({
+  container: document.querySelector('.footer-logo'),
+  renderer: 'svg',
+  loop: false,
+  autoplay: false,
+  path: '/assets/logos/appleby.json'
+})
