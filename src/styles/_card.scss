@@ -5,6 +5,8 @@
   box-shadow: 0 0 120px rgba(black, 0.2);
   &-image {
     object-fit: cover;
+    object-position: center center;
+    width: 34%;
   }
   &-content {
     padding: 90px 135px;
@@ -25,7 +27,8 @@
   .card {
     flex-direction: column;
     &-image {
-      height: 240px;
+      height: 270px;
+      width: 100%;
     }
   }
 }

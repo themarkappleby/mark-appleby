@@ -12,7 +12,7 @@ let chest = null
 const transitions = {}
 
 initState({
-  scene: 'loading' // default is 'loading'
+  scene: 'ecobee' // default is 'loading'
 })
 
 loadChest(loaded)
@@ -26,7 +26,9 @@ function loaded () {
     transitions[window.state.scene](true)
   }
   initChestObserver()
-  Rellax()
+  Rellax('.rellax', {
+    center: true
+  })
 }
 
 function chestClickHandler () {
@@ -129,6 +131,8 @@ function initChestObserver () {
   })
   observer.observe(document.querySelector('.ecobee .hero-chest'))
   observer.observe(document.querySelector('.audi .hero-chest'))
+  observer.observe(document.querySelector('.worldvision .hero-chest'))
+  observer.observe(document.querySelector('.contact .hero-chest'))
 }
 
 function loadChest (cb) {

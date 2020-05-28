@@ -5,6 +5,9 @@
     .hero-title {
       color: #eeff97;
     }
+    .project-preview:before {
+      background-image: url('/assets/ecobee-background.png');
+    }
     .project-previewFrame {
       border-color: #1d7d16;
     }
@@ -16,6 +19,9 @@
     background-color: #91251e;
     .hero-title {
       color: #ffe0c2;
+    }
+    .project-preview:before {
+      background-image: url('/assets/audi-background.png');
     }
     .project-previewFrame {
       border-color: #322121;
@@ -29,6 +35,9 @@
     .hero-title {
       color: #5abed7;
     }
+    .project-preview:before {
+      background-image: url('/assets/world-vision-background.png');
+    }
     .project-previewFrame {
       border-color: #322121;
     }
@@ -40,6 +49,11 @@
     background-color: #ddaf40;
     .hero-title {
       color: #fff264;
+    }
+    @media (max-width: 960px) {
+      .card-image {
+        object-position: top center;
+      }
     }
   }
 }

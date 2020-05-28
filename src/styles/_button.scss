@@ -1,0 +1,17 @@
+.button {
+  margin-top: 50px;
+  font-size: 25px;
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-block;
+  padding: 25px 60px;
+  color: white;
+  background-color: #5fbe7e;
+  border-radius: 100px;
+  box-shadow: 0 0 24px rgba(black, 0.1);
+  transition: background 0.2s ease-in-out;
+  &:hover, &:focus {
+    color: white;
+    background-color: darken(#5fbe7e, 20);
+  }
+}
