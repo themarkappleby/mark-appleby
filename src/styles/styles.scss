@@ -27,10 +27,6 @@ $bp: 768px;
 
 body {
   overflow-x: hidden;
-  &.scene--loading,
-  &.scene--intro {
-    overflow-y: hidden;
-  }
 }
 
 .container {
@@ -45,6 +41,10 @@ body {
   @media (max-width: 960px) {
     flex-direction: column;
   }
+}
+
+.hide {
+  display: none;
 }
 
 @import 'typography';
