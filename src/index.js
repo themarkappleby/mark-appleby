@@ -12,6 +12,13 @@ import initTransitions from './transitions'
 let chest = null
 let transitions = {}
 
+const SCENE_ORDER = {
+  intro: 'ecobee',
+  ecobee: 'audi',
+  audi: 'worldvision',
+  worldvision: 'contact'
+}
+
 initState({
   scene: 'loading' // default is 'loading'
 })
@@ -35,14 +42,9 @@ function loaded () {
 }
 
 function chestClickHandler () {
-  switch (window.state.scene) {
-    case 'intro':
-      transitions.ecobee()
-      break
-    case 'ecobee':
-      transitions.audi()
-      break
-  }
+  // TODO determine if top chest or bottom chest was clicked
+  const currentScene = window.state.scene
+  transitions[SCENE_ORDER[currentScene]]()
 }
 
 function initChestObserver () {
