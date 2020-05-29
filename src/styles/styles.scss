@@ -27,6 +27,9 @@ $bp: 768px;
 
 body {
   overflow-x: hidden;
+  &.scene--loading, &.scene--intro {
+    overflow-y: hidden;
+  }
 }
 
 .container {
@@ -44,7 +47,7 @@ body {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 @import 'typography';

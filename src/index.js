@@ -1,7 +1,6 @@
 /* global IntersectionObserver */
 
 import lottie from 'lottie-web'
-import Rellax from 'rellax'
 import './styles/styles.scss'
 import './logoEmitter'
 import './utils/screenSize'
@@ -36,9 +35,6 @@ function loaded () {
   }
   initChestObserver()
   loadLogoAnimation()
-  Rellax('.rellax', {
-    center: true
-  })
 }
 
 function chestClickHandler () {
