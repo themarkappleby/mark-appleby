@@ -14,6 +14,7 @@ function init (params, cb) {
   initResizeTracking()
   loadGLTF(params.file, gltf => {
     initScene(gltf.scene)
+    console.log('scene', scene)
     initAnimations(gltf.animations)
     if (window.state.scene !== 'loading') {
       scene.add(initPickHelper())
@@ -74,8 +75,8 @@ function initRenderer (container) {
   renderer.shadowMap.enabled = true
   renderer.outputEncoding = THREE.sRGBEncoding
   renderer.physicallyCorrectLights = true
-  renderer.toneMapping = THREE.LinearToneMapping
-  renderer.toneMappingExposure = 2.5
+  renderer.toneMappingExposure = 2.2
+  renderer.toneMapping = THREE.CineonToneMapping
   renderer.setPixelRatio(window.devicePixelRatio)
   canvas = renderer.domElement
   resize(container)
@@ -85,7 +86,7 @@ function initRenderer (container) {
 function initCamera () {
   camera = new THREE.PerspectiveCamera(50, canvas.offsetWidth / canvas.offsetHeight, 0.01, 30000)
   camera.position.set(0, 0.5, 6.5)
-  camera.fov = 55
+  camera.fov = 60
   camera.updateProjectionMatrix()
 }
 
@@ -98,23 +99,51 @@ function initScene (gltfScene) {
   scene = new THREE.Scene()
   scene.children = gltfScene.children
   scene.traverse(node => { node.castShadow = true })
-  scene.add(initFloor())
-  scene.add(initLight())
+  initCubeMap()
+  initFloor()
+  scene.add(initAmbientLight())
+  scene.add(initShadowLight())
 }
 
 function initFloor () {
-  const geometry = new THREE.PlaneGeometry(10, 10)
+  const floor = scene.getObjectByName('Floor')
   const material = new THREE.ShadowMaterial()
   material.opacity = 0.05
-  const floor = new THREE.Mesh(geometry, material)
   floor.receiveShadow = true
-  floor.position.y = -2
-  floor.rotation.x = THREE.Math.degToRad(-90)
-  floor.name = 'Floor'
-  return floor
+  floor.material = material
 }
 
-function initLight () {
+function initCubeMap () {
+  const loader = new THREE.CubeTextureLoader()
+  const envMap = loader.load([
+    'assets/env/px.png', 'assets/env/nx.png',
+    'assets/env/py.png', 'assets/env/ny.png',
+    'assets/env/pz.png', 'assets/env/nz.png'
+  ])
+  // scene.background = envMap
+  const audiBody = scene.getObjectByName('Audi_Body')
+  audiBody.children.forEach(child => {
+    child.material.envMap = envMap
+    if (child.material.name === 'Clear Plastic' || child.material.name === 'Red Clear Plastic') {
+      child.material.transparent = true
+      child.material.opacity = 0.4
+    }
+  })
+  const audiTires = scene.getObjectByName('Audi_Tires')
+  audiTires.children.forEach(child => {
+    console.log('child', child)
+    child.material.envMap = envMap
+  })
+}
+
+function initAmbientLight () {
+  /*
+  const light = new THREE.AmbientLight(0xffffff, 1)
+  return light
+  */
+}
+
+function initShadowLight () {
   const shadowMapSize = 2
   const light = new THREE.DirectionalLight(0xffffff, 0.01)
   light.position.set(0, 5, 0)

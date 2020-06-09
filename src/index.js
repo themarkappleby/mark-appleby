@@ -19,7 +19,7 @@ const SCENE_ORDER = {
 }
 
 initState({
-  scene: 'ecobee' // default is 'loading'
+  scene: 'loading' // default is 'loading'
 })
 
 loadChest(loaded)
