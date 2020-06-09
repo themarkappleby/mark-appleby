@@ -19,7 +19,7 @@ const SCENE_ORDER = {
 }
 
 initState({
-  scene: 'loading' // default is 'loading'
+  scene: 'ecobee' // default is 'loading'
 })
 
 loadChest(loaded)
@@ -55,6 +55,7 @@ function initChestObserver () {
             }, 500)
           } else {
             item.target.appendChild(chest.canvas)
+            chest.resize()
             if (window.state.scene === 'ecobee') {
               if (section === 'ecobee') {
                 chest.gotoAndStop('ecobee', true)

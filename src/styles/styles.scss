@@ -1,4 +1,4 @@
-#size {
+#size, #actions {
   font-size: 12px;
   line-height: 12px;
   background: white;
@@ -9,6 +9,11 @@
   font-family: monospace;
   padding: 4px;
   z-index: 9999;
+}
+
+#actions {
+  bottom: 20px;
+  text-align: right;
 }
 
 *, *:before, *:after {

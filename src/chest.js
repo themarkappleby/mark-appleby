@@ -25,7 +25,8 @@ function init (params, cb) {
     cb(null, {
       canvas,
       gotoAndPlay,
-      gotoAndStop
+      gotoAndStop,
+      resize
     })
   })
 }
@@ -77,6 +78,7 @@ function initRenderer (container) {
   renderer.toneMappingExposure = 2.5
   renderer.setPixelRatio(window.devicePixelRatio)
   canvas = renderer.domElement
+  resize(container)
   container.appendChild(canvas)
 }
 
@@ -126,11 +128,15 @@ function initLight () {
 }
 
 function initResizeTracking () {
-  window.addEventListener('resize', () => {
+  window.addEventListener('resize', resize)
+}
+
+function resize () {
+  if (camera) {
     camera.aspect = canvas.offsetWidth / canvas.offsetHeight
     camera.updateProjectionMatrix()
-    renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
-  })
+  }
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
 }
 
 function initMouseTracking () {
@@ -225,15 +231,23 @@ function getClipAction (name, clips) {
 
 function render () {
   if (mouse) {
-    const chest = scene.getObjectByName('chest_and_island')
+    const root = scene.getObjectByName('root')
     target.x += (mouse.x - target.x) * 0.04
     target.y += (mouse.y - target.y) * 0.04
     target.z -= (target.z - 8) * 0.04
-    chest.lookAt(target)
+    root.lookAt(target)
   }
   if (targetWeight !== undefined) {
     animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
   }
+  // For DEBUG purposes only
+  let actionsText = ''
+  scene.mixer._actions.forEach(action => {
+    const name = action._clip.name
+    const weight = action.getEffectiveWeight().toFixed(2)
+    actionsText += `${name}: ${weight}<br/>`
+  })
+  document.getElementById('actions').innerHTML = actionsText
   scene.mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
   requestAnimationFrame(render)
