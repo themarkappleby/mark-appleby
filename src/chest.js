@@ -14,7 +14,7 @@ function init (params, cb) {
   initResizeTracking()
   loadGLTF(params.file, gltf => {
     initScene(gltf.scene)
-    console.log('scene', scene)
+    console.log(scene)
     initAnimations(gltf.animations)
     if (window.state.scene !== 'loading') {
       scene.add(initPickHelper())
@@ -71,12 +71,13 @@ function initRenderer (container) {
     alpha: true,
     antialias: true
   })
+  renderer.physicallyCorrectLights = true
+  renderer.outputEncoding = THREE.sRGBEncoding
+
   renderer.setSize(container.offsetWidth, container.offsetHeight, false)
   renderer.shadowMap.enabled = true
-  renderer.outputEncoding = THREE.sRGBEncoding
-  renderer.physicallyCorrectLights = true
+  renderer.toneMapping = THREE.LinearToneMapping
   renderer.toneMappingExposure = 2.2
-  renderer.toneMapping = THREE.CineonToneMapping
   renderer.setPixelRatio(window.devicePixelRatio)
   canvas = renderer.domElement
   resize(container)
@@ -120,7 +121,6 @@ function initCubeMap () {
     'assets/env/py.png', 'assets/env/ny.png',
     'assets/env/pz.png', 'assets/env/nz.png'
   ])
-  // scene.background = envMap
   const audiBody = scene.getObjectByName('Audi_Body')
   audiBody.children.forEach(child => {
     child.material.envMap = envMap
@@ -137,10 +137,8 @@ function initCubeMap () {
 }
 
 function initAmbientLight () {
-  /*
-  const light = new THREE.AmbientLight(0xffffff, 1)
+  const light = new THREE.AmbientLight(0xffffff, 2.2)
   return light
-  */
 }
 
 function initShadowLight () {
