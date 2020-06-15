@@ -69,6 +69,12 @@ function gotoAndStop (animation, end) {
 
 function setWeight (animation, weight) {
   animations[animation].weight = weight
+  if (weight > 0) {
+    animations.hover.fadeOut()
+  } else {
+    animations.hover.reset()
+    animations.hover.play()
+  }
 }
 
 function initRenderer (container) {
@@ -104,7 +110,10 @@ function loadGLTF (path, cb) {
 function initScene (gltfScene) {
   scene = new THREE.Scene()
   scene.children = gltfScene.children
-  scene.traverse(node => { node.castShadow = true })
+  scene.traverse(node => {
+    node.castShadow = true
+    node.frustumCulled = false
+  })
   initCubeMap()
   initFloor()
   scene.add(initAmbientLight())
