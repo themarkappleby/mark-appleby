@@ -14,7 +14,6 @@ function init (params, cb) {
   initResizeTracking()
   loadGLTF(params.file, gltf => {
     initScene(gltf.scene)
-    console.log(scene)
     initAnimations(gltf.animations)
     if (window.state.scene !== 'loading') {
       scene.add(initPickHelper())
@@ -27,6 +26,7 @@ function init (params, cb) {
       canvas,
       gotoAndPlay,
       gotoAndStop,
+      setWeight,
       resize
     })
   })
@@ -48,6 +48,7 @@ function gotoAndPlay (animation) {
     } else {
       animations[animation].play()
     }
+    animations[animation].weight = 1
     animations.hover.fadeOut(0.5)
   }
 }
@@ -64,6 +65,10 @@ function gotoAndStop (animation, end) {
     animations[animation].play()
     animations[animation].paused = true
   }
+}
+
+function setWeight (animation, weight) {
+  animations[animation].weight = weight
 }
 
 function initRenderer (container) {
@@ -131,7 +136,6 @@ function initCubeMap () {
   })
   const audiTires = scene.getObjectByName('Audi_Tires')
   audiTires.children.forEach(child => {
-    console.log('child', child)
     child.material.envMap = envMap
   })
 }
@@ -238,17 +242,34 @@ function getRelativeCanvasPosition (event) {
 function initAnimations (clips) {
   animations = {}
   scene.mixer = new THREE.AnimationMixer(scene)
+
   animations.intro = getClipAction('intro', clips)
   animations.intro.setLoop(THREE.LoopOnce)
   animations.intro.clampWhenFinished = true
+
   animations.hover = getClipAction('hover', clips)
   animations.hover.setLoop(THREE.LoopRepeat)
+
   animations.ecobee = getClipAction('ecobee', clips)
   animations.ecobee.setLoop(THREE.LoopOnce)
   animations.ecobee.clampWhenFinished = true
+  animations.ecobee.play()
+  animations.ecobee.paused = true
+  animations.ecobee.weight = 0
+
   animations.audi = getClipAction('audi', clips)
   animations.audi.setLoop(THREE.LoopOnce)
   animations.audi.clampWhenFinished = true
+  animations.audi.play()
+  animations.audi.paused = true
+  animations.audi.weight = 0
+
+  animations.worldvision = getClipAction('worldvision', clips)
+  animations.worldvision.setLoop(THREE.LoopOnce)
+  animations.worldvision.clampWhenFinished = true
+  animations.worldvision.play()
+  animations.worldvision.paused = true
+  animations.worldvision.weight = 0
 }
 
 function getClipAction (name, clips) {

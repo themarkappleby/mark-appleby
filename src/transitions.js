@@ -84,7 +84,7 @@ function init (chest) {
           rellax.refresh()
         }, 2000)
       }
-      chest.gotoAndPlay('audi') // TODO audi
+      chest.gotoAndPlay('audi')
       var tl = gsap.timeline()
       tl.to('.audi .hero-white', {
         opacity: 0,
@@ -109,7 +109,7 @@ function init (chest) {
       show('.worldvision .section-content')
       show('.contact .hero')
       rellax.refresh()
-      // chest.gotoAndPlay('worldvision') // TODO worldvision
+      chest.gotoAndPlay('worldvision')
       var tl = gsap.timeline()
       tl.to('.worldvision .hero-white', {
         opacity: 0,

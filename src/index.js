@@ -58,9 +58,21 @@ function initChestObserver () {
             chest.resize()
             if (window.state.scene === 'ecobee') {
               if (section === 'ecobee') {
-                chest.gotoAndStop('ecobee', true)
+                chest.setWeight('ecobee', 1)
               } else if (section === 'audi') {
-                chest.gotoAndStop('audi')
+                chest.setWeight('ecobee', 0)
+              }
+            } else if (window.state.scene === 'audi') {
+              if (section === 'audi') {
+                chest.setWeight('audi', 1)
+              } else if (section === 'worldvision') {
+                chest.setWeight('audi', 0)
+              }
+            } else if (window.state.scene === 'worldvision') {
+              if (section === 'worldvision') {
+                chest.setWeight('worldvision', 1)
+              } else if (section === 'contact') {
+                chest.setWeight('worldvision', 0)
               }
             }
           }
