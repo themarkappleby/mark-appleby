@@ -8,37 +8,25 @@ const rellax = Rellax('.rellax', {
 function init (chest) {
   const transitions = {}
 
-  transitions.intro = instant => {
-    if (instant) {
-      chest.gotoAndStop('intro', true)
-    } else {
-      window.setTimeout(() => {
-        chest.gotoAndPlay('intro')
-      }, 1700)
-    }
+  transitions.intro = () => {
+    window.setTimeout(() => {
+      chest.gotoAndPlay('intro')
+    }, 1700)
     var tl = gsap.timeline()
     tl.to('.loading', { opacity: 0, duration: 0 })
     tl.from('.home-title', { opacity: 0, duration: 2 })
     tl.from('.home-text', { opacity: 0, duration: 2 }, '-=0.75')
     tl.from('.ecobee .hero-horizon', { opacity: 0, duration: 2 }, '-=1.5')
-    if (instant) tl.totalProgress(1)
     window.state.set('scene', 'intro')
   }
 
-  transitions.ecobee = instant => {
-    if (instant) {
-      chest.gotoAndStop('ecobee', true)
+  transitions.ecobee = () => {
+    chest.gotoAndPlay('ecobee')
+    window.setTimeout(() => {
       show('.ecobee .section-content')
       show('.audi .hero')
       rellax.refresh()
-    } else {
-      chest.gotoAndPlay('ecobee')
-      window.setTimeout(() => {
-        show('.ecobee .section-content')
-        show('.audi .hero')
-        rellax.refresh()
-      }, 1500)
-    }
+    }, 1500)
     var tl = gsap.timeline()
     tl.to('.home', {
       left: '-25%',
@@ -59,31 +47,22 @@ function init (chest) {
     }, 0.5)
     tl.to('.ecobee .hero-title', {
       opacity: 1,
-      duration: instant ? 0 : 3,
+      duration: 3,
       ease: Power1.easeOut
-    }, instant ? 0 : 2)
+    }, 2)
     tl.play()
-    if (instant) tl.totalProgress(1)
     window.state.set('scene', 'ecobee')
   }
 
-  transitions.audi = instant => {
+  transitions.audi = () => {
     scrollTo(document.body.scrollHeight, () => {
-      if (instant) {
+      window.setTimeout(() => {
         hide('.ecobee .hero')
         hide('.ecobee .section-content')
         show('.audi .section-content')
         show('.worldvision .hero')
         rellax.refresh()
-      } else {
-        window.setTimeout(() => {
-          hide('.ecobee .hero')
-          hide('.ecobee .section-content')
-          show('.audi .section-content')
-          show('.worldvision .hero')
-          rellax.refresh()
-        }, 2000)
-      }
+      }, 2000)
       chest.gotoAndPlay('audi')
       var tl = gsap.timeline()
       tl.to('.audi .hero-white', {
@@ -93,16 +72,15 @@ function init (chest) {
       }, 0.5)
       tl.to('.audi .hero-title', {
         opacity: 1,
-        duration: instant ? 0 : 3,
+        duration: 3,
         ease: Power1.easeOut
-      }, instant ? 0 : 2)
+      }, 2)
       tl.play()
-      if (instant) tl.totalProgress(1)
       window.state.set('scene', 'audi')
     })
   }
 
-  transitions.worldvision = instant => {
+  transitions.worldvision = () => {
     scrollTo(document.body.scrollHeight, () => {
       hide('.audi .hero')
       hide('.audi .section-content')
@@ -118,22 +96,22 @@ function init (chest) {
       }, 0.5)
       tl.to('.worldvision .hero-title', {
         opacity: 1,
-        duration: instant ? 0 : 3,
+        duration: 3,
         ease: Power1.easeOut
-      }, instant ? 0 : 2)
+      }, 2)
       tl.play()
-      if (instant) tl.totalProgress(1)
       window.state.set('scene', 'worldvision')
     })
   }
 
-  transitions.contact = instant => {
+  transitions.contact = () => {
     scrollTo(document.body.scrollHeight, () => {
       hide('.worldvision .hero')
       hide('.worldvision .section-content')
       show('.contact .section-content')
       show('.footer')
-      // chest.gotoAndPlay('contact') // TODO contact
+      rellax.refresh()
+      chest.gotoAndPlay('contact')
       var tl = gsap.timeline()
       tl.to('.contact .hero-white', {
         opacity: 0,
@@ -142,11 +120,10 @@ function init (chest) {
       }, 0.5)
       tl.to('.contact .hero-title', {
         opacity: 1,
-        duration: instant ? 0 : 3,
+        duration: 3,
         ease: Power1.easeOut
-      }, instant ? 0 : 2)
+      }, 2)
       tl.play()
-      if (instant) tl.totalProgress(1)
       window.state.set('scene', 'contact')
     })
   }

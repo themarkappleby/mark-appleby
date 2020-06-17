@@ -147,6 +147,8 @@ function initCubeMap () {
   audiTires.children.forEach(child => {
     child.material.envMap = envMap
   })
+  const beerMug = scene.getObjectByName('Beer_Mug')
+  beerMug.material.envMap = envMap
 }
 
 function initAmbientLight () {
@@ -279,6 +281,13 @@ function initAnimations (clips) {
   animations.worldvision.play()
   animations.worldvision.paused = true
   animations.worldvision.weight = 0
+
+  animations.contact = getClipAction('contact', clips)
+  animations.contact.setLoop(THREE.LoopOnce)
+  animations.contact.clampWhenFinished = true
+  animations.contact.play()
+  animations.contact.paused = true
+  animations.contact.weight = 0
 }
 
 function getClipAction (name, clips) {
@@ -289,15 +298,15 @@ function getClipAction (name, clips) {
 function render () {
   if (mouse) {
     const root = scene.getObjectByName('root')
-    target.x += (mouse.x - target.x) * 0.04
-    target.y += (mouse.y - target.y) * 0.04
-    target.z -= (target.z - 8) * 0.04
+    target.x += (mouse.x - target.x) * 0.07
+    target.y += (mouse.y - target.y) * 0.07
+    target.z = 4
     root.lookAt(target)
   }
   if (targetWeight !== undefined) {
     animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
   }
-  // For DEBUG purposes only
+  // TODO remove this. For DEBUG purposes only
   let actionsText = ''
   scene.mixer._actions.forEach(action => {
     const name = action._clip.name

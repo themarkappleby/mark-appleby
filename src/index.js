@@ -26,13 +26,8 @@ loadChest(loaded)
 
 function loaded () {
   transitions = initTransitions(chest)
-  if (window.state.scene === 'loading') {
-    window.scrollTo(0, 0)
-    transitions.intro()
-  } else {
-    document.querySelector('.loading').style.opacity = 0
-    transitions[window.state.scene](true)
-  }
+  window.scrollTo(0, 0)
+  transitions.intro()
   initChestObserver()
   loadLogoAnimation()
 }
