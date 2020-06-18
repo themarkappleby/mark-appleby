@@ -151,6 +151,12 @@ function initCubeMap () {
   mugRight.material.envMap = envMap
   const mugLeft = scene.getObjectByName('Beer_Mug_Left')
   mugLeft.material.envMap = envMap
+  const balloonRed = scene.getObjectByName('Balloon_Red')
+  balloonRed.material.envMap = envMap
+  const balloonGreen = scene.getObjectByName('Balloon_Green')
+  balloonGreen.material.envMap = envMap
+  const balloonBlue = scene.getObjectByName('Balloon_Blue')
+  balloonBlue.material.envMap = envMap
 }
 
 function initAmbientLight () {
