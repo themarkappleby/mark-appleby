@@ -147,8 +147,10 @@ function initCubeMap () {
   audiTires.children.forEach(child => {
     child.material.envMap = envMap
   })
-  const beerMug = scene.getObjectByName('Beer_Mug')
-  beerMug.material.envMap = envMap
+  const mugRight = scene.getObjectByName('Beer_Mug_Right')
+  mugRight.material.envMap = envMap
+  const mugLeft = scene.getObjectByName('Beer_Mug_Left')
+  mugLeft.material.envMap = envMap
 }
 
 function initAmbientLight () {
