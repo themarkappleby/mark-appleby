@@ -20,15 +20,17 @@
     </style>
   </head>
   <body>
+    <!--
     <div id="size">0 / 0</div>
     <div id="actions">loading...</div>
+    -->
     <div class="loading"></div>
     <main class="main" role="main">
 
       <!-- ============================================ -->
       <!--                   ecobee                     -->
       <!-- ============================================ -->
-      <section class="section ecobee">
+      <section class="section ecobee" data-section="ecobee">
         <div class="hero">
           <div class="hero-white"></div>
           <div class="hero-horizon rellax" data-rellax-speed="-3"></div>
@@ -101,18 +103,20 @@
               </div>
             </div>
           </div>
-          <ul class="badges">
-            <li class="badge">?</li>
-            <li class="badge">?</li>
-            <li class="badge">?</li>
-          </ul>
+          <div class="badges-wrapper">
+            <ul class="badges">
+              <li class="badge badge--ecobee" data-badge="ecobee"></li>
+              <li class="badge badge--audi" data-badge="audi"></li>
+              <li class="badge badge--worldvision" data-badge="worldvision"></li>
+            </ul>
+          </div>
         </div>
       </section>
 
       <!-- ============================================ -->
       <!--                     Audi                     -->
       <!-- ============================================ -->
-      <section class="section audi">
+      <section class="section audi" data-section="audi">
         <div class="hero hide">
           <div class="hero-white"></div>
           <div class="hero-horizon"></div>
@@ -165,18 +169,14 @@
               </div>
             </div>
           </div>
-          <ul class="badges">
-            <li class="badge">?</li>
-            <li class="badge">?</li>
-            <li class="badge">?</li>
-          </ul>
+          <div class="badges-wrapper"></div>
         </div>
       </section>
 
       <!-- ============================================ -->
       <!--                 World Vision                 -->
       <!-- ============================================ -->
-      <section class="section worldvision">
+      <section class="section worldvision" data-section="worldvision">
         <div class="hero hide">
           <div class="hero-white"></div>
           <div class="hero-horizon"></div>
@@ -229,18 +229,14 @@
               </div>
             </div>
           </div>
-          <ul class="badges">
-            <li class="badge">?</li>
-            <li class="badge">?</li>
-            <li class="badge">?</li>
-          </ul>
+          <div class="badges-wrapper"></div>
         </div>
       </section>
 
       <!-- ============================================ -->
       <!--                  Contact                     -->
       <!-- ============================================ -->
-      <section class="section contact">
+      <section class="section contact" data-section="contact">
         <div class="hero hide">
           <div class="hero-white"></div>
           <div class="hero-horizon"></div>

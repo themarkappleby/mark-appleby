@@ -315,6 +315,7 @@ function render () {
     animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
   }
   // TODO remove this. For DEBUG purposes only
+  /*
   let actionsText = ''
   scene.mixer._actions.forEach(action => {
     const name = action._clip.name
@@ -322,6 +323,7 @@ function render () {
     actionsText += `${name}: ${weight}<br/>`
   })
   document.getElementById('actions').innerHTML = actionsText
+  */
   scene.mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
   requestAnimationFrame(render)

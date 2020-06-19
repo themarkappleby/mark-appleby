@@ -28,8 +28,8 @@ function loaded () {
   transitions = initTransitions(chest)
   window.scrollTo(0, 0)
   transitions.intro()
-  initChestObserver()
-  loadLogoAnimation()
+  initScrollObserver()
+  loadLottieAnimations()
 }
 
 function chestClickHandler () {
@@ -38,39 +38,17 @@ function chestClickHandler () {
   transitions[SCENE_ORDER[currentScene]]()
 }
 
-function initChestObserver () {
+function initScrollObserver () {
   const observer = new IntersectionObserver((e) => {
     e.forEach(item => {
       if (item.isIntersecting) {
-        if (chest && chest.canvas) {
-          const section = item.target.dataset.section
-          if (section === 'footer') {
-            window.setTimeout(() => {
-              lottie.play()
-            }, 500)
-          } else {
-            item.target.appendChild(chest.canvas)
-            chest.resize()
-            if (window.state.scene === 'ecobee') {
-              if (section === 'ecobee') {
-                chest.setWeight('ecobee', 1)
-              } else if (section === 'audi') {
-                chest.setWeight('ecobee', 0)
-              }
-            } else if (window.state.scene === 'audi') {
-              if (section === 'audi') {
-                chest.setWeight('audi', 1)
-              } else if (section === 'worldvision') {
-                chest.setWeight('audi', 0)
-              }
-            } else if (window.state.scene === 'worldvision') {
-              if (section === 'worldvision') {
-                chest.setWeight('worldvision', 1)
-              } else if (section === 'contact') {
-                chest.setWeight('worldvision', 0)
-              }
-            }
-          }
+        const classList = item.target.classList
+        if (classList.contains('badges-wrapper')) {
+          handleBadges(item)
+        } else if (classList.contains('footer-logo')) {
+          handleApplebyLogo()
+        } else if (classList.contains('hero-chest') && chest && chest.canvas) {
+          handleChest(item)
         }
       }
     })
@@ -79,7 +57,57 @@ function initChestObserver () {
   observer.observe(document.querySelector('.audi .hero-chest'))
   observer.observe(document.querySelector('.worldvision .hero-chest'))
   observer.observe(document.querySelector('.contact .hero-chest'))
+
+  observer.observe(document.querySelector('.ecobee .badges-wrapper'))
+  observer.observe(document.querySelector('.audi .badges-wrapper'))
+  observer.observe(document.querySelector('.worldvision .badges-wrapper'))
+
   observer.observe(document.querySelector('.footer-logo'))
+
+  function handleChest (item) {
+    const section = item.target.dataset.section
+    item.target.appendChild(chest.canvas)
+    chest.resize()
+    if (window.state.scene === 'ecobee') {
+      if (section === 'ecobee') {
+        chest.setWeight('ecobee', 1)
+      } else if (section === 'audi') {
+        chest.setWeight('ecobee', 0)
+      }
+    } else if (window.state.scene === 'audi') {
+      if (section === 'audi') {
+        chest.setWeight('audi', 1)
+      } else if (section === 'worldvision') {
+        chest.setWeight('audi', 0)
+      }
+    } else if (window.state.scene === 'worldvision') {
+      if (section === 'worldvision') {
+        chest.setWeight('worldvision', 1)
+      } else if (section === 'contact') {
+        chest.setWeight('worldvision', 0)
+      }
+    }
+  }
+
+  function handleBadges (item) {
+    if (!item.target.children.length) {
+      const badges = document.querySelector('.badges')
+      item.target.appendChild(badges)
+    }
+    // TODO: Make this section finder more robust
+    const section = item.target.parentElement.parentElement.dataset.section
+    if (section) {
+      window.setTimeout(() => {
+        lottie.play(section)
+      }, 200)
+    }
+  }
+
+  function handleApplebyLogo () {
+    window.setTimeout(() => {
+      lottie.play('appleby')
+    }, 500)
+  }
 }
 
 function loadChest (cb) {
@@ -97,12 +125,20 @@ function loadChest (cb) {
   })
 }
 
-function loadLogoAnimation () {
+function loadLottieAnimations () {
+  loadLottieAnimation('appleby', 'logos/appleby.json', '.footer-logo')
+  loadLottieAnimation('ecobee', 'ecobee-badge.json', '.badge--ecobee')
+  loadLottieAnimation('audi', 'audi-badge.json', '.badge--audi')
+  loadLottieAnimation('worldvision', 'worldvision-badge.json', '.badge--worldvision')
+}
+
+function loadLottieAnimation (name, assetPath, selector) {
   lottie.loadAnimation({
-    container: document.querySelector('.footer-logo'),
+    name,
+    container: document.querySelector(selector),
     renderer: 'svg',
     loop: false,
     autoplay: false,
-    path: '/assets/logos/appleby.json'
+    path: '/assets/' + assetPath
   })
 }
