@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const FRAME_RATE = 20 / 1000
 
-let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, clickHandler
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler
 
 function init (params, cb) {
   clickHandler = params.onClick
@@ -191,6 +191,7 @@ function resize () {
 
 function initMouseTracking () {
   mouseMoveTracking()
+  mouseScrollTracking()
   mouseClickTracking()
 }
 
@@ -198,7 +199,16 @@ function mouseMoveTracking () {
   target = new THREE.Vector3()
   target.z = 50
   window.addEventListener('mousemove', event => {
-    mouse = getRelativeMousePosition(event)
+    mouseX = event.clientX
+    mouseY = event.clientY
+    mouse = getRelativeMousePosition(mouseX, mouseY)
+    targetWeight = 1 - getMouseDistanceFromCenter()
+  })
+}
+
+function mouseScrollTracking () {
+  window.addEventListener('scroll', event => {
+    mouse = getRelativeMousePosition(mouseX, mouseY)
     targetWeight = 1 - getMouseDistanceFromCenter()
   })
 }
@@ -206,7 +216,7 @@ function mouseMoveTracking () {
 function mouseClickTracking () {
   const raycaster = new THREE.Raycaster()
   window.addEventListener('click', event => {
-    mouse = getRelativeMousePosition(event)
+    mouse = getRelativeMousePosition(event.clientX, event.clientY)
     const pickHelper = scene.getObjectByName('pickHelper')
     if (pickHelper) {
       raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
@@ -242,19 +252,19 @@ function initPickHelper () {
   return pickHelper
 }
 
-function getRelativeMousePosition (event) {
-  const pos = getRelativeCanvasPosition(event)
+function getRelativeMousePosition (x, y) {
+  const pos = getRelativeCanvasPosition(x, y)
   return {
     x: (pos.x / canvas.width) * 2 - 1,
     y: (pos.y / canvas.height) * -2 + 1
   }
 }
 
-function getRelativeCanvasPosition (event) {
+function getRelativeCanvasPosition (x, y) {
   const rect = canvas.getBoundingClientRect()
   return {
-    x: (event.clientX - rect.left) * canvas.width / rect.width,
-    y: (event.clientY - rect.top) * canvas.height / rect.height
+    x: (x - rect.left) * canvas.width / rect.width,
+    y: (y - rect.top) * canvas.height / rect.height
   }
 }
 
@@ -309,6 +319,9 @@ function render () {
     target.x += (mouse.x - target.x) * 0.07
     target.y += (mouse.y - target.y) * 0.07
     target.z = 4
+    const yLimit = 0.5
+    if (target.y < yLimit * -1) target.y = yLimit * -1
+    if (target.y > yLimit) target.y = yLimit
     root.lookAt(target)
   }
   if (targetWeight !== undefined) {
