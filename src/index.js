@@ -28,7 +28,7 @@ function loaded () {
   transitions = initTransitions(chest)
   window.scrollTo(0, 0)
   transitions.intro()
-  initScrollObserver()
+  initScrollObservers()
   loadLottieAnimations()
 }
 
@@ -38,31 +38,56 @@ function chestClickHandler () {
   transitions[SCENE_ORDER[currentScene]]()
 }
 
-function initScrollObserver () {
-  const observer = new IntersectionObserver((e) => {
+function initScrollObservers () {
+  const hiddenObserver = new IntersectionObserver(e => {
     e.forEach(item => {
       if (item.isIntersecting) {
         const classList = item.target.classList
         if (classList.contains('badges-wrapper')) {
-          handleBadges(item)
-        } else if (classList.contains('footer-logo')) {
-          handleApplebyLogo()
+          moveBadges(item)
         } else if (classList.contains('hero-chest') && chest && chest.canvas) {
           handleChest(item)
         }
       }
     })
   })
-  observer.observe(document.querySelector('.ecobee .hero-chest'))
-  observer.observe(document.querySelector('.audi .hero-chest'))
-  observer.observe(document.querySelector('.worldvision .hero-chest'))
-  observer.observe(document.querySelector('.contact .hero-chest'))
+  const visibleObserver = new IntersectionObserver(e => {
+    e.forEach(item => {
+      if (item.isIntersecting) {
+        const classList = item.target.classList
+        if (classList.contains('badges-wrapper')) {
+          animateBadges(item)
+        } else if (classList.contains('footer-logo')) {
+          handleApplebyLogo()
+        }
+      }
+    })
+  }, {
+    threshold: 1
+  })
 
-  observer.observe(document.querySelector('.ecobee .badges-wrapper'))
-  observer.observe(document.querySelector('.audi .badges-wrapper'))
-  observer.observe(document.querySelector('.worldvision .badges-wrapper'))
+  const hiddenSelectors = [
+    '.ecobee .hero-chest',
+    '.audi .hero-chest',
+    '.worldvision .hero-chest',
+    '.contact .hero-chest',
+    '.ecobee .badges-wrapper',
+    '.audi .badges-wrapper',
+    '.worldvision .badges-wrapper'
+  ]
+  hiddenSelectors.forEach(selector => {
+    hiddenObserver.observe(document.querySelector(selector))
+  })
 
-  observer.observe(document.querySelector('.footer-logo'))
+  const visibleSelectors = [
+    '.ecobee .badges-wrapper',
+    '.audi .badges-wrapper',
+    '.worldvision .badges-wrapper',
+    '.footer-logo'
+  ]
+  visibleSelectors.forEach(selector => {
+    visibleObserver.observe(document.querySelector(selector))
+  })
 
   function handleChest (item) {
     const section = item.target.dataset.section
@@ -89,11 +114,14 @@ function initScrollObserver () {
     }
   }
 
-  function handleBadges (item) {
+  function moveBadges (item) {
     if (!item.target.children.length) {
       const badges = document.querySelector('.badges')
       item.target.appendChild(badges)
     }
+  }
+
+  function animateBadges (item) {
     // TODO: Make this section finder more robust
     const section = item.target.parentElement.parentElement.dataset.section
     if (section) {
