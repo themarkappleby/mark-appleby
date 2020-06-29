@@ -12,7 +12,7 @@ function init (chest) {
   transitions.intro = () => {
     document.querySelector('.loading').style.opacity = 0
     motext.init('.home-title', {
-      strokeWidth: 6,
+      strokeWidth: 8,
       revealAmount: -10,
       revealEase: 'power4',
       staggerAmount: 0.03
@@ -20,16 +20,14 @@ function init (chest) {
       gsap.to('.home-text', {
         y: 0,
         opacity: 1,
-        duration: 1.5,
-        ease: 'power4'
+        duration: 1.5
       }).then(() => {
         chest.gotoAndPlay('intro')
         window.state.set('scene', 'intro')
       })
       gsap.to('.ecobee .hero-horizon', {
         opacity: 0.1,
-        duration: 4,
-        delay: 1
+        duration: 2.5
       })
     })
   }

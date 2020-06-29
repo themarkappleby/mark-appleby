@@ -38,13 +38,14 @@
   }
   &-copy {
     position: relative;
-    padding-left: 20%;
+    padding-left: 15%;
     padding-right: 6%;
     padding-bottom: 60px;
   }
   &-text {
     opacity: 0; /* animated in by gsap */
-    transform: translate(0px, -5px) /* animated in by gsap */
+    transform: translate(0px, -5px); /* animated in by gsap */
+    max-width: 490px;
   }
   &-logos-trigger {
     display: inline-block;
@@ -105,4 +106,12 @@
     margin: 0 auto;
     text-align: center;
   }
+}
+
+.motext-word {
+  margin-right: 0.3em;
+}
+
+.motext-letter--L {
+  margin-right: 0.02em;
 }

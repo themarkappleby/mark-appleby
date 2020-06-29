@@ -27,7 +27,7 @@ initState({
 })
 
 Promise.all([
-  motext.loadFont('https://unpkg.com/motext@1.3.1/dist/fonts/motext.svg'),
+  motext.loadFont('https://unpkg.com/motext@1.3.6/dist/fonts/motext.svg'),
   loadChest()
 ]).then(loaded)
 
