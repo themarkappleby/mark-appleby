@@ -26,15 +26,14 @@ initState({
   scene: 'loading' // default is 'loading'
 })
 
-motext.loadFont('https://unpkg.com/motext@1.3.1/dist/fonts/motext.svg').then(() => {
-  motext.init('.home-title').play()
-})
-
-loadChest(loaded)
+Promise.all([
+  motext.loadFont('https://unpkg.com/motext@1.3.1/dist/fonts/motext.svg'),
+  loadChest()
+]).then(loaded)
 
 function loaded () {
-  transitions = initTransitions(chest)
   window.scrollTo(0, 0)
+  transitions = initTransitions(chest)
   transitions.intro()
   initScrollObservers()
   loadLottieAnimations()
@@ -147,17 +146,12 @@ function initScrollObservers () {
 }
 
 function loadChest (cb) {
-  initChest({
+  return initChest({
     file: 'assets/chest.glb',
     container: document.querySelector('.ecobee .hero-chest'),
     onClick: chestClickHandler
-  }, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      chest = data
-      cb()
-    }
+  }).then(data => {
+    chest = data
   })
 }
 

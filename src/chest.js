@@ -8,26 +8,28 @@ const FRAME_RATE = 20 / 1000
 let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler
 
 function init (params, cb) {
-  clickHandler = params.onClick
-  initRenderer(params.container)
-  initCamera()
-  initResizeTracking()
-  loadGLTF(params.file, gltf => {
-    initScene(gltf.scene)
-    initAnimations(gltf.animations)
-    if (window.state.scene !== 'loading') {
-      scene.add(initPickHelper())
-      initMouseTracking()
-    }
-    render()
-    animations.intro.play()
-    animations.intro.paused = true
-    cb(null, {
-      canvas,
-      gotoAndPlay,
-      gotoAndStop,
-      setWeight,
-      resize
+  return new Promise((resolve, reject) => {
+    clickHandler = params.onClick
+    initRenderer(params.container)
+    initCamera()
+    initResizeTracking()
+    loadGLTF(params.file, gltf => {
+      initScene(gltf.scene)
+      initAnimations(gltf.animations)
+      if (window.state.scene !== 'loading') {
+        scene.add(initPickHelper())
+        initMouseTracking()
+      }
+      render()
+      animations.intro.play()
+      animations.intro.paused = true
+      resolve({
+        canvas,
+        gotoAndPlay,
+        gotoAndStop,
+        setWeight,
+        resize
+      })
     })
   })
 }

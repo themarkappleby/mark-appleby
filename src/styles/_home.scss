@@ -11,6 +11,9 @@
     z-index: 3;
     width: 50vw;
   }
+  .hero-horizon {
+    opacity: 0; /* animated in by gsap */
+  }
 }
 
 .home {
@@ -38,6 +41,10 @@
     padding-left: 20%;
     padding-right: 6%;
     padding-bottom: 60px;
+  }
+  &-text {
+    opacity: 0; /* animated in by gsap */
+    transform: translate(0px, -5px) /* animated in by gsap */
   }
   &-logos-trigger {
     display: inline-block;

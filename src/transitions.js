@@ -1,4 +1,5 @@
 import gsap, { Power1 } from 'gsap'
+import motext from 'motext'
 import Rellax from 'rellax'
 
 const rellax = Rellax('.rellax', {
@@ -9,15 +10,27 @@ function init (chest) {
   const transitions = {}
 
   transitions.intro = () => {
-    window.setTimeout(() => {
-      chest.gotoAndPlay('intro')
-    }, 1700)
-    var tl = gsap.timeline()
-    tl.to('.loading', { opacity: 0, duration: 0 })
-    tl.from('.home-title', { opacity: 0, duration: 2 })
-    tl.from('.home-text', { opacity: 0, duration: 2 }, '-=0.75')
-    tl.from('.ecobee .hero-horizon', { opacity: 0, duration: 2 }, '-=1.5')
-    window.state.set('scene', 'intro')
+    document.querySelector('.loading').style.opacity = 0
+    motext.init('.home-title', {
+      strokeWidth: 6,
+      revealAmount: -10,
+      revealEase: 'power4',
+      staggerAmount: 0.03
+    }).play().then(() => {
+      gsap.to('.home-text', {
+        y: 0,
+        opacity: 1,
+        duration: 2.5
+      }).then(() => {
+        chest.gotoAndPlay('intro')
+        window.state.set('scene', 'intro')
+      })
+      gsap.to('.ecobee .hero-horizon', {
+        opacity: 0.1,
+        duration: 4,
+        delay: 1
+      })
+    })
   }
 
   transitions.ecobee = () => {
