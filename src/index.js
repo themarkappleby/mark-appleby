@@ -1,12 +1,16 @@
 /* global IntersectionObserver */
 
 import lottie from 'lottie-web'
+import motext from 'motext'
+import gsap from 'gsap'
 import './styles/styles.scss'
 import './logoEmitter'
 import './utils/screenSize'
 import initState from './utils/state'
 import initChest from './chest'
 import initTransitions from './transitions'
+
+window.gsap = gsap
 
 let chest = null
 let transitions = {}
@@ -20,6 +24,10 @@ const SCENE_ORDER = {
 
 initState({
   scene: 'loading' // default is 'loading'
+})
+
+motext.loadFont('https://unpkg.com/motext@1.3.1/dist/fonts/motext.svg').then(() => {
+  motext.init('.home-title').play()
 })
 
 loadChest(loaded)

@@ -19,5 +19,9 @@
   "devDependencies": {
     "pnp-webpack-plugin": "^1.6.0",
     "webpack-cli": "^3.3.10"
+  },
+  "resolutions": {
+    "motext": "portal:/Users/markappleby/git/motext",
+    "mark-appleby": "portal:/Users/markappleby/Git/mark-appleby"
   }
 }
