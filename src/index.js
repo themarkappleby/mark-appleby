@@ -26,6 +26,7 @@ initState({
   scene: 'loading' // default is 'loading'
 })
 
+simulateProgress()
 Promise.all([
   loadWindow(),
   loadFont(),
@@ -56,6 +57,17 @@ function loadChest (cb) {
   })
 }
 
+function simulateProgress () {
+  const interval = setInterval(() => {
+    const progress = getProgress()
+    if (progress > 90) {
+      clearInterval(interval)
+    } else {
+      addProgress(1.5)
+    }
+  }, 100)
+}
+
 function loaded () {
   window.scrollTo(0, 0)
   transitions = initTransitions(chest)
@@ -69,6 +81,12 @@ function addProgress (amount) {
   const val = el.getAttribute('value') * 100
   const newAmount = (val + amount) / 100
   el.setAttribute('value', newAmount)
+}
+
+function getProgress () {
+  const el = document.querySelector('.progress')
+  const val = el.getAttribute('value') * 100
+  return val
 }
 
 function chestClickHandler () {
