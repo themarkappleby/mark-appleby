@@ -20,7 +20,8 @@ function init (chest) {
       gsap.to('.home-text', {
         y: 0,
         opacity: 1,
-        duration: 2.5
+        duration: 1.5,
+        ease: 'power4'
       }).then(() => {
         chest.gotoAndPlay('intro')
         window.state.set('scene', 'intro')
