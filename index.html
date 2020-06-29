@@ -5,26 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mark Appleby - Creative Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;800;900&display=swap" rel="stylesheet">
-    <script>window.debug = false;</script>
-    <style media="screen">
-      .loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: white;
-        z-index: 999;
-        pointer-events: none;
-      }
-    </style>
+    <link rel="stylesheet" href="/assets/loading.css">
   </head>
   <body>
-    <!--
-    <div id="size">0 / 0</div>
-    <div id="actions">loading...</div>
-    -->
-    <div class="loading"></div>
+    <div class="loading">
+      <progress class="progress" value="0"></progress>
+    </div>
     <main class="main" role="main">
 
       <!-- ============================================ -->

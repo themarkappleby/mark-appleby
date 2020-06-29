@@ -44,7 +44,6 @@
   }
   &-text {
     opacity: 0; /* animated in by gsap */
-    transform: translate(0px, -5px); /* animated in by gsap */
     max-width: 490px;
   }
   &-logos-trigger {

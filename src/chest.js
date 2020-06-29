@@ -57,7 +57,6 @@ function gotoAndPlay (animation) {
 
 function gotoAndStop (animation, end) {
   scene.mixer.stopAllAction()
-  // TODO fix hover, not working for Audi chest currently
   animations.hover.fadeIn(0.5)
   if (end) {
     animations[animation].timeScale = 100
@@ -329,16 +328,6 @@ function render () {
   if (targetWeight !== undefined) {
     animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
   }
-  // TODO remove this. For DEBUG purposes only
-  /*
-  let actionsText = ''
-  scene.mixer._actions.forEach(action => {
-    const name = action._clip.name
-    const weight = action.getEffectiveWeight().toFixed(2)
-    actionsText += `${name}: ${weight}<br/>`
-  })
-  document.getElementById('actions').innerHTML = actionsText
-  */
   scene.mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
   requestAnimationFrame(render)

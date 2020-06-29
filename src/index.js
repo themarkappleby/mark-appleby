@@ -27,9 +27,34 @@ initState({
 })
 
 Promise.all([
-  motext.loadFont('https://unpkg.com/motext@1.3.6/dist/fonts/motext.svg'),
+  loadWindow(),
+  loadFont(),
   loadChest()
 ]).then(loaded)
+
+function loadWindow () {
+  return new Promise(resolve => {
+    window.addEventListener('load', resolve)
+    addProgress(20)
+  })
+}
+
+function loadFont () {
+  return motext.loadFont('https://unpkg.com/motext@1.3.6/dist/fonts/motext.svg').then(() => {
+    addProgress(20)
+  })
+}
+
+function loadChest (cb) {
+  return initChest({
+    file: 'assets/chest.glb',
+    container: document.querySelector('.ecobee .hero-chest'),
+    onClick: chestClickHandler
+  }).then(data => {
+    chest = data
+    addProgress(60)
+  })
+}
 
 function loaded () {
   window.scrollTo(0, 0)
@@ -37,6 +62,13 @@ function loaded () {
   transitions.intro()
   initScrollObservers()
   loadLottieAnimations()
+}
+
+function addProgress (amount) {
+  const el = document.querySelector('.progress')
+  const val = el.getAttribute('value') * 100
+  const newAmount = (val + amount) / 100
+  el.setAttribute('value', newAmount)
 }
 
 function chestClickHandler () {
@@ -129,8 +161,7 @@ function initScrollObservers () {
   }
 
   function animateBadges (item) {
-    // TODO: Make this section finder more robust
-    const section = item.target.parentElement.parentElement.dataset.section
+    const section = item.target.closest('.section').dataset.section
     if (section) {
       window.setTimeout(() => {
         lottie.play(section)
@@ -143,16 +174,6 @@ function initScrollObservers () {
       lottie.play('appleby')
     }, 500)
   }
-}
-
-function loadChest (cb) {
-  return initChest({
-    file: 'assets/chest.glb',
-    container: document.querySelector('.ecobee .hero-chest'),
-    onClick: chestClickHandler
-  }).then(data => {
-    chest = data
-  })
 }
 
 function loadLottieAnimations () {

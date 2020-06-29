@@ -9,26 +9,33 @@ const rellax = Rellax('.rellax', {
 function init (chest) {
   const transitions = {}
 
+  const titleAnimation = motext.init('.home-title', {
+    strokeWidth: 8,
+    revealAmount: -10,
+    revealEase: 'power4',
+    staggerAmount: 0.03
+  })
+
   transitions.intro = () => {
-    document.querySelector('.loading').style.opacity = 0
-    motext.init('.home-title', {
-      strokeWidth: 8,
-      revealAmount: -10,
-      revealEase: 'power4',
-      staggerAmount: 0.03
-    }).play().then(() => {
-      gsap.to('.home-text', {
-        y: 0,
-        opacity: 1,
-        duration: 1.5
-      }).then(() => {
+    gsap.to('.progress', {
+      height: 1,
+      width: 300,
+      opacity: 0,
+      duration: 2.5,
+      ease: 'power4.inOut'
+    }).then(() => {
+      document.querySelector('.loading').style.opacity = 0
+      titleAnimation.play()
+      window.setTimeout(() => {
+        gsap.to('.home-text', { opacity: 1, duration: 3 })
+      }, 1300)
+      window.setTimeout(() => {
+        gsap.to('.ecobee .hero-horizon', { opacity: 0.1, duration: 2.5 })
+      }, 3500)
+      window.setTimeout(() => {
         chest.gotoAndPlay('intro')
         window.state.set('scene', 'intro')
-      })
-      gsap.to('.ecobee .hero-horizon', {
-        opacity: 0.1,
-        duration: 2.5
-      })
+      }, 2500)
     })
   }
 
