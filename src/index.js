@@ -10,6 +10,7 @@ import initState from './utils/state'
 import initChest from './chest'
 import initTransitions from './transitions'
 import initMouseTrail from './mouseTrail'
+import initCustomCursor from './customCursor'
 
 window.gsap = gsap
 
@@ -74,6 +75,7 @@ function loaded () {
   transitions = initTransitions(chest)
   transitions.intro().then(initMouseTrail)
   initScrollObservers()
+  initCustomCursor()
   loadLottieAnimations()
 }
 

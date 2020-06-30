@@ -1,15 +1,13 @@
+$trailSize: 10px;
+
 .trail-item {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 10;
-  transition:
-    background 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
-  transform: scale(0) rotate(0);
-  width: 10px;
-  height: 10px;
-  margin-left: -5px;
+  width: $trailSize;
+  height: $trailSize;
+  margin-left: $trailSize * -2;
   margin-top: -25px;
   &--1 {
     background: #0dafb7;
@@ -26,9 +24,4 @@
   &--5 {
     background: black;
   }
-}
-
-.trail-item--grow {
-  // transform: translateY(-10px) scale(1) rotate(270deg);
-  transform: scale(2) rotate(270deg);
 }
