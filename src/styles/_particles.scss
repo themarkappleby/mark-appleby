@@ -1,5 +1,16 @@
 $trailSize: 10px;
 
+.loading {
+  display: none;
+}
+
+.particles {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 2;
+}
+
 .trail-item {
   position: absolute;
   top: 0;

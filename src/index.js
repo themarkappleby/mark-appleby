@@ -9,8 +9,10 @@ import './utils/screenSize'
 import initState from './utils/state'
 import initChest from './chest'
 import initTransitions from './transitions'
-import initMouseTrail from './mouseTrail'
+import initParticles from './particles'
 import initCustomCursor from './customCursor'
+
+initParticles()
 
 window.gsap = gsap
 
@@ -28,12 +30,14 @@ initState({
   scene: 'loading' // default is 'loading'
 })
 
+/*
 simulateProgress()
 Promise.all([
   loadWindow(),
   loadFont(),
   loadChest()
 ]).then(loaded)
+*/
 
 function loadWindow () {
   return new Promise(resolve => {
@@ -73,7 +77,7 @@ function simulateProgress () {
 function loaded () {
   window.scrollTo(0, 0)
   transitions = initTransitions(chest)
-  transitions.intro().then(initMouseTrail)
+  transitions.intro().then(initParticles)
   initScrollObservers()
   initCustomCursor()
   loadLottieAnimations()

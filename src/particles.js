@@ -1,18 +1,24 @@
 import rand from './utils/rand'
 
+const canvas = document.querySelector('.particles')
+const ctx = canvas.getContext('2d')
+ctx.canvas.width = window.innerWidth
+ctx.canvas.height = window.innerHeight
+
 const inactive = []
 const active = []
 
 const MAX_PARTICLES = 1000
 const TERMINAL_VELOCITY = 20
 const GRAVITY = 0.3
-const FRICTION = 1.5
-const LIFE = 30
-const ROTATION_FACTOR = 2
+const FRICTION = 1.2
+const LIFE = 50
+const ROTATION_FACTOR = 5
 const DECAY_FACTOR = 4
-const MIN_DISTANCE = 200
-const PARTICLE_MULTIPLIER = 10
-const VARIATION = 100
+const MIN_DISTANCE = 1
+const PARTICLE_MULTIPLIER = 3
+const VARIATION = 5
+const COLORS = ['#0dafb7', '#eabc36', '#e154ed', '#62d628', 'black']
 
 window.inactive = inactive
 window.active = active
@@ -63,16 +69,9 @@ function diff (a, b) {
 
 function initParticles () {
   let cnt = 1
-  const container = document.createElement('div')
-  container.classList.add('trail')
-  document.body.append(container)
   for (let i = 1; i <= MAX_PARTICLES; i++) {
-    const el = document.createElement('div')
-    el.classList.add('trail-item')
-    el.classList.add('trail-item--' + cnt)
-    container.append(el)
     inactive.push({
-      el,
+      color: rand(COLORS),
       life: wiggle(LIFE, 100),
       grav: 0,
       rot: 0,
@@ -98,7 +97,6 @@ function resetParticle (particle) {
   particle.pos.y = m.pos.y
   particle.vel.x = m.vel.x
   particle.vel.y = m.vel.y
-  particle.el.style.opacity = 1
   return particle
 }
 
@@ -113,12 +111,12 @@ function emit () {
 }
 
 function step () {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
   if (active.length) {
     running = true
     active.forEach((particle, index, array) => {
       particle.life--
       if (particle.life < 0) {
-        particle.el.style.opacity = 0
         inactive.push(particle)
         array.splice(index, 1)
         if (!array.length) running = false
@@ -134,11 +132,19 @@ function step () {
         }
         let decay = particle.life * DECAY_FACTOR / LIFE
         if (decay > 1) decay = 1
-        particle.el.style.opacity = decay
-        particle.el.style.transform = `
-          translate(${particle.pos.x}px, ${particle.pos.y}px)
-          rotate(${particle.rot}deg)
-        `
+
+        ctx.save()
+        ctx.translate(particle.pos.x + 5, particle.pos.y + 5)
+        ctx.rotate((Math.PI / 180) * particle.rot)
+        ctx.translate((particle.pos.x + 5) * -1, (particle.pos.y + 5) * -1)
+        ctx.fillStyle = particle.color
+        ctx.fillRect(
+          particle.pos.x,
+          particle.pos.y,
+          10,
+          10
+        )
+        ctx.restore()
       }
     })
     window.requestAnimationFrame(step)
