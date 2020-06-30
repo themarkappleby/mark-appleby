@@ -18,25 +18,28 @@ function init (chest) {
   })
 
   transitions.intro = () => {
-    gsap.to('.progress', {
-      height: 1,
-      width: 300,
-      opacity: 0,
-      duration: 2.5,
-      ease: 'power4.inOut'
-    }).then(() => {
-      document.querySelector('.loading').style.opacity = 0
-      titleAnimation.play()
-      window.setTimeout(() => {
-        gsap.to('.home-text', { opacity: 1, duration: 3 })
-      }, 1300)
-      window.setTimeout(() => {
-        gsap.to('.ecobee .hero-horizon', { opacity: 0.1, duration: 2.5 })
-      }, 3500)
-      window.setTimeout(() => {
-        chest.gotoAndPlay('intro')
-        window.state.set('scene', 'intro')
-      }, 2500)
+    return new Promise(resolve => {
+      gsap.to('.progress', {
+        height: 1,
+        width: 300,
+        opacity: 0,
+        duration: 2.5,
+        ease: 'power4.inOut'
+      }).then(() => {
+        document.querySelector('.loading').style.opacity = 0
+        titleAnimation.play()
+        window.setTimeout(() => {
+          gsap.to('.home-text', { opacity: 1, duration: 3 })
+          resolve()
+        }, 1300)
+        window.setTimeout(() => {
+          gsap.to('.ecobee .hero-horizon', { opacity: 0.1, duration: 2.5 })
+        }, 3500)
+        window.setTimeout(() => {
+          chest.gotoAndPlay('intro')
+          window.state.set('scene', 'intro')
+        }, 2500)
+      })
     })
   }
 
@@ -48,12 +51,16 @@ function init (chest) {
       rellax.refresh()
     }, 1500)
     var tl = gsap.timeline()
+    tl.to('.home-copy', {
+      opacity: 0,
+      duration: 1
+    })
     tl.to('.home', {
       left: '-25%',
       opacity: 0,
       duration: 2,
       ease: Power1.easeOut
-    })
+    }, 0)
     tl.to('.ecobee .hero-chest', {
       left: '-25%',
       marginLeft: 0,

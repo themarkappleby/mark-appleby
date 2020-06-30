@@ -9,6 +9,7 @@ import './utils/screenSize'
 import initState from './utils/state'
 import initChest from './chest'
 import initTransitions from './transitions'
+import initMouseTrail from './mouseTrail'
 
 window.gsap = gsap
 
@@ -71,7 +72,7 @@ function simulateProgress () {
 function loaded () {
   window.scrollTo(0, 0)
   transitions = initTransitions(chest)
-  transitions.intro()
+  transitions.intro().then(initMouseTrail)
   initScrollObservers()
   loadLottieAnimations()
 }
