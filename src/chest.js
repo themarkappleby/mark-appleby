@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const FRAME_RATE = 20 / 1000
 
-let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler, mouseoverHandler, mouseover
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler, mouseoverHandler, mouseover, pickHelperX, pickHelperY
 
 function init (params, cb) {
   return new Promise((resolve, reject) => {
@@ -19,6 +19,7 @@ function init (params, cb) {
       initAnimations(gltf.animations)
       if (window.state.scene !== 'loading') {
         scene.add(initPickHelper())
+        calculatePickHelperCenter()
         initMouseTracking()
       }
       render()
@@ -43,6 +44,7 @@ function gotoAndPlay (animation) {
     window.setTimeout(() => {
       animations.intro.fadeOut(1)
       scene.add(initPickHelper())
+      calculatePickHelperCenter()
       initMouseTracking()
     }, 1000)
   } else {
@@ -189,6 +191,7 @@ function resize () {
     camera.updateProjectionMatrix()
   }
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
+  calculatePickHelperCenter()
 }
 
 function initMouseTracking () {
@@ -211,7 +214,7 @@ function mouseMoveTracking () {
       raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
       var intersects = raycaster.intersectObjects([pickHelper])
       mouseover = intersects.length > 0
-      mouseoverHandler(mouseover)
+      mouseoverHandler(mouseover, pickHelperX, pickHelperY)
     }
   })
 }
@@ -270,6 +273,34 @@ function getRelativeCanvasPosition (x, y) {
     y: (y - rect.top) * canvas.height / rect.height
   }
 }
+
+function calculatePickHelperCenter () {
+  if (scene) {
+    const pickHelper = scene.getObjectByName('pickHelper')
+    if (pickHelper) {
+      const center = toScreenPosition(pickHelper)
+      pickHelperX = center.x
+      pickHelperY = center.y
+    }
+  }
+}
+
+function toScreenPosition (obj) {
+  // ref: https://stackoverflow.com/a/27410603/918060
+  var vector = new THREE.Vector3()
+  const size = canvas.getBoundingClientRect()
+  var widthHalf = size.width / 2
+  var heightHalf = size.height / 2
+  obj.updateMatrixWorld()
+  vector.setFromMatrixPosition(obj.matrixWorld)
+  vector.project(camera)
+  vector.x = (vector.x * widthHalf) + widthHalf + size.left
+  vector.y = -(vector.y * heightHalf) + heightHalf
+  return {
+    x: vector.x,
+    y: vector.y
+  }
+};
 
 function initAnimations (clips) {
   animations = {}

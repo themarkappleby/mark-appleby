@@ -63,22 +63,19 @@ function initResizeTracking () {
   })
 }
 
-function startEmitter () {
+function startEmitter (x, y) {
   const SPREAD = 10
   if (!emitting) {
     emitting = true
     emitter = setInterval(() => {
       emit({
-        pos: {
-          x: 1020,
-          y: 400
-        },
+        pos: { x, y },
         vel: {
           x: wiggle(0, SPREAD),
           y: wiggle(0, SPREAD)
         }
       })
-    }, 15)
+    }, 10)
   }
 }
 

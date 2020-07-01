@@ -101,10 +101,10 @@ function chestClickHandler () {
   transitions[SCENE_ORDER[currentScene]]()
 }
 
-function chestMouseoverHandler (hovering) {
+function chestMouseoverHandler (hovering, x, y) {
   if (hovering) {
     document.querySelector('.hero-chest').style.cursor = 'pointer'
-    particles.startEmitter()
+    particles.startEmitter(x, y)
     particles.stopMouseTracking()
   } else {
     document.querySelector('.hero-chest').style.cursor = 'default'
