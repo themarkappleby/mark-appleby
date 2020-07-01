@@ -12,8 +12,6 @@ import initTransitions from './transitions'
 import initParticles from './particles'
 import initCustomCursor from './customCursor'
 
-initParticles()
-
 window.gsap = gsap
 
 let chest = null
@@ -30,14 +28,12 @@ initState({
   scene: 'loading' // default is 'loading'
 })
 
-/*
 simulateProgress()
 Promise.all([
   loadWindow(),
   loadFont(),
   loadChest()
 ]).then(loaded)
-*/
 
 function loadWindow () {
   return new Promise(resolve => {

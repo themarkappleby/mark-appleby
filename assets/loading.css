@@ -6,7 +6,7 @@
   height: 100vh;
   background: white;
   z-index: 999;
-  pointer-events: none;
+  cursor: default;
 }
 
 .progress {

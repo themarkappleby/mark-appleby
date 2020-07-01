@@ -26,7 +26,8 @@ function init (chest) {
         duration: 2.5,
         ease: 'power4.inOut'
       }).then(() => {
-        document.querySelector('.loading').style.opacity = 0
+        const loading = document.querySelector('.loading')
+        loading.parentNode.removeChild(loading)
         titleAnimation.play()
         window.setTimeout(() => {
           gsap.to('.home-text', { opacity: 1, duration: 3 })

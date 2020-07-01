@@ -9,15 +9,17 @@ const inactive = []
 const active = []
 
 const MAX_PARTICLES = 1000
-const TERMINAL_VELOCITY = 20
-const GRAVITY = 0.3
-const FRICTION = 1.2
-const LIFE = 50
-const ROTATION_FACTOR = 5
-const DECAY_FACTOR = 4
-const MIN_DISTANCE = 1
+const TERMINAL_VELOCITY = 10
+const GRAVITY = 0.05
+const DAMPENING = 8
+const FRICTION = 1.01
+const SIZE = 20
+const LIFE = 35
+const ROTATION_FACTOR = 3
+const DECAY_FACTOR = 2
+const MIN_DISTANCE = 20
 const PARTICLE_MULTIPLIER = 3
-const VARIATION = 5
+const VARIATION = 2
 const COLORS = ['#0dafb7', '#eabc36', '#e154ed', '#62d628', 'black']
 
 window.inactive = inactive
@@ -47,8 +49,8 @@ function init () {
     distance = diff(x, m.pos.x) + diff(y, m.pos.y)
     if (distance > MIN_DISTANCE) {
       for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
-        m.vel.x = wiggle((x - m.pos.x), VARIATION)
-        m.vel.y = wiggle((y - m.pos.y), VARIATION)
+        m.vel.x = wiggle((x - m.pos.x) / DAMPENING, VARIATION)
+        m.vel.y = wiggle((y - m.pos.y) / DAMPENING, VARIATION)
         emit()
       }
     }
@@ -72,7 +74,8 @@ function initParticles () {
   for (let i = 1; i <= MAX_PARTICLES; i++) {
     inactive.push({
       color: rand(COLORS),
-      life: wiggle(LIFE, 100),
+      life: wiggle(LIFE, VARIATION),
+      size: SIZE,
       grav: 0,
       rot: 0,
       pos: {
@@ -90,9 +93,10 @@ function initParticles () {
 }
 
 function resetParticle (particle) {
-  particle.life = wiggle(LIFE, 100)
+  particle.life = wiggle(LIFE, VARIATION)
   particle.grav = 0
   particle.rot = 0
+  particle.size = SIZE
   particle.pos.x = m.pos.x
   particle.pos.y = m.pos.y
   particle.vel.x = m.vel.x
@@ -132,17 +136,18 @@ function step () {
         }
         let decay = particle.life * DECAY_FACTOR / LIFE
         if (decay > 1) decay = 1
+        particle.size = decay * SIZE
 
         ctx.save()
-        ctx.translate(particle.pos.x + 5, particle.pos.y + 5)
+        ctx.translate(particle.pos.x + SIZE / 2, particle.pos.y + SIZE / 2)
         ctx.rotate((Math.PI / 180) * particle.rot)
-        ctx.translate((particle.pos.x + 5) * -1, (particle.pos.y + 5) * -1)
+        ctx.translate((particle.pos.x + particle.size / 2) * -1, (particle.pos.y + particle.size / 2) * -1)
         ctx.fillStyle = particle.color
         ctx.fillRect(
           particle.pos.x,
           particle.pos.y,
-          10,
-          10
+          particle.size,
+          particle.size
         )
         ctx.restore()
       }
