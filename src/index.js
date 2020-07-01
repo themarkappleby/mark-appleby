@@ -99,15 +99,22 @@ function chestClickHandler () {
   // TODO determine if top chest or bottom chest was clicked
   const currentScene = window.state.scene
   transitions[SCENE_ORDER[currentScene]]()
+  particles.stopMouseTracking()
+  particles.stopEmitter()
+  chest.disablePickHelper()
 }
 
 function chestMouseoverHandler (hovering, x, y) {
   if (hovering) {
-    document.querySelector('.hero-chest').style.cursor = 'pointer'
+    document.querySelectorAll('.hero-chest').forEach(el => {
+      el.style.cursor = 'pointer'
+    })
     particles.startEmitter(x, y)
     particles.stopMouseTracking()
   } else {
-    document.querySelector('.hero-chest').style.cursor = 'default'
+    document.querySelectorAll('.hero-chest').forEach(el => {
+      el.style.cursor = 'default'
+    })
     particles.stopEmitter()
     particles.startMouseTracking()
   }

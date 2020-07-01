@@ -30,7 +30,9 @@ function init (params, cb) {
         gotoAndPlay,
         gotoAndStop,
         setWeight,
-        resize
+        resize,
+        enablePickHelper,
+        disablePickHelper
       })
     })
   })
@@ -78,6 +80,29 @@ function setWeight (animation, weight) {
   } else {
     animations.hover.reset()
     animations.hover.play()
+  }
+  if (weight) {
+    disablePickHelper()
+  } else {
+    enablePickHelper()
+  }
+}
+
+function enablePickHelper () {
+  if (scene) {
+    const pickHelper = scene.getObjectByName('pickHelper')
+    if (pickHelper) {
+      pickHelper.position.z = 1
+    }
+  }
+}
+
+function disablePickHelper () {
+  if (scene) {
+    const pickHelper = scene.getObjectByName('pickHelper')
+    if (pickHelper) {
+      pickHelper.position.z = 1000
+    }
   }
 }
 
