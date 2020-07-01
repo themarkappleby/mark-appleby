@@ -15,6 +15,7 @@ window.gsap = gsap
 
 let chest = null
 let transitions = {}
+let particles = null
 
 const SCENE_ORDER = {
   intro: 'ecobee',
@@ -72,7 +73,10 @@ function simulateProgress () {
 function loaded () {
   window.scrollTo(0, 0)
   transitions = initTransitions(chest)
-  transitions.intro().then(initParticles)
+  transitions.intro().then(() => {
+    particles = initParticles()
+    particles.startMouseTracking()
+  })
   initScrollObservers()
   loadLottieAnimations()
 }

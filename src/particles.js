@@ -26,6 +26,7 @@ window.inactive = inactive
 window.active = active
 
 let running = false
+let mouseTracking = false
 const m = {
   pos: {
     x: 0,
@@ -40,22 +41,62 @@ const m = {
 let distance = 0
 let x = 0
 let y = 0
+let emitter = null
 
 function init () {
   initParticles()
-  window.addEventListener('mousemove', event => {
-    x = event.clientX
-    y = event.clientY
-    distance = diff(x, m.pos.x) + diff(y, m.pos.y)
-    if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
-      for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
-        m.vel.x = wiggle((x - m.pos.x) / DAMPENING, VARIATION)
-        m.vel.y = wiggle((y - m.pos.y) / DAMPENING, VARIATION)
-        emit()
+  initMouseTracking()
+  return {
+    startEmitter,
+    stopEmitter,
+    startMouseTracking,
+    stopMouseTracking
+  }
+}
+
+function startEmitter () {
+  emitter = setInterval(() => {
+    emit({
+      pos: {
+        x: 1020,
+        y: 400
+      },
+      vel: {
+        x: rand(-8, 8),
+        y: rand(-8, 8)
       }
+    })
+  }, 15)
+}
+
+function stopEmitter () {
+  clearInterval(emitter)
+}
+
+function startMouseTracking () {
+  mouseTracking = true
+}
+
+function stopMouseTracking () {
+  mouseTracking = false
+}
+
+function initMouseTracking () {
+  window.addEventListener('mousemove', event => {
+    if (mouseTracking) {
+      x = event.clientX
+      y = event.clientY
+      distance = diff(x, m.pos.x) + diff(y, m.pos.y)
+      if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
+        for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
+          m.vel.x = wiggle((x - m.pos.x) / DAMPENING, VARIATION)
+          m.vel.y = wiggle((y - m.pos.y) / DAMPENING, VARIATION)
+          emit(m)
+        }
+      }
+      m.pos.x = x
+      m.pos.y = y
     }
-    m.pos.x = x
-    m.pos.y = y
   })
 }
 
@@ -92,22 +133,22 @@ function initParticles () {
   }
 }
 
-function resetParticle (particle) {
+function resetParticle (particle, params) {
   particle.life = wiggle(LIFE, VARIATION)
   particle.grav = 0
   particle.rot = 0
   particle.size = SIZE
-  particle.pos.x = m.pos.x
-  particle.pos.y = m.pos.y
-  particle.vel.x = m.vel.x
-  particle.vel.y = m.vel.y
+  particle.pos.x = params.pos.x
+  particle.pos.y = params.pos.y
+  particle.vel.x = params.vel.x
+  particle.vel.y = params.vel.y
   return particle
 }
 
-function emit () {
+function emit (params) {
   const particle = inactive.pop()
   if (particle) {
-    active.push(resetParticle(particle))
+    active.push(resetParticle(particle, params))
     if (!running) {
       step()
     }
