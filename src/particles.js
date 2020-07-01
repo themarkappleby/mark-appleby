@@ -2,8 +2,6 @@ import rand from './utils/rand'
 
 const canvas = document.querySelector('.particles')
 const ctx = canvas.getContext('2d')
-ctx.canvas.width = window.innerWidth
-ctx.canvas.height = window.innerHeight
 
 const inactive = []
 const active = []
@@ -47,12 +45,22 @@ let emitter = null
 function init () {
   initParticles()
   initMouseTracking()
+  initResizeTracking()
   return {
     startEmitter,
     stopEmitter,
     startMouseTracking,
     stopMouseTracking
   }
+}
+
+function initResizeTracking () {
+  ctx.canvas.width = window.innerWidth
+  ctx.canvas.height = window.innerHeight
+  window.addEventListener('resize', () => {
+    ctx.canvas.width = window.innerWidth
+    ctx.canvas.height = window.innerHeight
+  })
 }
 
 function startEmitter () {
