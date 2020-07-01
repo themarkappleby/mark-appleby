@@ -47,7 +47,7 @@ function init () {
     x = event.clientX
     y = event.clientY
     distance = diff(x, m.pos.x) + diff(y, m.pos.y)
-    if (distance > MIN_DISTANCE) {
+    if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
       for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
         m.vel.x = wiggle((x - m.pos.x) / DAMPENING, VARIATION)
         m.vel.y = wiggle((y - m.pos.y) / DAMPENING, VARIATION)

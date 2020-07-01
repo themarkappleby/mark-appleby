@@ -31,10 +31,10 @@ function init (chest) {
         titleAnimation.play()
         window.setTimeout(() => {
           gsap.to('.home-text', { opacity: 1, duration: 3 })
-          resolve()
         }, 1300)
         window.setTimeout(() => {
           gsap.to('.ecobee .hero-horizon', { opacity: 0.1, duration: 2.5 })
+          resolve()
         }, 3500)
         window.setTimeout(() => {
           chest.gotoAndPlay('intro')
