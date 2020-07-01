@@ -75,7 +75,7 @@ function loaded () {
   window.scrollTo(0, 0)
   transitions = initTransitions(chest)
   transitions.intro().then(() => {
-    particles = initParticles()
+    particles = initParticles(document.querySelector('.particles'))
     particles.startMouseTracking()
   })
   initScrollObservers()
@@ -174,6 +174,9 @@ function initScrollObservers () {
   function handleChest (item) {
     const section = item.target.dataset.section
     item.target.appendChild(chest.canvas)
+    if (particles) {
+      item.target.parentElement.querySelector('.hero-particles').appendChild(particles.canvas)
+    }
     chest.resize()
     if (window.state.scene === 'ecobee') {
       if (section === 'ecobee') {

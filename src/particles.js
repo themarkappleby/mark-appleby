@@ -1,7 +1,7 @@
 import rand from './utils/rand'
 
-const canvas = document.querySelector('.particles')
-const ctx = canvas.getContext('2d')
+let canvas = null
+let ctx = null
 
 const inactive = []
 const active = []
@@ -42,11 +42,14 @@ let x = 0
 let y = 0
 let emitter = null
 
-function init () {
+function init (el) {
+  canvas = el
+  ctx = canvas.getContext('2d')
   initParticles()
   initMouseTracking()
   initResizeTracking()
   return {
+    canvas,
     startEmitter,
     stopEmitter,
     startMouseTracking,
@@ -95,8 +98,8 @@ function stopMouseTracking () {
 function initMouseTracking () {
   window.addEventListener('mousemove', event => {
     if (mouseTracking) {
-      x = event.pageX
-      y = event.pageY
+      x = event.clientX
+      y = event.clientY
       distance = diff(x, m.pos.x) + diff(y, m.pos.y)
       if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
         for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
