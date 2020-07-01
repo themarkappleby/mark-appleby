@@ -95,8 +95,8 @@ function stopMouseTracking () {
 function initMouseTracking () {
   window.addEventListener('mousemove', event => {
     if (mouseTracking) {
-      x = event.clientX
-      y = event.clientY
+      x = event.pageX
+      y = event.pageY
       distance = diff(x, m.pos.x) + diff(y, m.pos.y)
       if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
         for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
