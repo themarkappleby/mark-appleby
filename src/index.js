@@ -52,7 +52,8 @@ function loadChest (cb) {
   return initChest({
     file: 'assets/chest.glb',
     container: document.querySelector('.ecobee .hero-chest'),
-    onClick: chestClickHandler
+    onClick: chestClickHandler,
+    onMouseover: chestMouseoverHandler
   }).then(data => {
     chest = data
     addProgress(60)
@@ -98,6 +99,18 @@ function chestClickHandler () {
   // TODO determine if top chest or bottom chest was clicked
   const currentScene = window.state.scene
   transitions[SCENE_ORDER[currentScene]]()
+}
+
+function chestMouseoverHandler (hovering) {
+  if (hovering) {
+    document.querySelector('.hero-chest').style.cursor = 'pointer'
+    particles.startEmitter()
+    particles.stopMouseTracking()
+  } else {
+    document.querySelector('.hero-chest').style.cursor = 'default'
+    particles.stopEmitter()
+    particles.startMouseTracking()
+  }
 }
 
 function initScrollObservers () {

@@ -13,19 +13,20 @@ const TERMINAL_VELOCITY = 10
 const GRAVITY = 0.05
 const DAMPENING = 8
 const FRICTION = 1.01
-const SIZE = 20
+const SIZE = 7
 const LIFE = 35
 const ROTATION_FACTOR = 3
-const DECAY_FACTOR = 2
+const DECAY_FACTOR = 3
 const MIN_DISTANCE = 20
-const PARTICLE_MULTIPLIER = 3
-const VARIATION = 2
+const PARTICLE_MULTIPLIER = 5
+const VARIATION = 1.5
 const COLORS = ['#0dafb7', '#eabc36', '#e154ed', '#62d628', 'black']
 
 window.inactive = inactive
 window.active = active
 
 let running = false
+let emitting = false
 let mouseTracking = false
 const m = {
   pos: {
@@ -55,22 +56,27 @@ function init () {
 }
 
 function startEmitter () {
-  emitter = setInterval(() => {
-    emit({
-      pos: {
-        x: 1020,
-        y: 400
-      },
-      vel: {
-        x: rand(-8, 8),
-        y: rand(-8, 8)
-      }
-    })
-  }, 15)
+  const SPREAD = 10
+  if (!emitting) {
+    emitting = true
+    emitter = setInterval(() => {
+      emit({
+        pos: {
+          x: 1020,
+          y: 400
+        },
+        vel: {
+          x: wiggle(0, SPREAD),
+          y: wiggle(0, SPREAD)
+        }
+      })
+    }, 15)
+  }
 }
 
 function stopEmitter () {
   clearInterval(emitter)
+  emitting = false
 }
 
 function startMouseTracking () {

@@ -5,11 +5,12 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const FRAME_RATE = 20 / 1000
 
-let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler, mouseoverHandler, mouseover
 
 function init (params, cb) {
   return new Promise((resolve, reject) => {
     clickHandler = params.onClick
+    mouseoverHandler = params.onMouseover
     initRenderer(params.container)
     initCamera()
     initResizeTracking()
@@ -197,6 +198,7 @@ function initMouseTracking () {
 }
 
 function mouseMoveTracking () {
+  const raycaster = new THREE.Raycaster()
   target = new THREE.Vector3()
   target.z = 50
   window.addEventListener('mousemove', event => {
@@ -204,6 +206,13 @@ function mouseMoveTracking () {
     mouseY = event.clientY
     mouse = getRelativeMousePosition(mouseX, mouseY)
     targetWeight = 1 - getMouseDistanceFromCenter()
+    const pickHelper = scene.getObjectByName('pickHelper')
+    if (pickHelper) {
+      raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
+      var intersects = raycaster.intersectObjects([pickHelper])
+      mouseover = intersects.length > 0
+      mouseoverHandler(mouseover)
+    }
   })
 }
 
@@ -215,16 +224,9 @@ function mouseScrollTracking () {
 }
 
 function mouseClickTracking () {
-  const raycaster = new THREE.Raycaster()
   window.addEventListener('click', event => {
-    mouse = getRelativeMousePosition(event.clientX, event.clientY)
-    const pickHelper = scene.getObjectByName('pickHelper')
-    if (pickHelper) {
-      raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
-      var intersects = raycaster.intersectObjects([pickHelper])
-      if (intersects.length) {
-        clickHandler()
-      }
+    if (mouseover) {
+      clickHandler()
     }
   })
 }
