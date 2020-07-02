@@ -6,8 +6,7 @@ function cardIntros () {
     const cardImage = card.querySelector('.card-image')
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: card,
-        once: true
+        trigger: card
       }
     })
     tl.from(card, {

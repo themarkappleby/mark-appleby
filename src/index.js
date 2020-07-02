@@ -121,18 +121,6 @@ function chestMouseoverHandler (hovering, x, y) {
 }
 
 function initScrollObservers () {
-  const hiddenObserver = new IntersectionObserver(e => {
-    e.forEach(item => {
-      if (item.isIntersecting) {
-        const classList = item.target.classList
-        if (classList.contains('badges-wrapper')) {
-          moveBadges(item)
-        } else if (classList.contains('hero-chest') && chest && chest.canvas) {
-          // handleChest(item)
-        }
-      }
-    })
-  })
   const visibleObserver = new IntersectionObserver(e => {
     e.forEach(item => {
       if (item.isIntersecting) {
@@ -146,15 +134,6 @@ function initScrollObservers () {
     threshold: 1
   })
 
-  const hiddenSelectors = [
-    '.ecobee .badges-wrapper',
-    '.audi .badges-wrapper',
-    '.worldvision .badges-wrapper'
-  ]
-  hiddenSelectors.forEach(selector => {
-    hiddenObserver.observe(document.querySelector(selector))
-  })
-
   const visibleSelectors = [
     '.ecobee .badges-wrapper',
     '.audi .badges-wrapper',
@@ -165,13 +144,6 @@ function initScrollObservers () {
     visibleObserver.observe(document.querySelector(selector))
   })
 
-  function moveBadges (item) {
-    if (!item.target.children.length) {
-      const badges = document.querySelector('.badges')
-      item.target.appendChild(badges)
-    }
-  }
-
   function animateBadges (item) {
     const section = item.target.closest('.section').dataset.section
     if (section) {
@@ -181,11 +153,13 @@ function initScrollObservers () {
     }
   }
 
+  /*
   function handleApplebyLogo () {
     window.setTimeout(() => {
       lottie.play('appleby')
     }, 500)
   }
+  */
 }
 
 function loadLottieAnimations () {

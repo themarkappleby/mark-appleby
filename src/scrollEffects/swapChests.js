@@ -2,7 +2,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getNextScene } from '../utils'
 
-function initScrollTrigger (chest, particles) {
+function init (chest, particles) {
   gsap.utils.toArray('.hero-chest').forEach(hero => {
     ScrollTrigger.create({
       trigger: hero,
@@ -35,4 +35,4 @@ function shouldApplySwap (e, section, chest, particles) {
   return (section === window.state.scene || section === getNextScene()) && chest && particles && e.progress > 0 && e.progress < 1
 }
 
-export default initScrollTrigger
+export default init
