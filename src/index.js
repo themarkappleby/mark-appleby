@@ -1,15 +1,13 @@
 /* global */
 
-import lottie from 'lottie-web'
-import motext from 'motext'
 import gsap from 'gsap'
 import './styles/styles.scss'
 import './logoEmitter'
 import { state as initState, getNextScene } from './utils'
-import initChest from './chest'
 import initTransitions from './sceneTransitions'
 import initParticles from './particles'
 import initScrollEffects from './scrollEffects'
+import load from './load'
 
 // TODO remove this. It is currently required by motext.
 window.gsap = gsap
@@ -29,71 +27,17 @@ initState({
   ]
 })
 
-simulateProgress()
-Promise.all([
-  loadWindow(),
-  loadFont(),
-  loadChest()
-]).then(loaded)
+load({ chestClickHandler, chestMouseoverHandler }).then(loaded)
 
-function loadWindow () {
-  return new Promise(resolve => {
-    window.addEventListener('load', resolve)
-    addProgress(20)
-  })
-}
-
-function loadFont () {
-  return motext.loadFont('https://unpkg.com/motext@1.3.6/dist/fonts/motext.svg').then(() => {
-    addProgress(20)
-  })
-}
-
-function loadChest () {
-  return initChest({
-    file: 'assets/chest.glb',
-    container: document.querySelector('.ecobee .hero-chest'),
-    onClick: chestClickHandler,
-    onMouseover: chestMouseoverHandler
-  }).then(data => {
-    chest = data
-    addProgress(60)
-  })
-}
-
-function simulateProgress () {
-  const interval = setInterval(() => {
-    const progress = getProgress()
-    if (progress > 90) {
-      clearInterval(interval)
-    } else {
-      addProgress(1.5)
-    }
-  }, 100)
-}
-
-function loaded () {
+function loaded (params) {
+  chest = params.chest
   window.scrollTo(0, 0)
   transitions = initTransitions(chest)
   transitions.intro().then(() => {
     particles = initParticles(document.querySelector('.particles'))
     particles.startMouseTracking()
-    loadLottieAnimations()
-    initScrollEffects({ chest, particles, lottie })
+    initScrollEffects({ chest, particles, lottie: params.lottie })
   })
-}
-
-function addProgress (amount) {
-  const el = document.querySelector('.progress')
-  const val = el.getAttribute('value') * 100
-  const newAmount = (val + amount) / 100
-  el.setAttribute('value', newAmount)
-}
-
-function getProgress () {
-  const el = document.querySelector('.progress')
-  const val = el.getAttribute('value') * 100
-  return val
 }
 
 function chestClickHandler () {
@@ -117,35 +61,4 @@ function chestMouseoverHandler (hovering, x, y) {
     particles.stopEmitter()
     particles.startMouseTracking()
   }
-}
-
-function loadLottieAnimations () {
-  [
-    {
-      name: 'appleby',
-      assetPath: 'logos/appleby.json',
-      selector: '.footer-logo'
-    }, {
-      name: 'ecobee',
-      assetPath: 'ecobee-badge.json',
-      selector: '.badge--ecobee'
-    }, {
-      name: 'audi',
-      assetPath: 'audi-badge.json',
-      selector: '.badge--audi'
-    }, {
-      name: 'worldvision',
-      assetPath: 'worldvision-badge.json',
-      selector: '.badge--worldvision'
-    }
-  ].forEach(({ name, assetPath, selector }) => {
-    lottie.loadAnimation({
-      name,
-      container: document.querySelector(selector),
-      renderer: 'svg',
-      loop: false,
-      autoplay: false,
-      path: '/assets/' + assetPath
-    })
-  })
 }

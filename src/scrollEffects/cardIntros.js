@@ -14,7 +14,7 @@ function cardIntros () {
       y: 50,
       scale: 1.1,
       opacity: 0,
-      duration: 1,
+      duration: 0.5,
       ease: 'power1'
     })
     tl.from(cardImage, {
@@ -26,10 +26,10 @@ function cardIntros () {
     tl.from(cardItems, {
       opacity: 0,
       y: 20,
-      duration: 0.8,
-      stagger: 0.2,
+      duration: 0.5,
+      stagger: 0.1,
       ease: 'power1'
-    }, 1)
+    }, 0.5)
   })
 }
 
