@@ -110,6 +110,7 @@ function init (chest) {
         hide('.audi .hero')
         hide('.audi .section-content')
         show('.worldvision .section-content')
+        show('.contact .hero')
         ScrollTrigger.refresh()
       }, 2000)
       chest.gotoAndPlay('worldvision')
