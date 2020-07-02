@@ -4,9 +4,11 @@ function cardIntros () {
   gsap.utils.toArray('.card').forEach(card => {
     const cardItems = card.querySelectorAll('.card-item')
     const cardImage = card.querySelector('.card-image')
+    console.log(card)
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: card
+        trigger: card,
+        toggleActions: 'restart none none pause'
       }
     })
     tl.from(card, {
