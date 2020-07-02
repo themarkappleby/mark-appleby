@@ -1,6 +1,5 @@
 import gsap from 'gsap'
-import scrollTo from '../utils/scrollTo'
-import { show, hide } from '../utils/showHide'
+import { scrollTo, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 function worldvision (chest) {

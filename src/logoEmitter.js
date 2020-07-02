@@ -1,4 +1,4 @@
-import rand from './utils/rand'
+import { rand } from './utils'
 
 let logoPool = []
 const activeLogos = []
