@@ -373,10 +373,11 @@ function getClipAction (name, clips) {
 }
 
 function render () {
+  const LOOK_AT_EASING = 0.03
   if (mouse) {
     const root = scene.getObjectByName('root')
-    target.x += (mouse.x - target.x) * 0.07
-    target.y += (mouse.y - target.y) * 0.07
+    target.x += (mouse.x - target.x) * LOOK_AT_EASING
+    target.y += (mouse.y - target.y) * LOOK_AT_EASING
     target.z = 4
     const yLimit = 0.5
     if (target.y < yLimit * -1) target.y = yLimit * -1

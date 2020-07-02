@@ -3,6 +3,7 @@
   color: black;
   display: flex;
   box-shadow: 0 0 120px rgba(black, 0.2);
+  overflow: hidden;
   &-image {
     object-fit: cover;
     object-position: center center;
