@@ -120,19 +120,32 @@ function chestMouseoverHandler (hovering, x, y) {
 }
 
 function loadLottieAnimations () {
-  loadLottieAnimation('appleby', 'logos/appleby.json', '.footer-logo')
-  loadLottieAnimation('ecobee', 'ecobee-badge.json', '.badge--ecobee')
-  loadLottieAnimation('audi', 'audi-badge.json', '.badge--audi')
-  loadLottieAnimation('worldvision', 'worldvision-badge.json', '.badge--worldvision')
-}
-
-function loadLottieAnimation (name, assetPath, selector) {
-  lottie.loadAnimation({
-    name,
-    container: document.querySelector(selector),
-    renderer: 'svg',
-    loop: false,
-    autoplay: false,
-    path: '/assets/' + assetPath
+  [
+    {
+      name: 'appleby',
+      assetPath: 'logos/appleby.json',
+      selector: '.footer-logo'
+    }, {
+      name: 'ecobee',
+      assetPath: 'ecobee-badge.json',
+      selector: '.badge--ecobee'
+    }, {
+      name: 'audi',
+      assetPath: 'audi-badge.json',
+      selector: '.badge--audi'
+    }, {
+      name: 'worldvision',
+      assetPath: 'worldvision-badge.json',
+      selector: '.badge--worldvision'
+    }
+  ].forEach(({ name, assetPath, selector }) => {
+    lottie.loadAnimation({
+      name,
+      container: document.querySelector(selector),
+      renderer: 'svg',
+      loop: false,
+      autoplay: false,
+      path: '/assets/' + assetPath
+    })
   })
 }
