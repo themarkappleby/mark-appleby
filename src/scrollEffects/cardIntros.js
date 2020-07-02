@@ -7,7 +7,7 @@ function cardIntros () {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: card,
-        toggleActions: 'restart none none pause'
+        once: true
       }
     })
     tl.from(card, {

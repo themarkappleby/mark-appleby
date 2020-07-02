@@ -25,6 +25,7 @@ function init (params, cb) {
       render()
       animations.intro.play()
       animations.intro.paused = true
+      resize()
       resolve({
         canvas,
         gotoAndPlay,

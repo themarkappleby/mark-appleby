@@ -5,7 +5,7 @@ import motext from 'motext'
 import gsap from 'gsap'
 import './styles/styles.scss'
 import './logoEmitter'
-import { state as initState } from './utils'
+import { state as initState, getNextScene } from './utils'
 import initChest from './chest'
 import initTransitions from './sceneTransitions'
 import initParticles from './particles'
@@ -18,15 +18,15 @@ let chest = null
 let transitions = {}
 let particles = null
 
-const SCENE_ORDER = {
-  intro: 'ecobee',
-  ecobee: 'audi',
-  audi: 'worldvision',
-  worldvision: 'contact'
-}
-
 initState({
-  scene: 'loading' // default is 'loading'
+  scene: 'loading',
+  sceneOrder: [
+    'intro',
+    'ecobee',
+    'audi',
+    'worldvision',
+    'contact'
+  ]
 })
 
 simulateProgress()
@@ -74,11 +74,11 @@ function simulateProgress () {
 
 function loaded () {
   window.scrollTo(0, 0)
-  initScrollEffects()
   transitions = initTransitions(chest)
   transitions.intro().then(() => {
     particles = initParticles(document.querySelector('.particles'))
     particles.startMouseTracking()
+    initScrollEffects(chest, particles)
   })
   initScrollObservers() // TODO replace with gsap ScrollTrigger
   loadLottieAnimations()
@@ -98,9 +98,7 @@ function getProgress () {
 }
 
 function chestClickHandler () {
-  // TODO determine if top chest or bottom chest was clicked
-  const currentScene = window.state.scene
-  transitions[SCENE_ORDER[currentScene]]()
+  transitions[getNextScene()]()
   particles.stopMouseTracking()
   particles.stopEmitter()
   chest.disablePickHelper()
@@ -130,7 +128,7 @@ function initScrollObservers () {
         if (classList.contains('badges-wrapper')) {
           moveBadges(item)
         } else if (classList.contains('hero-chest') && chest && chest.canvas) {
-          handleChest(item)
+          // handleChest(item)
         }
       }
     })
@@ -141,8 +139,6 @@ function initScrollObservers () {
         const classList = item.target.classList
         if (classList.contains('badges-wrapper')) {
           animateBadges(item)
-        } else if (classList.contains('footer-logo')) {
-          handleApplebyLogo()
         }
       }
     })
@@ -151,10 +147,6 @@ function initScrollObservers () {
   })
 
   const hiddenSelectors = [
-    '.ecobee .hero-chest',
-    '.audi .hero-chest',
-    '.worldvision .hero-chest',
-    '.contact .hero-chest',
     '.ecobee .badges-wrapper',
     '.audi .badges-wrapper',
     '.worldvision .badges-wrapper'
@@ -172,34 +164,6 @@ function initScrollObservers () {
   visibleSelectors.forEach(selector => {
     visibleObserver.observe(document.querySelector(selector))
   })
-
-  function handleChest (item) {
-    const section = item.target.dataset.section
-    item.target.appendChild(chest.canvas)
-    if (particles) {
-      item.target.parentElement.querySelector('.hero-particles').appendChild(particles.canvas)
-    }
-    chest.resize()
-    if (window.state.scene === 'ecobee') {
-      if (section === 'ecobee') {
-        chest.setWeight('ecobee', 1)
-      } else if (section === 'audi') {
-        chest.setWeight('ecobee', 0)
-      }
-    } else if (window.state.scene === 'audi') {
-      if (section === 'audi') {
-        chest.setWeight('audi', 1)
-      } else if (section === 'worldvision') {
-        chest.setWeight('audi', 0)
-      }
-    } else if (window.state.scene === 'worldvision') {
-      if (section === 'worldvision') {
-        chest.setWeight('worldvision', 1)
-      } else if (section === 'contact') {
-        chest.setWeight('worldvision', 0)
-      }
-    }
-  }
 
   function moveBadges (item) {
     if (!item.target.children.length) {

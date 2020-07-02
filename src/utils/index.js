@@ -1,4 +1,5 @@
 export { default as debounce } from './debounce'
+export { default as getNextScene } from './getNextScene'
 export { default as rand } from './rand'
 export { default as scrollTo } from './scrollTo'
 export { show } from './showHide'
