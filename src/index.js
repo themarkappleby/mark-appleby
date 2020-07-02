@@ -1,4 +1,4 @@
-/* global IntersectionObserver */
+/* global */
 
 import lottie from 'lottie-web'
 import motext from 'motext'
@@ -49,7 +49,7 @@ function loadFont () {
   })
 }
 
-function loadChest (cb) {
+function loadChest () {
   return initChest({
     file: 'assets/chest.glb',
     container: document.querySelector('.ecobee .hero-chest'),
@@ -78,10 +78,9 @@ function loaded () {
   transitions.intro().then(() => {
     particles = initParticles(document.querySelector('.particles'))
     particles.startMouseTracking()
-    initScrollEffects(chest, particles)
+    loadLottieAnimations()
+    initScrollEffects({ chest, particles, lottie })
   })
-  initScrollObservers() // TODO replace with gsap ScrollTrigger
-  loadLottieAnimations()
 }
 
 function addProgress (amount) {
@@ -118,48 +117,6 @@ function chestMouseoverHandler (hovering, x, y) {
     particles.stopEmitter()
     particles.startMouseTracking()
   }
-}
-
-function initScrollObservers () {
-  const visibleObserver = new IntersectionObserver(e => {
-    e.forEach(item => {
-      if (item.isIntersecting) {
-        const classList = item.target.classList
-        if (classList.contains('badges-wrapper')) {
-          animateBadges(item)
-        }
-      }
-    })
-  }, {
-    threshold: 1
-  })
-
-  const visibleSelectors = [
-    '.ecobee .badges-wrapper',
-    '.audi .badges-wrapper',
-    '.worldvision .badges-wrapper',
-    '.footer-logo'
-  ]
-  visibleSelectors.forEach(selector => {
-    visibleObserver.observe(document.querySelector(selector))
-  })
-
-  function animateBadges (item) {
-    const section = item.target.closest('.section').dataset.section
-    if (section) {
-      window.setTimeout(() => {
-        lottie.play(section)
-      }, 200)
-    }
-  }
-
-  /*
-  function handleApplebyLogo () {
-    window.setTimeout(() => {
-      lottie.play('appleby')
-    }, 500)
-  }
-  */
 }
 
 function loadLottieAnimations () {
