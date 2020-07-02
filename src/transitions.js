@@ -1,10 +1,6 @@
 import gsap, { Power1 } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import motext from 'motext'
-import Rellax from 'rellax'
-
-const rellax = Rellax('.rellax', {
-  center: true
-})
 
 function init (chest) {
   const transitions = {}
@@ -49,7 +45,7 @@ function init (chest) {
     window.setTimeout(() => {
       show('.ecobee .section-content')
       show('.audi .hero')
-      rellax.refresh()
+      ScrollTrigger.refresh()
     }, 1500)
     var tl = gsap.timeline()
     tl.to('.home-copy', {
@@ -89,7 +85,7 @@ function init (chest) {
         hide('.ecobee .section-content')
         show('.audi .section-content')
         show('.worldvision .hero')
-        rellax.refresh()
+        ScrollTrigger.refresh(true)
       }, 2000)
       chest.gotoAndPlay('audi')
       var tl = gsap.timeline()
@@ -110,11 +106,12 @@ function init (chest) {
 
   transitions.worldvision = () => {
     scrollTo(document.body.scrollHeight, () => {
-      hide('.audi .hero')
-      hide('.audi .section-content')
-      show('.worldvision .section-content')
-      show('.contact .hero')
-      rellax.refresh()
+      window.setTimeout(() => {
+        hide('.audi .hero')
+        hide('.audi .section-content')
+        show('.worldvision .section-content')
+        ScrollTrigger.refresh()
+      }, 2000)
       chest.gotoAndPlay('worldvision')
       var tl = gsap.timeline()
       tl.to('.worldvision .hero-white', {
@@ -134,11 +131,12 @@ function init (chest) {
 
   transitions.contact = () => {
     scrollTo(document.body.scrollHeight, () => {
-      hide('.worldvision .hero')
-      hide('.worldvision .section-content')
-      show('.contact .section-content')
-      show('.footer')
-      rellax.refresh()
+      window.setTimeout(() => {
+        hide('.worldvision .hero')
+        hide('.worldvision .section-content')
+        show('.contact .section-content')
+        show('.footer')
+      }, 2000)
       chest.gotoAndPlay('contact')
       var tl = gsap.timeline()
       tl.to('.contact .hero-white', {

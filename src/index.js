@@ -10,7 +10,9 @@ import initState from './utils/state'
 import initChest from './chest'
 import initTransitions from './transitions'
 import initParticles from './particles'
+import initScrollEffects from './scrollEffects'
 
+// TODO remove this. It is currently required by motext.
 window.gsap = gsap
 
 let chest = null
@@ -73,12 +75,13 @@ function simulateProgress () {
 
 function loaded () {
   window.scrollTo(0, 0)
+  initScrollEffects()
   transitions = initTransitions(chest)
   transitions.intro().then(() => {
     particles = initParticles(document.querySelector('.particles'))
     particles.startMouseTracking()
   })
-  initScrollObservers()
+  initScrollObservers() // TODO replace with gsap ScrollTrigger
   loadLottieAnimations()
 }
 
