@@ -8,7 +8,7 @@ import './logoEmitter'
 import './utils/screenSize'
 import initState from './utils/state'
 import initChest from './chest'
-import initTransitions from './transitions'
+import initTransitions from './sceneTransitions'
 import initParticles from './particles'
 import initScrollEffects from './scrollEffects'
 
