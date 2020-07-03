@@ -1,10 +1,6 @@
-import gsap from 'gsap'
 import load from './load'
 import { state as initState } from './utils'
 import './styles/styles.scss'
-
-// TODO remove this. It is currently required by motext.
-window.gsap = gsap
 
 initState({
   scene: 'loading',
