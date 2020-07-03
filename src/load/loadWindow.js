@@ -1,9 +1,9 @@
 import { addProgress } from './progress'
 
-function loadWindow () {
+function loadWindow (progress) {
   return new Promise(resolve => {
     window.addEventListener('load', resolve)
-    addProgress(20)
+    addProgress(progress)
   })
 }
 

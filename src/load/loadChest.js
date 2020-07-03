@@ -3,7 +3,7 @@
 import initChest from '../chest'
 import { addProgress } from './progress'
 
-function loadChest (chestClickHandler, chestMouseoverHandler) {
+function loadChest (progress, chestClickHandler, chestMouseoverHandler) {
   return initChest({
     file: 'assets/chest.glb',
     container: document.querySelector('.ecobee .hero-chest'),
@@ -11,7 +11,7 @@ function loadChest (chestClickHandler, chestMouseoverHandler) {
     onMouseover: chestMouseoverHandler
   }).then(data => {
     window.chest = data
-    addProgress(60)
+    addProgress(progress)
   })
 }
 

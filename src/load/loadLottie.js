@@ -1,6 +1,7 @@
 import Lottie from 'lottie-web'
+import { addProgress } from './progress'
 
-function loadLottie () {
+function loadLottie (progress) {
   return new Promise(resolve => {
     [
       {
@@ -31,6 +32,7 @@ function loadLottie () {
       })
     })
     window.lottie = Lottie
+    addProgress(progress)
     resolve()
   })
 }

@@ -1,4 +1,3 @@
-import { simulateProgress } from './progress'
 import loadChest from './loadChest'
 import loadLottie from './loadLottie'
 import loadMotext from './loadMotext'
@@ -6,12 +5,11 @@ import loadWindow from './loadWindow'
 
 function load ({ chestClickHandler, chestMouseoverHandler }) {
   return new Promise(resolve => {
-    simulateProgress()
     Promise.all([
-      loadWindow(),
-      loadMotext(),
-      loadChest(chestClickHandler, chestMouseoverHandler),
-      loadLottie()
+      loadWindow(10),
+      loadMotext(20),
+      loadChest(60, chestClickHandler, chestMouseoverHandler),
+      loadLottie(10)
     ]).then(() => {
       resolve()
     })
