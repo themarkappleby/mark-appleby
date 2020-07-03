@@ -2,14 +2,14 @@ import gsap from 'gsap'
 import motext from 'motext'
 
 function intro (chest) {
+  const titleAnimation = motext.init('.home-title', {
+    strokeWidth: 7,
+    strokeLinejoin: 'miter',
+    revealAmount: -10,
+    revealEase: 'power4',
+    staggerAmount: 0.03
+  })
   return () => {
-    const titleAnimation = motext.init('.home-title', {
-      strokeWidth: 7,
-      strokeLinejoin: 'miter',
-      revealAmount: -10,
-      revealEase: 'power4',
-      staggerAmount: 0.03
-    })
     return new Promise(resolve => {
       gsap.to('.progress', {
         height: 1,

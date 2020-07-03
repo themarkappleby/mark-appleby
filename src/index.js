@@ -12,7 +12,6 @@ import load from './load'
 // TODO remove this. It is currently required by motext.
 window.gsap = gsap
 
-let chest = null
 let transitions = {}
 let particles = null
 
@@ -29,14 +28,13 @@ initState({
 
 load({ chestClickHandler, chestMouseoverHandler }).then(loaded)
 
-function loaded (params) {
-  chest = params.chest
+function loaded () {
   window.scrollTo(0, 0)
-  transitions = initTransitions(chest)
+  transitions = initTransitions(window.chest)
   transitions.intro().then(() => {
     particles = initParticles(document.querySelector('.particles'))
     particles.startMouseTracking()
-    initScrollEffects({ chest, particles, lottie: params.lottie })
+    initScrollEffects({ chest: window.chest, particles, lottie: window.lottie })
   })
 }
 
@@ -44,7 +42,7 @@ function chestClickHandler () {
   transitions[getNextScene()]()
   particles.stopMouseTracking()
   particles.stopEmitter()
-  chest.disablePickHelper()
+  window.chest.disablePickHelper()
 }
 
 function chestMouseoverHandler (hovering, x, y) {
