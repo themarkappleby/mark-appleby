@@ -1,5 +1,6 @@
 {
   "name": "mark-appleby",
+  "license": "ISC",
   "scripts": {
     "start": "webpack-dev-server --inline",
     "build": "webpack"
