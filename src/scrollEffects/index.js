@@ -1,11 +1,11 @@
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from 'gsap'
-import initScreenshotScrolling from './screenshotScrolling'
-import initCardIntros from './cardIntros'
-import initSwapChests from './swapChests'
-import initBadges from './badges'
-import initAppleby from './appleby'
-import initParallax from './parallax'
+import initAppleby from './initAppleby'
+import initBadges from './initBadges'
+import initCardIntros from './initCardIntros'
+import initParallax from './initParallax'
+import initScreenshotScrolling from './initScreenshotScrolling'
+import initSwapChests from './initSwapChests'
 
 function init ({ chest, particles, lottie }) {
   gsap.registerPlugin(ScrollTrigger)

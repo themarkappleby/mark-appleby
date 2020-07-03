@@ -1,8 +1,8 @@
-import initIntro from './intro'
-import initEcobee from './ecobee'
-import initAudi from './audi'
-import initWorldvision from './worldvision'
-import initContact from './contact'
+import initIntro from './initIntro'
+import initEcobee from './initEcobee'
+import initAudi from './initAudi'
+import initWorldvision from './initWorldvision'
+import initContact from './initContact'
 
 function init (chest) {
   const transitions = {}
