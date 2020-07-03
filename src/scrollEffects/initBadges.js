@@ -21,10 +21,14 @@ function update (e) {
     const badges = document.querySelector('.badges')
     el.appendChild(badges)
   }
-  if (played.indexOf(section) === -1 && e.progress > 0.3 && e.progress !== 1) {
+  if (shouldPlayAnimation(e, section)) {
     played.push(section)
     window.lottie.play(section)
   }
+}
+
+function shouldPlayAnimation (e, section) {
+  return played.indexOf(section) === -1 && e.progress > 0.3 && e.progress !== 1 && section === window.state.scene
 }
 
 export default init
