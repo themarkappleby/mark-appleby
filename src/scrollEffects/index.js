@@ -7,13 +7,13 @@ import initParallax from './initParallax'
 import initScreenshotScrolling from './initScreenshotScrolling'
 import initSwapChests from './initSwapChests'
 
-function init ({ chest, particles, lottie }) {
+function init () {
   gsap.registerPlugin(ScrollTrigger)
   initScreenshotScrolling()
   initCardIntros()
-  initSwapChests(chest, particles)
-  initBadges(lottie)
-  initAppleby(lottie)
+  initSwapChests()
+  initBadges()
+  initAppleby()
   initParallax()
 }
 

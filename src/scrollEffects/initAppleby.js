@@ -2,12 +2,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 let played = false
 
-function init (lottie) {
+function init () {
   ScrollTrigger.create({
     trigger: '.footer-logo',
     onEnter: e => {
       if (!played && e.progress < 1) {
-        lottie.play('appleby')
+        window.lottie.play('appleby')
         played = true
       }
     }

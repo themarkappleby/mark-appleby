@@ -6,9 +6,7 @@ import { addProgress } from './progress'
 function loadChest (progress, chestClickHandler, chestMouseoverHandler) {
   return initChest({
     file: 'assets/chest.glb',
-    container: document.querySelector('.ecobee .hero-chest'),
-    onClick: chestClickHandler,
-    onMouseover: chestMouseoverHandler
+    container: document.querySelector('.ecobee .hero-chest')
   }).then(data => {
     window.chest = data
     addProgress(progress)

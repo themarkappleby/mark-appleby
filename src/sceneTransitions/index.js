@@ -4,7 +4,8 @@ import initAudi from './initAudi'
 import initWorldvision from './initWorldvision'
 import initContact from './initContact'
 
-function init (chest) {
+function init () {
+  const chest = window.chest
   const transitions = {}
   transitions.intro = initIntro(chest)
   transitions.ecobee = initEcobee(chest)

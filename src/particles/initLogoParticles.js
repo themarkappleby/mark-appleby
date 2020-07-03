@@ -1,17 +1,17 @@
-import { rand } from './utils'
+import { rand } from '../utils'
 
 let logoPool = []
 const activeLogos = []
 let running = false
 const mouse = {}
 
-function init () {
+function init (el) {
   document.onmousemove = e => {
     mouse.x = e.clientX
     mouse.y = e.clientY
   }
 
-  const logoContainer = document.querySelector('[data-src="logos"]')
+  const logoContainer = el
   logoPool = Array.from(logoContainer.children)
 
   const trigger = document.querySelector('[data-action="emit-logos"]')
@@ -86,4 +86,4 @@ function step () {
   }
 }
 
-init()
+export default init

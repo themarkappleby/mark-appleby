@@ -2,22 +2,20 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getNextScene } from '../utils'
 
-function init (chest, particles) {
+function init () {
   gsap.utils.toArray('.hero-chest').forEach(hero => {
     ScrollTrigger.create({
       trigger: hero,
-      onEnter: self => {
-        moveChest(self, chest, particles)
-      },
-      onEnterBack: self => {
-        moveChest(self, chest, particles)
-      }
+      onEnter: moveChest,
+      onEnterBack: moveChest
     })
   })
 }
 
-function moveChest (e, chest, particles) {
+function moveChest (e) {
   const el = e.trigger
+  const chest = window.chest
+  const particles = window.particles
   const section = el.closest('.section').dataset.section
   if (shouldApplySwap(e, section, chest, particles)) {
     el.appendChild(chest.canvas)

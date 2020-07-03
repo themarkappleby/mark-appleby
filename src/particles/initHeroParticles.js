@@ -1,4 +1,4 @@
-import { rand } from './utils'
+import { rand } from '../utils'
 
 let canvas = null
 let ctx = null

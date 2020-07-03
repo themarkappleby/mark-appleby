@@ -2,17 +2,16 @@
 
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { getNextScene } from './utils'
 
 const FRAME_RATE = 20 / 1000
 const LOOK_AT_EASING = 0.02
 const LOOK_AT_DISTANCE = 3
 
-let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler, mouseoverHandler, mouseover, pickHelperX, pickHelperY
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, mouseover, pickHelperX, pickHelperY
 
 function init (params, cb) {
   return new Promise((resolve, reject) => {
-    clickHandler = params.onClick
-    mouseoverHandler = params.onMouseover
     initRenderer(params.container)
     initCamera()
     initResizeTracking()
@@ -392,6 +391,29 @@ function render () {
   scene.mixer.update(FRAME_RATE)
   renderer.render(scene, camera)
   requestAnimationFrame(render)
+}
+
+function clickHandler () {
+  window.transitions[getNextScene()]()
+  window.particles.stopMouseTracking()
+  window.particles.stopEmitter()
+  disablePickHelper()
+}
+
+function mouseoverHandler (hovering, x, y) {
+  if (hovering) {
+    document.querySelectorAll('.hero-chest').forEach(el => {
+      el.style.cursor = 'pointer'
+    })
+    window.particles.startEmitter(x, y)
+    window.particles.stopMouseTracking()
+  } else {
+    document.querySelectorAll('.hero-chest').forEach(el => {
+      el.style.cursor = 'default'
+    })
+    window.particles.stopEmitter()
+    window.particles.startMouseTracking()
+  }
 }
 
 export default init

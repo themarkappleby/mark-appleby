@@ -2,10 +2,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const played = []
-let lottie = null
 
-function init (ref) {
-  lottie = ref
+function init () {
   gsap.utils.toArray('.badges-wrapper').forEach(wrapper => {
     ScrollTrigger.create({
       trigger: wrapper,
@@ -25,7 +23,7 @@ function update (e) {
   }
   if (played.indexOf(section) === -1 && e.progress > 0.3 && e.progress !== 1) {
     played.push(section)
-    lottie.play(section)
+    window.lottie.play(section)
   }
 }
 
