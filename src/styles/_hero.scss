@@ -3,6 +3,7 @@
   height: 100vh;
   position: relative;
   z-index: 2;
+  overflow: hidden;
   &-title {
     @extend .h1;
     position: absolute;

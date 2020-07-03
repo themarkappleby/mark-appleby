@@ -6,11 +6,11 @@ function screenshotScrolling () {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: frame,
-        scrub: true,
-        start: 'top center'
+        scrub: 0.25,
+        start: 'top 33%'
       }
     })
-    tl.to(image, { yPercent: -70 })
+    tl.to(image, { yPercent: -40 })
     tl.to(frame, { rotationY: -5 }, 0)
   })
 }
