@@ -4,6 +4,8 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const FRAME_RATE = 20 / 1000
+const LOOK_AT_EASING = 0.02
+const LOOK_AT_DISTANCE = 3
 
 let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, clickHandler, mouseoverHandler, mouseover, pickHelperX, pickHelperY
 
@@ -374,12 +376,11 @@ function getClipAction (name, clips) {
 }
 
 function render () {
-  const LOOK_AT_EASING = 0.03
   if (mouse) {
     const root = scene.getObjectByName('root')
     target.x += (mouse.x - target.x) * LOOK_AT_EASING
     target.y += (mouse.y - target.y) * LOOK_AT_EASING
-    target.z = 4
+    target.z = LOOK_AT_DISTANCE
     const yLimit = 0.5
     if (target.y < yLimit * -1) target.y = yLimit * -1
     if (target.y > yLimit) target.y = yLimit

@@ -7,7 +7,6 @@ function init () {
     const chest = hero.querySelector('.hero-chest')
     const scrollTrigger = {
       trigger: hero,
-      markers: true,
       scrub: 0.25,
       start: 'top top',
       end: 'bottom top'
