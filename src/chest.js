@@ -144,16 +144,26 @@ function loadGLTF (path, cb) {
 function initScene (gltfScene) {
   scene = new THREE.Scene()
   scene.children = gltfScene.children
-  scene.traverse(node => {
-    node.castShadow = true
-    node.frustumCulled = false
-  })
   initCubeMap()
   initFloor()
+  initShadows()
   scene.add(initCamera())
   scene.add(initAmbientLight())
   scene.add(initShadowLight())
   setupLayers(scene)
+}
+
+function initShadows () {
+  const castShadows = [
+    'Island  Mesh_0',
+    'Chest_Lid',
+    'Plant_3',
+    'Plant_4'
+  ]
+  castShadows.forEach(name => {
+    const obj = scene.getObjectByName(name)
+    if (obj) obj.castShadow = true
+  })
 }
 
 function setupLayers (scene) {
@@ -168,10 +178,8 @@ function setupLayers (scene) {
     rootItems.forEach(root => {
       root = scene.getObjectByName(root)
       if (root) {
-        console.log(root.name)
         root.layers.set(index + 1)
         root.traverse(node => {
-          console.log(node.name)
           node.layers.set(index + 1)
         })
       }
