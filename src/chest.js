@@ -410,7 +410,7 @@ function getClipAction (name, clips) {
   return scene.mixer.clipAction(clip)
 }
 
-function render (time) {
+function render () {
   if (mouse) {
     const root = scene.getObjectByName('root')
     target.x += (mouse.x - target.x) * LOOK_AT_EASING
