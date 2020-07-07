@@ -26,10 +26,7 @@ function init (params, cb) {
       animations.intro.play()
       animations.intro.paused = true
       resize()
-      // todo remove scene and renderer (these were added for easier debugging)
       resolve({
-        scene,
-        renderer,
         canvas,
         gotoAndPlay,
         gotoAndStop,
