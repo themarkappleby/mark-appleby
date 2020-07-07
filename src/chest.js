@@ -13,7 +13,6 @@ let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mo
 function init (params, cb) {
   return new Promise((resolve, reject) => {
     initRenderer(params.container)
-    initCamera()
     initResizeTracking()
     loadGLTF(params.file, gltf => {
       initScene(gltf.scene)
@@ -27,7 +26,10 @@ function init (params, cb) {
       animations.intro.play()
       animations.intro.paused = true
       resize()
+      // todo remove scene and renderer (these were added for easier debugging)
       resolve({
+        scene,
+        renderer,
         canvas,
         gotoAndPlay,
         gotoAndStop,
@@ -131,6 +133,7 @@ function initCamera () {
   camera.position.set(0, 0.5, 6.5)
   camera.fov = 60
   camera.updateProjectionMatrix()
+  return camera
 }
 
 function loadGLTF (path, cb) {
@@ -147,8 +150,33 @@ function initScene (gltfScene) {
   })
   initCubeMap()
   initFloor()
+  scene.add(initCamera())
   scene.add(initAmbientLight())
   scene.add(initShadowLight())
+  setupLayers(scene)
+}
+
+function setupLayers (scene) {
+  // Use: chest.renderer.info.render.triangles to audit
+  const layerRoots = [
+    ['vine', 'small vine', 'Vine', 'Vine_Small'],
+    ['audi_body'],
+    ['goat', 'Goat'],
+    ['mug_left', 'mug_right', 'clink', 'balloon_red', 'balloon_green', 'balloon_blue', 'Beer_Mug_Left', 'Beer_Mug_Right']
+  ]
+  layerRoots.forEach((rootItems, index) => {
+    rootItems.forEach(root => {
+      root = scene.getObjectByName(root)
+      if (root) {
+        console.log(root.name)
+        root.layers.set(index + 1)
+        root.traverse(node => {
+          console.log(node.name)
+          node.layers.set(index + 1)
+        })
+      }
+    })
+  })
 }
 
 function initFloor () {
@@ -394,7 +422,13 @@ function render () {
 }
 
 function clickHandler () {
-  window.transitions[getNextScene()]()
+  const nextSceneName = getNextScene()
+  const index = window.state.sceneOrder.indexOf(nextSceneName)
+  camera.layers.enable(index)
+  if (index > 1) {
+    camera.layers.disable(index - 1)
+  }
+  window.transitions[nextSceneName]()
   window.particles.stopMouseTracking()
   window.particles.stopEmitter()
   disablePickHelper()

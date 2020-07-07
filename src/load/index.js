@@ -25,6 +25,8 @@ function load () {
         addProgress(10)
         resolve()
       })
+    }).catch(error => {
+      console.error(error)
     })
   })
 }
