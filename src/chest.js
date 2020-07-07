@@ -6,7 +6,7 @@ import { getNextScene } from './utils'
 
 const FRAME_RATE = 20 / 1000
 const LOOK_AT_EASING = 0.02
-const LOOK_AT_DISTANCE = 3
+const LOOK_AT_DISTANCE = 2.5
 
 let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, mouseover, pickHelperX, pickHelperY
 

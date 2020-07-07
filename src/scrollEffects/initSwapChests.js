@@ -20,7 +20,7 @@ function moveChest (e) {
   if (shouldApplySwap(e, section, chest, particles)) {
     el.appendChild(chest.canvas)
     chest.resize()
-    el.parentElement.querySelector('.hero-particles').appendChild(particles.canvas)
+    el.closest('.hero').querySelector('.hero-particles').appendChild(particles.canvas)
     if (section === window.state.scene) {
       chest.setWeight(window.state.scene, 1)
     } else {

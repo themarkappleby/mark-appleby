@@ -15,7 +15,7 @@ function ecobee (chest) {
       opacity: 0,
       duration: 1
     })
-    tl.to('.home', {
+    tl.to('.home, .home-overlay', {
       left: '-25%',
       opacity: 0,
       duration: 2,

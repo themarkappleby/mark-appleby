@@ -15,7 +15,7 @@ const SIZE = 7
 const LIFE = 35
 const ROTATION_FACTOR = 3
 const DECAY_FACTOR = 3
-const MIN_DISTANCE = 20
+const MIN_DISTANCE = 0 // 20
 const PARTICLE_MULTIPLIER = 5
 const VARIATION = 1.5
 const COLORS = ['#0dafb7', '#eabc36', '#e154ed', '#62d628', 'black']
@@ -58,8 +58,9 @@ function init (el) {
 }
 
 function initResizeTracking () {
-  ctx.canvas.width = window.innerWidth
-  ctx.canvas.height = window.innerHeight
+  const wrapper = canvas.closest('.hero-particles')
+  ctx.canvas.width = wrapper.clientWidth
+  ctx.canvas.height = wrapper.clientHeight
   window.addEventListener('resize', () => {
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = window.innerHeight
@@ -97,8 +98,9 @@ function stopMouseTracking () {
 
 function initMouseTracking () {
   window.addEventListener('mousemove', event => {
+    const wrapper = canvas.closest('.hero-particles')
     if (mouseTracking) {
-      x = event.clientX
+      x = event.clientX - (wrapper.offsetLeft - (wrapper.clientWidth / 2))
       y = event.clientY
       distance = diff(x, m.pos.x) + diff(y, m.pos.y)
       if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
@@ -211,4 +213,16 @@ function step () {
   }
 }
 
+export const innerDimensions = (node) => {
+  var computedStyle = getComputedStyle(node)
+
+  let width = node.clientWidth // width with padding
+  let height = node.clientHeight // height with padding
+
+  height -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom)
+  width -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight)
+  return { height, width }
+}
+
 export default init
+
