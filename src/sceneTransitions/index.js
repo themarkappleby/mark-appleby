@@ -1,3 +1,4 @@
+import gsap from 'gsap'
 import initIntro from './initIntro'
 import initEcobee from './initEcobee'
 import initAudi from './initAudi'
@@ -5,6 +6,7 @@ import initWorldvision from './initWorldvision'
 import initContact from './initContact'
 
 function init () {
+  gsap.config({ nullTargetWarn: false })
   const chest = window.chest
   const transitions = {}
   transitions.intro = initIntro(chest)
