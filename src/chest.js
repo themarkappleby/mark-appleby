@@ -198,9 +198,9 @@ function initFloor () {
 function initCubeMap () {
   const loader = new THREE.CubeTextureLoader()
   const envMap = loader.load([
-    'assets/env/px.png', 'assets/env/nx.png',
-    'assets/env/py.png', 'assets/env/ny.png',
-    'assets/env/pz.png', 'assets/env/nz.png'
+    'assets/env/px.jpg', 'assets/env/nx.jpg',
+    'assets/env/py.jpg', 'assets/env/ny.jpg',
+    'assets/env/pz.jpg', 'assets/env/nz.jpg'
   ])
   const audiBody = scene.getObjectByName('Audi_Body')
   audiBody.children.forEach(child => {
@@ -410,7 +410,7 @@ function getClipAction (name, clips) {
   return scene.mixer.clipAction(clip)
 }
 
-function render () {
+function render (time) {
   if (mouse) {
     const root = scene.getObjectByName('root')
     target.x += (mouse.x - target.x) * LOOK_AT_EASING
