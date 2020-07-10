@@ -129,16 +129,18 @@
 @media (max-width: 1000px) {
   .ecobee .hero-chest {
     width: 100%;
-    height: auto;
-    flex-grow: 1;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-25%) !important;
   }
   .home-wrapper {
     flex-direction: column-reverse;
+    align-items: flex-end;
   }
   .home {
     width: 100%;
-    height: auto;
-    flex-grow: 1;
     padding-bottom: 100px;
   }
   .home-copy {
@@ -154,7 +156,7 @@
 
 @media (max-width: 600px) {
   .home-title {
-    font-size: 30px;
+    font-size: 38px;
   }
   .home-text {
     font-size: 16px;
@@ -164,19 +166,15 @@
     padding: 0;
   }
   .home {
-    padding: 0 60px 40px 60px;
+    padding: 0 40px 60px 40px;
   }
 }
 
 @media (max-width: 400px) {
   .home-title {
-    font-size: 24px;
-  }
-  .home-text {
-    font-size: 14px;
-    line-height: 21px;
+    font-size: 36px;
   }
   .home {
-    padding: 0 30px 30px 30px;
+    padding: 0 40px 40px 40px;
   }
 }

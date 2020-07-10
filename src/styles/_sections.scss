@@ -36,6 +36,18 @@
       color: #5abed7;
       font-size: 260px;
       line-height: 220px;
+      @media (max-width: 960px) {
+        font-size: 200px;
+        line-height: 180px;
+      }
+      @media (max-width: 700px) {
+        font-size: 160px;
+        line-height: 150px;
+      }
+      @media (max-width: 550px) {
+        font-size: 150px;
+        line-height: 130px;
+      }
     }
     .project-previewBackground {
       background-image: url('/assets/worldvision-background.png');
