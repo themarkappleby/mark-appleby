@@ -249,7 +249,7 @@ function resize () {
     camera.aspect = canvas.offsetWidth / canvas.offsetHeight
     camera.updateProjectionMatrix()
   }
-  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight, false)
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
   calculatePickHelperCenter()
 }
 

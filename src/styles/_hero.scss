@@ -36,6 +36,9 @@
       width: 100% !important;
       height: 100% !important;
       max-height: 1000px;
+      @media (max-width: 1325px) {
+        max-height: 700px;
+      }
     }
   }
   &-white {
