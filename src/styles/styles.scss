@@ -21,8 +21,14 @@ html, body {
 
 .container {
   max-width: 1150px;
-  padding: 0 20px;
+  padding: 0 100px;
   margin: 0 auto;
+  @media  (max-width: 768px) {
+    padding: 0 60px;
+  }
+  @media (max-width: 500px) {
+    padding: 0 40px;
+  }
 }
 
 .grid {

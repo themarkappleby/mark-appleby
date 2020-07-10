@@ -65,13 +65,11 @@ h3, .h3 {
   font-weight: 800;
   line-height: 44px;
   margin-bottom: 21px;
-  /*
-  @media (max-width: $bp) {
+  @media (max-width: 768px) {
     display: block;
     font-size: 28px;
     line-height: 37px;
   }
-  */
 }
 
 h4, .h4 {
@@ -80,11 +78,9 @@ h4, .h4 {
   letter-spacing: 2.86px;
   text-transform: uppercase;
   margin-bottom: -5px;
-  /*
-  @media (max-width: $bp) {
+  @media (max-width: 768px) {
     display: block;
     font-size: 10px;
     letter-spacing: 2.38px;
   }
-  */
 }
