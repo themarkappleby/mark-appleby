@@ -121,7 +121,6 @@ function initRenderer (container) {
   renderer.toneMappingExposure = 2.2
   renderer.setPixelRatio(window.devicePixelRatio)
   canvas = renderer.domElement
-  resize(container)
   container.appendChild(canvas)
 }
 
