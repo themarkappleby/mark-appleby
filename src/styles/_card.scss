@@ -21,7 +21,11 @@
   }
 }
 
-/*
+.gradient-background {
+  padding: 200px 0;
+  background-image: linear-gradient(to bottom, rgba(white, 0), white 90%);
+}
+
 @media (max-width: 960px) {
   .card {
     flex-direction: column;
@@ -29,11 +33,8 @@
       height: 270px;
       width: 100%;
     }
+    &-content {
+      padding: 40px;
+    }
   }
-}
-*/
-
-.gradient-background {
-  padding: 200px 0;
-  background-image: linear-gradient(to bottom, rgba(white, 0), white 90%);
 }

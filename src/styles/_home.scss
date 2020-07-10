@@ -45,6 +45,7 @@
   &-title {
     @extend .h2;
     font-size: 70px;
+    line-height: 0;
   }
   &-copy {
     position: relative;
@@ -93,9 +94,13 @@
   animation-name: pulse;
 }
 
+.motext {
+  line-height: 0;
+}
+
 .motext-word {
   margin-right: 0.3em;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.3em;
 }
 
 .motext-letter--L {
@@ -105,6 +110,15 @@
 // ================================================
 //                Media Queries
 // ================================================
+
+@media (max-height: 600px) {
+  .home {
+    padding-bottom: 30px;
+  }
+  .home-title {
+    font-size: 36px;
+  }
+}
 
 @media (max-width: 1250px) {
   .home-title {
@@ -140,7 +154,11 @@
 
 @media (max-width: 600px) {
   .home-title {
-    font-size: 40px;
+    font-size: 30px;
+  }
+  .home-text {
+    font-size: 16px;
+    line-height: 24px;
   }
   .home-wrapper {
     padding: 0 40px;
@@ -148,19 +166,20 @@
   .home {
     padding-bottom: 40px;
   }
-  .motext-word {
-    margin-bottom: -0.1em;
-  }
 }
 
 @media (max-width: 400px) {
   .home-title {
-    font-size: 36px;
+    font-size: 24px;
+  }
+  .home-text {
+    font-size: 14px;
+    line-height: 21px;
   }
   .home-wrapper {
-    padding: 0 20px;
+    padding: 0 30px;
   }
   .home {
-    padding-bottom: 20px;
+    padding-bottom: 30px;
   }
 }

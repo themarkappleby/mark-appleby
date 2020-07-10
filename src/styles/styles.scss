@@ -12,7 +12,7 @@ html, body {
 
 $bp: 768px;
 
-body {
+html, body {
   overflow-x: hidden;
   &.scene--loading, &.scene--intro {
     overflow-y: hidden;
@@ -28,11 +28,9 @@ body {
 .grid {
   display: flex;
   justify-content: space-between;
-  /*
   @media (max-width: 960px) {
     flex-direction: column;
   }
-  */
 }
 
 .hide {

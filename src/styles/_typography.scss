@@ -33,6 +33,18 @@ h1, .h1 {
   font-size: 300px;
   font-weight: 900;
   line-height: 0;
+  @media (max-width: 1150px) {
+    font-size: 200px;
+  }
+  @media (max-width: 768px) {
+    font-size: 175px;
+  }
+  @media (max-width: 550px) {
+    font-size: 100px;
+  }
+  @media (max-width: 400px) {
+    font-size: 80px;
+  }
 }
 
 h2, .h2 {
