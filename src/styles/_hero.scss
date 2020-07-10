@@ -58,4 +58,21 @@
     top: 0;
     left: 0;
   }
+  &-scroll {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 40px;
+    animation: scroll 2s ease-in-out 0s infinite alternate;
+  }
+}
+
+@keyframes scroll {
+  from {
+    transform: translate(-50%, 0);
+  }
+  to {
+    transform: translate(-50%, -30%);
+  }
 }
