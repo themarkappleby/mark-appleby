@@ -11,6 +11,7 @@ function ecobee (chest) {
       show('.ecobee .section-content')
       show('.audi .hero')
       ScrollTrigger.refresh()
+      document.querySelector('.ecobee .hero-title').classList.add('hero-title--intro')
     }, 1500)
     var tl = gsap.timeline()
     tl.to('.home-copy', {
@@ -46,11 +47,6 @@ function ecobee (chest) {
       duration: 2,
       ease: 'power1.easeOut'
     }, 0.5)
-    tl.to('.ecobee .hero-title', {
-      opacity: 1,
-      duration: 3,
-      ease: 'power1.easeOut'
-    }, 2)
     tl.from('.ecobee .hero-scroll', {
       opacity: 0,
       duration: 3

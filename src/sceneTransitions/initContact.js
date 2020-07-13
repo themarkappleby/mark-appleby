@@ -11,6 +11,7 @@ function contact (chest) {
         show('.contact .section-content')
         show('.footer')
         ScrollTrigger.refresh()
+        document.querySelector('.contact .hero-title').classList.add('hero-title--intro')
       }, 2000)
       chest.gotoAndPlay('contact')
       var tl = gsap.timeline()
@@ -19,11 +20,6 @@ function contact (chest) {
         duration: 2,
         ease: 'power1.easeOut'
       }, 0.5)
-      tl.to('.contact .hero-title', {
-        opacity: 1,
-        duration: 3,
-        ease: 'power1.easeOut'
-      }, 2)
       tl.from('.contact .hero-scroll', {
         opacity: 0,
         duration: 3

@@ -12,7 +12,7 @@
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
-    opacity: 0;
+    // opacity: 0;
   }
   &-particles {
     position: absolute;
@@ -75,4 +75,35 @@
   to {
     transform: translate(-50%, -30%);
   }
+}
+
+.hero-titleInner {
+  display: block;
+  line-height: normal;
+  clip-path: polygon(
+    0 70%,
+    100% 40%,
+    100% 100%,
+    0 100%
+  );
+  transform: translateY(-25px) skew(0, -4deg);
+  opacity: 0;
+  transition:
+    opacity 1s ease-out,
+    transform 1.5s ease-out,
+    clip-path 2s ease-out;
+  &:last-child {
+    transition-delay: 0.2s;
+  }
+}
+
+.hero-title--intro .hero-titleInner {
+  transform: translateY(0) skew(0, 0);
+  opacity: 1;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
 }

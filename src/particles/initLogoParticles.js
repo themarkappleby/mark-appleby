@@ -9,7 +9,6 @@ function init (el) {
   document.onmousemove = e => {
     mouse.x = e.clientX
     mouse.y = e.clientY
-    console.log(mouse.x, mouse.y)
   }
 
   const logoContainer = el

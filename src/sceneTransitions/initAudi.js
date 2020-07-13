@@ -11,7 +11,8 @@ function audi (chest) {
         show('.audi .section-content')
         show('.worldvision .hero')
         ScrollTrigger.refresh(true)
-      }, 2000)
+        document.querySelector('.audi .hero-title').classList.add('hero-title--intro')
+      }, 1500)
       chest.gotoAndPlay('audi')
       var tl = gsap.timeline()
       tl.to('.audi .hero-white', {
@@ -19,11 +20,6 @@ function audi (chest) {
         duration: 2,
         ease: 'power1.easeOut'
       }, 0.5)
-      tl.to('.audi .hero-title', {
-        opacity: 1,
-        duration: 3,
-        ease: 'power1.easeOut'
-      }, 2)
       tl.from('.audi .hero-scroll', {
         opacity: 0,
         duration: 3

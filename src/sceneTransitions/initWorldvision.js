@@ -11,7 +11,8 @@ function worldvision (chest) {
         show('.worldvision .section-content')
         show('.contact .hero')
         ScrollTrigger.refresh()
-      }, 2000)
+        document.querySelector('.worldvision .hero-title').classList.add('hero-title--intro')
+      }, 1500)
       chest.gotoAndPlay('worldvision')
       var tl = gsap.timeline()
       tl.to('.worldvision .hero-white', {
@@ -19,11 +20,6 @@ function worldvision (chest) {
         duration: 2,
         ease: 'power1.easeOut'
       }, 0.5)
-      tl.to('.worldvision .hero-title', {
-        opacity: 1,
-        duration: 3,
-        ease: 'power1.easeOut'
-      }, 2)
       tl.from('.worldvision .hero-scroll', {
         opacity: 0,
         duration: 3
