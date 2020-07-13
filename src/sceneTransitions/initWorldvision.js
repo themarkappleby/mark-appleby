@@ -24,6 +24,10 @@ function worldvision (chest) {
         duration: 3,
         ease: 'power1.easeOut'
       }, 2)
+      tl.from('.worldvision .hero-scroll', {
+        opacity: 0,
+        duration: 3
+      }, 2.5)
       tl.play()
       window.state.set('scene', 'worldvision')
     })
