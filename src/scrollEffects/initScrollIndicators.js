@@ -7,7 +7,8 @@ function init () {
       scrollTrigger: {
         trigger: scroll,
         scrub: true,
-        end: 'bottom center'
+        end: 'bottom center',
+        start: 'top 65%'
       }
     })
   })
