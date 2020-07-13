@@ -12,7 +12,7 @@ function audi (chest) {
         show('.worldvision .hero')
         ScrollTrigger.refresh(true)
         document.querySelector('.audi .hero-title').classList.add('hero-title--intro')
-      }, 1500)
+      }, 2000)
       chest.gotoAndPlay('audi')
       var tl = gsap.timeline()
       tl.to('.audi .hero-white', {
