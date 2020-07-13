@@ -1,10 +1,10 @@
 import gsap from 'gsap'
-import { scrollTo, show, hide } from '../utils'
+import { scrollToBottom, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 function audi (chest) {
   return () => {
-    scrollTo(document.body.scrollHeight, () => {
+    scrollToBottom(() => {
       window.setTimeout(() => {
         hide('.ecobee .hero')
         hide('.ecobee .section-content')

@@ -1,10 +1,10 @@
 import gsap from 'gsap'
-import { scrollTo, show, hide } from '../utils'
+import { scrollToBottom, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 function contact (chest) {
   return () => {
-    scrollTo(document.body.scrollHeight, () => {
+    scrollToBottom(() => {
       window.setTimeout(() => {
         hide('.worldvision .hero')
         hide('.worldvision .section-content')
@@ -12,6 +12,7 @@ function contact (chest) {
         show('.footer')
         ScrollTrigger.refresh()
         document.querySelector('.contact .hero-title').classList.add('hero-title--intro')
+        window.scrollTo(0, 0)
       }, 2000)
       chest.gotoAndPlay('contact')
       var tl = gsap.timeline()
