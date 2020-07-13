@@ -40,13 +40,6 @@ function ecobee (chest) {
         opacity: 0,
         duration: 2
       }, 0)
-      /*
-      tl.to('.ecobee .hero-chest', {
-        yPercent: 25,
-        duration: 2,
-        ease: 'power1.easeOut'
-      }, 0)
-      */
     }
     tl.to('.ecobee .hero-white', {
       opacity: 0,

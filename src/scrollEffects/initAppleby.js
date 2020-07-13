@@ -4,7 +4,8 @@ let played = false
 
 function init () {
   ScrollTrigger.create({
-    trigger: '.footer-logo',
+    trigger: '.footer',
+    start: 'bottom bottom',
     onEnter: e => {
       if (!played && e.progress < 1) {
         window.lottie.play('appleby')
