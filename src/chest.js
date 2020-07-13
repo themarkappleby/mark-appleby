@@ -10,6 +10,8 @@ const LOOK_AT_DISTANCE = 2.5
 
 let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, mouseover, pickHelperX, pickHelperY
 
+let clicked = false
+
 function init (params, cb) {
   return new Promise((resolve, reject) => {
     initRenderer(params.container)
@@ -426,16 +428,20 @@ function render () {
 }
 
 function clickHandler () {
-  const nextSceneName = getNextScene()
-  const index = window.state.sceneOrder.indexOf(nextSceneName)
-  camera.layers.enable(index)
-  if (index > 1) {
-    camera.layers.disable(index - 1)
+  if (!clicked) {
+    clicked = true
+    window.setTimeout(() => { clicked = false }, 3000)
+    const nextSceneName = getNextScene()
+    const index = window.state.sceneOrder.indexOf(nextSceneName)
+    camera.layers.enable(index)
+    if (index > 1) {
+      camera.layers.disable(index - 1)
+    }
+    window.transitions[nextSceneName]()
+    window.particles.stopMouseTracking()
+    window.particles.stopEmitter()
+    disablePickHelper()
   }
-  window.transitions[nextSceneName]()
-  window.particles.stopMouseTracking()
-  window.particles.stopEmitter()
-  disablePickHelper()
 }
 
 function mouseoverHandler (hovering, x, y) {
