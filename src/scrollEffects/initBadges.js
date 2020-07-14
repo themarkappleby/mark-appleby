@@ -24,6 +24,12 @@ function update (e) {
   if (shouldPlayAnimation(e, section)) {
     played.push(section)
     window.lottie.play(section)
+    gsap.to(`.badge--${section} .badge-label`, {
+      opacity: 1,
+      y: 0,
+      duration: 1.5,
+      delay: 1
+    })
   }
 }
 

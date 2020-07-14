@@ -7,11 +7,11 @@ function screenshotScrolling () {
       scrollTrigger: {
         trigger: frame,
         scrub: 0.25,
-        start: 'top 40%',
+        start: 'top bottom',
         end: 'bottom top'
       }
     })
-    tl.to(image, { yPercent: -40 })
+    tl.to(image, { yPercent: -25, delay: 0.3 })
     tl.to(frame, { rotationY: -5, y: -125 }, 0)
   })
   gsap.utils.toArray('.project-previewBackground').forEach(bkg => {
