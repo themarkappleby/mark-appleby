@@ -12,7 +12,10 @@ function screenshotScrolling () {
       }
     })
     tl.to(image, { yPercent: -25, delay: 0.3 })
-    tl.to(frame, { rotationY: -5, y: -125 }, 0)
+    tl.to(frame, {
+      rotationY: -5,
+      y: -125
+    }, 0)
   })
   gsap.utils.toArray('.project-previewBackground').forEach(bkg => {
     gsap.from(bkg, {
@@ -20,9 +23,9 @@ function screenshotScrolling () {
         trigger: bkg,
         scrub: true
       },
-      marginTop: -100,
+      yPercent: -30,
       opacity: 0,
-      scale: 0.9
+      scale: 0.8
     })
   })
 }
