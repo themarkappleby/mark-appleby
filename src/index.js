@@ -1,6 +1,13 @@
 import load from './load'
 import { state as initState } from './utils'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import gsap from 'gsap'
 import './styles/styles.scss'
+
+gsap.registerPlugin(ScrollTrigger)
+
+window.ScrollTrigger = ScrollTrigger
+console.log(ScrollTrigger.getAll())
 
 initState({
   scene: 'loading',

@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { scrollToBottom, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import initScrollEffects from '../scrollEffects'
 
 function worldvision (chest) {
   return () => {
@@ -10,8 +11,9 @@ function worldvision (chest) {
         hide('.audi .section-content')
         show('.worldvision .section-content')
         show('.contact .hero')
-        ScrollTrigger.refresh()
         document.querySelector('.worldvision .hero-title').classList.add('hero-title--intro')
+        initScrollEffects('worldvision')
+        ScrollTrigger.refresh()
       }, 1500)
       chest.gotoAndPlay('worldvision')
       var tl = gsap.timeline()

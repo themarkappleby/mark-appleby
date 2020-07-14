@@ -2,7 +2,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getNextScene } from '../utils'
 
-function init () {
+function init (section) {
   gsap.utils.toArray('.hero-chest').forEach(hero => {
     ScrollTrigger.create({
       trigger: hero,

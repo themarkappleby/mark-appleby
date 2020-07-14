@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { scrollToBottom, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import initScrollEffects from '../scrollEffects'
 
 function audi (chest) {
   return () => {
@@ -10,8 +11,9 @@ function audi (chest) {
         hide('.ecobee .section-content')
         show('.audi .section-content')
         show('.worldvision .hero')
-        ScrollTrigger.refresh(true)
         document.querySelector('.audi .hero-title').classList.add('hero-title--intro')
+        initScrollEffects('audi')
+        ScrollTrigger.refresh(true)
       }, 2000)
       chest.gotoAndPlay('audi')
       var tl = gsap.timeline()

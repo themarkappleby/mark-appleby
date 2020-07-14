@@ -3,8 +3,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const played = []
 
-function init () {
-  gsap.utils.toArray('.badges-wrapper').forEach(wrapper => {
+function init (section) {
+  gsap.utils.toArray(`.${section} .badges-wrapper`).forEach(wrapper => {
     ScrollTrigger.create({
       trigger: wrapper,
       onUpdate: update,

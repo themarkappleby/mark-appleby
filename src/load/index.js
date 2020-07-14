@@ -5,7 +5,7 @@ import loadMotext from './loadMotext'
 import loadWindow from './loadWindow'
 import initTransitions from '../sceneTransitions'
 import initParticles from '../particles'
-import initScrollEffects from '../scrollEffects'
+import initSwapChests from '../scrollEffects/initSwapChests'
 
 function load () {
   simulateProgress()
@@ -21,7 +21,7 @@ function load () {
       })
       loadChest(60).then(() => {
         window.transitions = initTransitions()
-        initScrollEffects()
+        initSwapChests()
         addProgress(10)
         resolve()
       })

@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 
-function screenshotScrolling () {
-  gsap.utils.toArray('.project-previewFrame').forEach(frame => {
+function screenshotScrolling (section) {
+  gsap.utils.toArray(`.${section} .project-previewFrame`).forEach(frame => {
     const image = frame.children[0]
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -11,21 +11,24 @@ function screenshotScrolling () {
         end: 'bottom top'
       }
     })
-    tl.to(image, { yPercent: -25, delay: 0.3 })
     tl.to(frame, {
-      rotationY: -5,
+      rotationY: -20,
       y: -125
     }, 0)
+    tl.to(image, {
+      yPercent: -25,
+      delay: 0.2
+    }, 0)
   })
-  gsap.utils.toArray('.project-previewBackground').forEach(bkg => {
-    gsap.from(bkg, {
+  gsap.utils.toArray(`.${section} .project-previewBackground`).forEach(bkg => {
+    gsap.to(bkg, {
       scrollTrigger: {
         trigger: bkg,
         scrub: true
       },
-      yPercent: -30,
-      opacity: 0,
-      scale: 0.8
+      yPercent: -80,
+      opacity: 0.8,
+      scale: 1.2
     })
   })
 }

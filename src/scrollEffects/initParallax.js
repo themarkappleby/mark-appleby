@@ -1,10 +1,10 @@
 import gsap from 'gsap'
 
-function init () {
-  gsap.utils.toArray('.hero').forEach(hero => {
+function init (section) {
+  gsap.utils.toArray(`.${section} .hero`).forEach(hero => {
     const chest = hero.querySelector('.hero-chest')
     gsap.to(chest, {
-      yPercent: -20,
+      yPercent: -70,
       scrollTrigger: {
         trigger: hero,
         scrub: 0.15,

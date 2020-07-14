@@ -1,11 +1,11 @@
 import gsap from 'gsap'
 
-function cardIntros () {
-  gsap.utils.toArray('.card').forEach(card => {
+function cardIntros (section) {
+  gsap.utils.toArray(`.${section} .card`).forEach(card => {
     gsap.from(card, {
       scrollTrigger: {
         trigger: card,
-        toggleActions: 'restart none none pause'
+        toggleActions: 'restart reset restart reset'
       },
       y: 50,
       scale: 1.1,

@@ -4,8 +4,7 @@
   }
   .hero-chest {
     position: relative;
-    transform: none;
-    top: 0;
+    transform: translate(0, -50%);
     left: 0;
     z-index: 3;
     width: 50%;
