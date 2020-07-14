@@ -10,7 +10,7 @@ function cardIntros (section) {
       y: 50,
       scale: 1.1,
       opacity: 0,
-      duration: 0.5,
+      duration: 1.5,
       ease: 'power1'
     })
   })
