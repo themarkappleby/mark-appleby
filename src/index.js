@@ -6,9 +6,6 @@ import './styles/styles.scss'
 
 gsap.registerPlugin(ScrollTrigger)
 
-window.ScrollTrigger = ScrollTrigger
-console.log(ScrollTrigger.getAll())
-
 initState({
   scene: 'loading',
   sceneOrder: [
