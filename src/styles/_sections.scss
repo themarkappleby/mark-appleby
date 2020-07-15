@@ -1,0 +1,91 @@
+.section {
+  color: white;
+  &.ecobee {
+    background-color: #5dbe7b;
+    .hero-title {
+      color: #eeff97;
+    }
+    .hero-scroll {
+      fill: #eeff97;
+    }
+    .project-previewBackground {
+      background-image: url('/assets/ecobee-background.png');
+    }
+    .project-previewFrame {
+      border-color: #1d7d16;
+    }
+    .card-item a:hover {
+      color: #5dbe7b;
+    }
+  }
+  &.audi {
+    background-color: #91251e;
+    .hero-title {
+      color: #ffe0c2;
+    }
+    .hero-scroll {
+      fill: #ffe0c2;
+    }
+    .project-previewBackground {
+      background-image: url('/assets/audi-background.png');
+    }
+    .project-previewFrame {
+      border-color: #322121;
+    }
+    .card-item a:hover {
+      color: #91251e;
+    }
+  }
+  &.worldvision {
+    background-color: #2b6596;
+    .hero-title {
+      color: #5abed7;
+      font-size: 260px;
+      line-height: 220px;
+      @media (max-width: 960px) {
+        font-size: 200px;
+        line-height: 180px;
+      }
+      @media (max-width: 700px) {
+        font-size: 160px;
+        line-height: 150px;
+      }
+      @media (max-width: 550px) {
+        font-size: 150px;
+        line-height: 130px;
+      }
+      &Inner {
+        line-height: inherit;
+      }
+    }
+    .hero-scroll {
+      fill: #5abed7;
+    }
+    .project-previewBackground {
+      background-image: url('/assets/worldvision-background.png');
+    }
+    .project-previewFrame {
+      border-color: #322121;
+    }
+    .card-item a:hover {
+      color: #2b6596;
+    }
+  }
+  &.contact {
+    background-color: #ddaf40;
+    .hero-title {
+      color: #fff264;
+    }
+    .hero-scroll {
+      fill: #fff264;
+    }
+    @media (max-width: 960px) {
+      .gradient-background {
+        padding: 100px 0;
+      }
+      .card-image {
+        object-position: top center;
+      }
+    }
+  }
+}

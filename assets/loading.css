@@ -1,0 +1,33 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  z-index: 999;
+  cursor: default;
+}
+
+.progress {
+  width: 200px;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-appearance: none;
+   appearance: none;
+   height: 5px;
+   z-index: 9999;
+}
+
+.progress::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+}
+
+.progress::-webkit-progress-value {
+  background: black;
+  border-radius: 2px;
+  transition: all 0.2s ease-in-out;
+}

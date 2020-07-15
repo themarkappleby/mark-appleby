@@ -1,0 +1,109 @@
+.hero {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  &-title {
+    @extend .h1;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    user-select: none;
+  }
+  &-particles {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    max-width: 1440px;
+  }
+  &-chest {
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+      max-height: 1000px;
+      @media (max-width: 1325px) {
+        max-height: 700px;
+      }
+    }
+  }
+  &-white {
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+  }
+  &-horizon {
+    background-image: linear-gradient(to bottom, rgba(black,0) 0%, rgba(black,1) 92%, rgba(black,0) 100%);
+    opacity: 10%;
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &-scroll {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 40px;
+    animation: scroll 2s ease-in-out 0s infinite alternate;
+  }
+}
+
+@keyframes scroll {
+  from {
+    transform: translate(-50%, 0);
+  }
+  to {
+    transform: translate(-50%, -30%);
+  }
+}
+
+.hero-titleInner {
+  display: block;
+  line-height: normal;
+  clip-path: polygon(
+    0 70%,
+    100% 40%,
+    100% 100%,
+    0 100%
+  );
+  transform: translateY(-25px) skew(0, -4deg);
+  opacity: 0;
+  transition:
+    opacity 1s ease-out,
+    transform 1.5s ease-out,
+    clip-path 2s ease-out;
+  &:last-child {
+    transition-delay: 0.2s;
+  }
+}
+
+.hero-title--intro .hero-titleInner {
+  transform: translateY(0) skew(0, 0);
+  opacity: 1;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}

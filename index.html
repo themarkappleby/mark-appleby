@@ -2,38 +2,305 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Mark Appleby</title>
-    <style media="screen">
-      @keyframes wave {
-        0% {
-          transform: translate(-50%, -50%) rotate(-6deg);
-        }
-        50% {
-          transform: translate(-50%, -50%) rotate(6deg);
-        }
-        100% {
-          transform: translate(-50%, -50%) rotate(-6deg);
-        }
-      }
-      html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        background-color: #85ebe0;
-        background-image: linear-gradient(#68fad1, #9ddbef);
-      }
-      h1 {
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 86px;
-        animation: wave 1s ease-in-out infinite;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mark Appleby - Creative Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/loading.css">
   </head>
   <body>
-    <h1>👋</h1>
+    <form action="/" class="password" method="POST">
+      <label for="password">Please enter the password</label>
+      <input id="password" name="password" type="password">
+      <input type="submit">
+    </form>
+    <div class="loading">
+      <progress class="progress" value="0"></progress>
+    </div>
+    <main class="main" role="main">
+
+      <!-- ============================================ -->
+      <!--                   ecobee                     -->
+      <!-- ============================================ -->
+      <section class="section ecobee" data-section="ecobee">
+        <div class="hero">
+          <div class="hero-scroll">
+            <svg class="hero-scrollArrow" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+             <path d="m96.199 29.852l-46.207 46.199-46.195-46.199 4.1602-4.1602 42.031 42.035 42.047-42.043 4.1641 4.1641z"/>
+            </svg>
+          </div>
+          <div class="hero-white"></div>
+          <div class="hero-horizon"></div>
+          <div class="hero-particles">
+            <canvas class="particles"></canvas>
+          </div>
+          <div class="home-overlay"></div>
+          <h1 class="hero-title">
+            <span class="hero-titleInner">
+              ecobee
+            </span>
+          </h1>
+          <div class="home-wrapper">
+            <div class="home">
+              <div class="home-copy">
+                <h1 class="home-title">
+                  Let's make something fun together
+                </h1>
+                <p class="home-text">
+                  Hi! I’m Mark, a creative developer based in Toronto with <a href="https://www.linkedin.com/in/themarkappleby/" target="_blank">10+ years of agency experience</a> and a passion for <a href="#" class="home-logos-trigger" data-action="emit-logos"> coding and design </a>.
+                </p>
+              </div>
+              <div class="home-logos" data-src="logos">
+                <img src="/assets/logos/shopify.svg" alt="Shopify logo">
+                <img src="/assets/logos/gatsby.svg" alt="Gatsby logo">
+                <img src="/assets/logos/blender.svg" alt="Blender logo">
+                <img src="/assets/logos/react.svg" alt="React logo">
+                <img src="/assets/logos/sketch.svg" alt="Sketch logo">
+                <img src="/assets/logos/atom.svg" alt="Atom logo">
+                <img src="/assets/logos/vue.svg" alt="Vue logo">
+                <img src="/assets/logos/contentful.svg" alt="Contentful logo">
+              </div>
+            </div>
+            <div class="hero-chest" data-section="ecobee"></div>
+          </div>
+        </div>
+        <div class="section-content hide">
+          <div class="project container">
+            <div class="grid">
+              <div class="project-intro">
+                <img class="project-logo" src="/assets/logos/ecobee.svg" alt="ecobee logo">
+                <h3>Planet-positive smart homes for all</h3>
+                <p>A fresh-faced storefront to showcase and sell ecobee’s expanding suite of smart home products.</p>
+              </div>
+              <div class="project-preview">
+                <div class="project-previewBackground"></div>
+                <div class="project-previewInner">
+                  <div class="project-previewFrame">
+                    <img src="/assets/ecobee-website.jpg" alt="A screenshot of the ecobee.com homepage">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gradient-background">
+            <div class="container">
+              <div class="card">
+                <img class="card-image" src="/assets/ecobee-photo.jpg" alt="Photo of the ecobee thermostat">
+                <div class="card-content">
+                  <div class="card-item">
+                    <h4>Role</h4>
+                    <h3>Senior Developer</h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>Agency</h4>
+                    <h3><a href="https://twg.io" target="_blank">TWG</a></h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>Key Technologies</h4>
+                    <h3><a href="https://www.gatsbyjs.org/" target="_blank">Gatsby</a> & <a href="https://www.contentful.com/" target="_blank">Contentful</a></h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>URL</h4>
+                    <h3><a href="https://ecobee.com" target="_blank">ecobee.com</a></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="badges-wrapper">
+            <ul class="badges">
+              <li class="badge badge--ecobee" data-badge="ecobee">
+                <div class="badge-label">ecobee</div>
+              </li>
+              <li class="badge badge--audi" data-badge="audi">
+                <div class="badge-label">Audi</div>
+              </li>
+              <li class="badge badge--worldvision" data-badge="worldvision">
+                <div class="badge-label">World Vision</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!--                     Audi                     -->
+      <!-- ============================================ -->
+      <section class="section audi" data-section="audi">
+        <div class="hero hide">
+          <div class="hero-scroll">
+            <svg class="hero-scrollArrow" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+             <path d="m96.199 29.852l-46.207 46.199-46.195-46.199 4.1602-4.1602 42.031 42.035 42.047-42.043 4.1641 4.1641z"/>
+            </svg>
+          </div>
+          <div class="hero-white"></div>
+          <div class="hero-horizon"></div>
+          <h1 class="hero-title">
+            <span class="hero-titleInner">
+              Audi
+            </span>
+          </h1>
+          <div class="hero-particles"></div>
+          <div class="hero-chest" data-section="audi"></div>
+        </div>
+        <div class="section-content hide">
+          <div class="project container">
+            <div class="grid">
+              <div class="project-intro">
+                <img class="project-logo" src="/assets/logos/audi.svg" alt="audi logo">
+                <h3>Online pre-orders for luxurious rides</h3>
+                <p>A brand new platform to enable Audi Canada customers to reserve upcoming models prior to their release.</p>
+              </div>
+              <div class="project-preview">
+                <div class="project-previewBackground"></div>
+                <div class="project-previewInner">
+                  <div class="project-previewFrame">
+                    <img src="/assets/audi-website.jpg" alt="A screenshot of the reserve.audi.ca homepage">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gradient-background">
+            <div class="container">
+              <div class="card">
+                <img class="card-image" src="/assets/audi-photo.jpg" alt="Photo of a grey Audi 2020 A5 Sportback">
+                <div class="card-content">
+                  <div class="card-item">
+                    <h4>Role</h4>
+                    <h3>Technical Lead</h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>Agency</h4>
+                    <h3><a href="https://twg.io" target="_blank">TWG</a></h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>Key Technologies</h4>
+                    <h3><a href="https://www.shopify.ca/" target="_blank">Shopify</a> & <a href="https://aws.amazon.com/lambda/" target="_blank">AWS Lambda</a></h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>URL</h4>
+                    <h3><a href="https://reserve.audi.ca/" target="_blank">reserve.audi.ca</a></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="badges-wrapper"></div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!--                 World Vision                 -->
+      <!-- ============================================ -->
+      <section class="section worldvision" data-section="worldvision">
+        <div class="hero hide">
+          <div class="hero-scroll">
+            <svg class="hero-scrollArrow" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+             <path d="m96.199 29.852l-46.207 46.199-46.195-46.199 4.1602-4.1602 42.031 42.035 42.047-42.043 4.1641 4.1641z"/>
+            </svg>
+          </div>
+          <div class="hero-white"></div>
+          <div class="hero-horizon"></div>
+          <h1 class="hero-title">
+            <span class="hero-titleInner">
+              World
+            </span>
+            <span class="hero-titleInner">
+              Vision
+            </span>
+          </h1>
+          <div class="hero-particles"></div>
+          <div class="hero-chest" data-section="worldvision"></div>
+        </div>
+        <div class="section-content hide">
+          <div class="project container">
+            <div class="grid">
+              <div class="project-intro">
+                <img class="project-logo" src="/assets/logos/worldvision.svg" alt="audi logo">
+                <h3>Goats for good with World Vision</h3>
+                <p>A consolidated child sponsorship, donation, and gift giving platform for World Vision Canada.</p>
+              </div>
+              <div class="project-preview">
+                <div class="project-previewBackground"></div>
+                <div class="project-previewInner">
+                  <div class="project-previewFrame">
+                    <img src="/assets/worldvision-website.jpg" alt="A screenshot of the donate.worldvision.ca homepage">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gradient-background">
+            <div class="container">
+              <div class="card">
+                <img class="card-image" src="/assets/worldvision-photo.jpg" alt="Photo of a World Vision team member transferring water for a local mother and daugther">
+                <div class="card-content">
+                  <div class="card-item">
+                    <h4>Role</h4>
+                    <h3>Technical Lead</h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>Agency</h4>
+                    <h3><a href="https://twg.io" target="_blank">TWG</a></h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>Key Technologies</h4>
+                    <h3><a href="https://www.shopify.ca/" target="_blank">Shopify</a> & <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JavaScript</a></h3>
+                  </div>
+                  <div class="card-item">
+                    <h4>URL</h4>
+                    <h3><a href="https://donate.worldvision.ca/collections/donations" target="_blank">donate.worldvision.ca</a></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="badges-wrapper"></div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!--                  Contact                     -->
+      <!-- ============================================ -->
+      <section class="section contact" data-section="contact">
+        <div class="hero hide">
+          <div class="hero-scroll">
+            <svg class="hero-scrollArrow" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+             <path d="m96.199 29.852l-46.207 46.199-46.195-46.199 4.1602-4.1602 42.031 42.035 42.047-42.043 4.1641 4.1641z"/>
+            </svg>
+          </div>
+          <div class="hero-white"></div>
+          <div class="hero-horizon"></div>
+          <h1 class="hero-title">
+            <span class="hero-titleInner">
+              Cheers!
+            </span>
+          </h1>
+          <div class="hero-particles"></div>
+          <div class="hero-chest" data-section="contact"></div>
+        </div>
+        <div class="section-content hide">
+          <div class="gradient-background">
+            <div class="container">
+              <div class="card">
+                <img class="card-image" src="/assets/headshot.jpg" alt="Photo of me, Mark Appleby">
+                <div class="card-content">
+                  <h3>Thank you for stopping by</h3>
+                  <p>I am currently looking to join a new team of creative designers and developers. If you think we might be a good fit for one another…</p>
+                  <a class="button" href="mailto:themarkappleby@gmail.com" target="_blank">Say Hi <span class="hand"><span class="hand-inner">👋</span></span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer hide">
+        <div class="footer-logo" data-section="footer"></div>
+        <h4 class="footer-name">Mark Appleby</h4>
+      </footer>
+
+    </main>
+    <script type="text/javascript" src="dist/main.js"></script>
   </body>
 </html>

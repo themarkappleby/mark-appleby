@@ -1,0 +1,10 @@
+.footer {
+  margin: 50px 20px;
+  &-logo {
+    margin: 0 auto;
+    max-width: 66px;
+  }
+  &-name {
+    text-align: center;
+  }
+}

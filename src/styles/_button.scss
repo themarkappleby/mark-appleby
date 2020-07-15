@@ -1,0 +1,51 @@
+.button {
+  margin-top: 50px;
+  font-size: 25px;
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-block;
+  padding: 25px 60px;
+  color: white;
+  background-image: linear-gradient(to right,
+  #5fbe7e 0%,
+  #5fbe7e 33%,
+  #0dafb7 66%,
+  #0dafb7 100%
+  );
+  background-size: 300%;
+  border-radius: 100px;
+  box-shadow: 0 0 24px rgba(black, 0.1);
+  transition: padding 0.2s ease-in-out,
+    transform 0.2s ease-in-out,
+    background-position 0.75s ease-in-out;
+  &:hover, &:focus {
+    color: white;
+    background-position: 100%;
+    transform: scale(1.03) translateX(-5px);
+    padding: 25px 65px;
+    .hand {
+      transform: rotate(20deg) scale(1.2) translateX(3px);
+    }
+    .hand-inner {
+      animation: wave 0.75s ease-in-out 0s infinite alternate;
+    }
+  }
+  .hand {
+    transform: rotate(20deg);
+    transition: transform 0.2s ease-in-out;
+    display: inline-block;
+  }
+  .hand-inner {
+    display: inline-block;
+    transform: rotate(-20deg);
+  }
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(-20deg);
+  }
+  to {
+    transform: rotate(20deg);
+  }
+}

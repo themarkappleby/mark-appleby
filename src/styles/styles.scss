@@ -1,0 +1,54 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+html, body {
+  margin: 0;
+  &.scene--loading, &.scene--intro {
+    overflow-y: hidden;
+  }
+}
+
+.container {
+  max-width: 1150px;
+  padding: 0 100px;
+  margin: 0 auto;
+  @media  (max-width: 768px) {
+    padding: 0 60px;
+  }
+  @media (max-width: 500px) {
+    padding: 0 40px;
+  }
+}
+
+.grid {
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 960px) {
+    flex-direction: column;
+  }
+}
+
+.hide {
+  display: none !important;
+}
+
+@import 'typography';
+@import 'home';
+@import 'hero';
+@import 'project';
+@import 'card';
+@import 'badges';
+@import 'sections';
+@import 'button';
+@import 'footer';
+@import 'contact';
+@import 'password';

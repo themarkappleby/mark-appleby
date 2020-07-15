@@ -1,0 +1,179 @@
+.ecobee {
+  .hero {
+    display: flex;
+  }
+  .hero-chest {
+    position: relative;
+    transform: translate(0, -50%);
+    left: 0;
+    z-index: 3;
+    width: 50%;
+  }
+  .hero-horizon {
+    opacity: 0; /* animated in by gsap */
+  }
+}
+
+.home {
+  width: 50%;
+  color: black;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  &-wrapper {
+    position: relative;
+    max-width: 1400px;
+    padding: 0 100px;
+    margin: 0 auto;
+    display: flex;
+  }
+  &-overlay {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right,
+      rgba(white, 1) 5%,
+      rgba(white, 0.9) 40%,
+      rgba(white, 0) 60%,
+      rgba(white, 0) 100%
+    );
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &-title {
+    @extend .h2;
+    font-size: 70px;
+    line-height: 0;
+  }
+  &-copy {
+    position: relative;
+    padding-bottom: 60px;
+    padding-right: 50px;
+  }
+  &-text {
+    opacity: 0; /* animated in by gsap */
+    max-width: 490px;
+  }
+  &-logos-trigger {
+    display: inline-block;
+    user-select: none;
+  }
+  &-logos img {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
+    opacity: 0;
+    z-index: 3;
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  25% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse {
+  animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  animation-name: pulse;
+}
+
+.motext {
+  line-height: 0;
+}
+
+.motext-word {
+  margin-right: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.motext-letter--L {
+  margin-right: 0.02em;
+}
+
+// ================================================
+//                Media Queries
+// ================================================
+
+@media (max-height: 600px) {
+  .home {
+    padding-bottom: 30px;
+  }
+  .home-title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .home-title {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .ecobee .hero-chest {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-25%) !important;
+  }
+  .home-wrapper {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+  .home {
+    width: 100%;
+    padding-bottom: 100px;
+  }
+  .home-copy {
+    padding: 0;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .home-text {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-title {
+    font-size: 38px;
+  }
+  .home-text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .home-wrapper {
+    padding: 0;
+  }
+  .home {
+    padding: 0 40px 60px 40px;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-title {
+    font-size: 36px;
+  }
+  .home {
+    padding: 0 40px 40px 40px;
+  }
+}

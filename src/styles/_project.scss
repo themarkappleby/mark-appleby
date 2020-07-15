@@ -1,0 +1,46 @@
+.project {
+  &-intro {
+    max-width: 385px;
+    position: relative;
+    z-index: 2;
+  }
+  &-logo {
+    margin-bottom: 36px;
+  }
+  &-preview {
+    margin-top: 150px;
+    padding-left: 50px;
+    position: relative;
+    @media (max-width: 960px) {
+      padding-left: 0;
+    }
+    &Frame {
+      max-width: 510px;
+      height: 300px;
+      overflow: hidden;
+      border-width: 8px;
+      border-style: solid;
+      background-color: white;
+      box-shadow: 0 0 100px rgba(white, 0.8);
+      transform: perspective(1000px) rotateY(10deg);
+      margin: 0 auto;
+      @media (max-width: 960px) {
+        transform: none !important;
+      }
+    }
+  }
+  &-previewBackground {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.1);
+    width: 1000px;
+    height: 600px;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0;
+    filter: blur(3px);
+  }
+}
