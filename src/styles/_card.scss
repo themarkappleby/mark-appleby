@@ -24,13 +24,16 @@
 .gradient-background {
   padding: 200px 0;
   background-image: linear-gradient(to bottom, rgba(white, 0), white 90%);
+  @media (max-width: 960px) {
+    padding: 100px 0;
+  }
 }
 
 @media (max-width: 960px) {
   .card {
     flex-direction: column;
     &-image {
-      height: 270px;
+      height: 200px;
       width: 100%;
     }
     &-content {
