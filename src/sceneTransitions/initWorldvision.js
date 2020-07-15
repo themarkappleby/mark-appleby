@@ -12,6 +12,7 @@ function worldvision (chest) {
         show('.worldvision .section-content')
         show('.contact .hero')
         document.querySelector('.worldvision .hero-title').classList.add('hero-title--intro')
+        window.scrollTo(0, 0)
         initScrollEffects('worldvision')
         ScrollTrigger.refresh()
       }, 1500)

@@ -12,6 +12,7 @@ function audi (chest) {
         show('.audi .section-content')
         show('.worldvision .hero')
         document.querySelector('.audi .hero-title').classList.add('hero-title--intro')
+        window.scrollTo(0, 0)
         initScrollEffects('audi')
         ScrollTrigger.refresh(true)
       }, 2000)

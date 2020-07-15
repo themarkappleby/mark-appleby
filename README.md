@@ -8,7 +8,6 @@ Landing page for https://mark-appleby.com
 1. `cd mark-appleby`
 1. `yarn install`
 1. `yarn start`
-1. Open http://localhost:8080/ in your browser
 
 ## 🌎 Global Dependancies
 
