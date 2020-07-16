@@ -2,8 +2,8 @@
   "name": "mark-appleby",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server --inline",
-    "build": "webpack"
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
     "css-loader": "^3.4.2",
@@ -17,8 +17,13 @@
     "webpack-dev-server": "^3.10.3"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pnp-webpack-plugin": "^1.6.0",
-    "webpack-cli": "^3.3.10"
+    "terser-webpack-plugin": "^3.0.7",
+    "webpack-cli": "^3.3.10",
+    "webpack-merge": "^5.0.9"
   },
   "resolutions": {
     "motext": "portal:/Users/markappleby/git/motext",
