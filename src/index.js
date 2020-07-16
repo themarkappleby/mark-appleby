@@ -42,6 +42,10 @@ function init () {
   })
   load().then(() => {
     window.scrollTo(0, 0)
-    window.transitions.intro().then(window.particles.startMouseTracking)
+    window.transitions.intro().then(() => {
+      if (window.particles) {
+        window.particles.startMouseTracking()
+      }
+    })
   })
 }

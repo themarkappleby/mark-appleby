@@ -31,10 +31,12 @@
 
 @media (max-width: 960px) {
   .card {
-    flex-direction: column;
+    flex-direction: column-reverse;
     &-image {
-      height: 200px;
+      height: auto;
+      max-height: 350px;
       width: 100%;
+      display: none;
     }
     &-content {
       padding: 40px;
@@ -49,6 +51,9 @@
     }
     &-item {
       margin-bottom: 0;
+    }
+    &-image {
+      max-height: 170px;
     }
   }
 }

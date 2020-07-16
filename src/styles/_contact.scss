@@ -3,7 +3,17 @@
     margin-top: 0;
     padding-top: 20px;
   }
-  .card-content {
-    padding: 40px !important;
+  @media (max-width: 960px) {
+    .card {
+      flex-direction: column;
+    }
+    .card-image {
+      display: block;
+    }
+  }
+  @media (max-width: 500px) {
+    .card-content {
+      padding: 40px !important;
+    }
   }
 }

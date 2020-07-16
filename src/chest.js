@@ -438,8 +438,10 @@ function clickHandler () {
       camera.layers.disable(index - 1)
     }
     window.transitions[nextSceneName]()
-    window.particles.stopMouseTracking()
-    window.particles.stopEmitter()
+    if (window.particles) {
+      window.particles.stopMouseTracking()
+      window.particles.stopEmitter()
+    }
     disablePickHelper()
   }
 }
@@ -449,14 +451,18 @@ function mouseoverHandler (hovering, x, y) {
     document.querySelectorAll('.hero-chest').forEach(el => {
       el.style.cursor = 'pointer'
     })
-    window.particles.startEmitter(x, y)
-    window.particles.stopMouseTracking()
+    if (window.particles) {
+      window.particles.startEmitter(x, y)
+      window.particles.stopMouseTracking()
+    }
   } else {
     document.querySelectorAll('.hero-chest').forEach(el => {
       el.style.cursor = 'default'
     })
-    window.particles.stopEmitter()
-    window.particles.startMouseTracking()
+    if (window.particles) {
+      window.particles.stopEmitter()
+      window.particles.startMouseTracking()
+    }
   }
 }
 

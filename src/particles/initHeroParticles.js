@@ -43,17 +43,19 @@ let y = 0
 let emitter = null
 
 function init (el) {
-  canvas = el
-  ctx = canvas.getContext('2d')
-  initParticles()
-  initMouseTracking()
-  initResizeTracking()
-  return {
-    canvas,
-    startEmitter,
-    stopEmitter,
-    startMouseTracking,
-    stopMouseTracking
+  if (window.innerWidth > 960) {
+    canvas = el
+    ctx = canvas.getContext('2d')
+    initParticles()
+    initMouseTracking()
+    initResizeTracking()
+    return {
+      canvas,
+      startEmitter,
+      stopEmitter,
+      startMouseTracking,
+      stopMouseTracking
+    }
   }
 }
 

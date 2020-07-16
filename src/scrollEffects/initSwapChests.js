@@ -17,10 +17,12 @@ function moveChest (e) {
   const chest = window.chest
   const particles = window.particles
   const section = el.closest('.section').dataset.section
-  if (shouldApplySwap(e, section, chest, particles)) {
+  if (shouldApplySwap(e, section, chest)) {
     el.appendChild(chest.canvas)
     chest.resize()
-    el.closest('.hero').querySelector('.hero-particles').appendChild(particles.canvas)
+    if (particles) {
+      el.closest('.hero').querySelector('.hero-particles').appendChild(particles.canvas)
+    }
     if (section === window.state.scene) {
       chest.setWeight(window.state.scene, 1)
     } else {
@@ -29,8 +31,8 @@ function moveChest (e) {
   }
 }
 
-function shouldApplySwap (e, section, chest, particles) {
-  return (section === window.state.scene || section === getNextScene()) && chest && particles && e.progress > 0 && e.progress < 1
+function shouldApplySwap (e, section, chest) {
+  return (section === window.state.scene || section === getNextScene()) && chest && e.progress > 0 && e.progress < 1
 }
 
 export default init
