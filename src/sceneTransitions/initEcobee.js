@@ -39,8 +39,8 @@ function ecobee (chest) {
         duration: 2,
         ease: 'power1.easeOut'
       }, 0)
-      tl.to('.home-overlay', {
-        opacity: 0,
+      tl.to('.hero-horizon', {
+        height: '50%',
         duration: 2
       }, 0)
     }

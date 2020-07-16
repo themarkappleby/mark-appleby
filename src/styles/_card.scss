@@ -41,3 +41,14 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .card {
+    &-content {
+      padding: 20px 30px;
+    }
+    &-item {
+      margin-bottom: 0;
+    }
+  }
+}

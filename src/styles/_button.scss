@@ -49,3 +49,12 @@
     transform: rotate(20deg);
   }
 }
+
+@media (max-width: 500px) {
+  .button {
+    font-size: 20px;
+    padding: 20px 40px;
+    display: block;
+    text-align: center;
+  }
+}

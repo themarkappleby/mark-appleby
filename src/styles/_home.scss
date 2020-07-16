@@ -126,13 +126,18 @@
 }
 
 @media (max-width: 1000px) {
-  .ecobee .hero-chest {
-    width: 100%;
-    height: 60%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-5%) !important;
+  .ecobee {
+    .hero-horizon {
+      height: 30%;
+    }
+    .hero-chest {
+      width: 100%;
+      height: 60%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateY(-5%) !important;
+    }
   }
   .home-wrapper {
     flex-direction: column-reverse;
@@ -150,6 +155,9 @@
   }
   .home-text {
     margin: 0 auto;
+  }
+  .home-overlay  {
+    display: none;
   }
 }
 
@@ -174,6 +182,6 @@
     font-size: 36px;
   }
   .home {
-    padding: 0 40px 40px 40px;
+    padding: 0 40px 60px 40px;
   }
 }

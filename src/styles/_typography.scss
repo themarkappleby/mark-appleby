@@ -64,6 +64,10 @@ h3, .h3 {
     font-size: 28px;
     line-height: 37px;
   }
+  @media (max-width: 500px) {
+    font-size: 24px;
+    line-height: 32px;
+  }
 }
 
 h4, .h4 {
