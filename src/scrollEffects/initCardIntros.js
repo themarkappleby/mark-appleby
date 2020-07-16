@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 
 function cardIntros (section) {
-  if (window.width > 960) {
+  if (window.innerWidth > 960) {
     gsap.utils.toArray(`.${section} .card`).forEach(card => {
       gsap.from(card, {
         scrollTrigger: {

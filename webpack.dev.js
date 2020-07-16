@@ -7,17 +7,5 @@ module.exports = merge(common, {
   devServer: {
     writeToDisk: true,
     index: 'index.html'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
-      }
-    ]
   }
 })

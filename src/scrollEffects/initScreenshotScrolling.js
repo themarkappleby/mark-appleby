@@ -1,8 +1,11 @@
 import gsap from 'gsap'
 
 function screenshotScrolling (section) {
-  if (window.width > 960) {
+  console.log(1)
+  if (window.innerWidth > 960) {
+    console.log(2)
     gsap.utils.toArray(`.${section} .project-previewFrame`).forEach(frame => {
+      console.log(3)
       const image = frame.children[0]
       const tl = gsap.timeline({
         scrollTrigger: {

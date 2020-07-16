@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 
 function init (section) {
-  if (window.width > 960) {
+  if (window.innerWidth > 960) {
     gsap.utils.toArray(`.${section} .hero`).forEach(hero => {
       const chest = hero.querySelector('.hero-chest')
       gsap.to(chest, {
