@@ -3,6 +3,10 @@ body, p {
   font-size: 20px;
   font-weight: 400;
   line-height: 34px;
+  @media (max-width: 600px) {
+    font-size: 16px;
+    line-height: 28px;
+  }
 }
 
 p {
