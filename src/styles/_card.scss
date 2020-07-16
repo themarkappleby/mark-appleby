@@ -4,13 +4,22 @@
   display: flex;
   box-shadow: 0 0 120px rgba(black, 0.2);
   overflow: hidden;
+  &-imageWrapper {
+    position: relative;
+    width: 34%;
+  }
   &-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center center;
-    width: 34%;
   }
   &-content {
     padding: 90px 135px;
+    width: 66%;
   }
   &-item {
     margin-bottom: 25px;
@@ -32,14 +41,12 @@
 @media (max-width: 960px) {
   .card {
     flex-direction: column-reverse;
-    &-image {
-      height: auto;
-      max-height: 350px;
-      width: 100%;
+    &-imageWrapper {
       display: none;
     }
     &-content {
       padding: 40px;
+      width: 100%;
     }
   }
 }
@@ -51,9 +58,6 @@
     }
     &-item {
       margin-bottom: 0;
-    }
-    &-image {
-      max-height: 230px;
     }
   }
 }

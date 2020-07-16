@@ -7,13 +7,22 @@
     .card {
       flex-direction: column;
     }
-    .card-image {
+    .card-imageWrapper {
+      width: 100%;
       display: block;
+    }
+    .card-image {
+      height: auto;
+      max-height: 350px;
+      position: relative;
     }
   }
   @media (max-width: 500px) {
     .card-content {
       padding: 40px !important;
+    }
+    &-image {
+      max-height: 230px;
     }
   }
 }
