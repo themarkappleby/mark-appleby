@@ -28,8 +28,11 @@ html, body {
 .grid {
   display: flex;
   justify-content: space-between;
-  & > * {
-    width: 50%;
+  > *:first-child {
+    width: 40%;
+  }
+  > *:last-child {
+    width: 60%;
   }
   @media (max-width: 960px) {
     flex-direction: column;

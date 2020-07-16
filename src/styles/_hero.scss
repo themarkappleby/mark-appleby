@@ -113,3 +113,9 @@
     height: 60%;
   }
 }
+
+@media (max-width: 768px) {
+  .hero-scroll {
+    bottom: 80px;
+  }
+}

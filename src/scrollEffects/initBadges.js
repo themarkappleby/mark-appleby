@@ -28,13 +28,13 @@ function update (e) {
       opacity: 1,
       y: 0,
       duration: 1.5,
-      delay: 1
+      delay: 0.5
     })
   }
 }
 
 function shouldPlayAnimation (e, section) {
-  return played.indexOf(section) === -1 && e.progress > 0.3 && e.progress !== 1 && section === window.state.scene
+  return played.indexOf(section) === -1 && e.progress > 0.2 && e.progress !== 1 && section === window.state.scene
 }
 
 export default init

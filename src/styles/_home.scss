@@ -110,15 +110,6 @@
 //                Media Queries
 // ================================================
 
-@media (max-height: 600px) {
-  .home {
-    padding-bottom: 30px;
-  }
-  .home-title {
-    font-size: 36px;
-  }
-}
-
 @media (max-width: 1250px) {
   .home-title {
     font-size: 50px;
@@ -182,6 +173,18 @@
     font-size: 36px;
   }
   .home {
-    padding: 0 40px 80px 40px;
+    padding: 0 40px 100px 40px;
+  }
+}
+
+@media (max-height: 600px) {
+  .home {
+    padding: 0 40px 60px 40px;
+  }
+  .home-title {
+    font-size: 24px;
+  }
+  .home-text {
+    font-size: 13px;
   }
 }
