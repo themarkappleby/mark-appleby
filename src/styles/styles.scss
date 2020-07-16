@@ -36,7 +36,7 @@ html, body {
   }
   @media (max-width: 960px) {
     flex-direction: column;
-    & > * {
+    & > *:first-child, & > *:last-child {
       width: 100%;
     }
   }
