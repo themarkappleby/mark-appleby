@@ -1,9 +1,18 @@
+.badges-wrapper {
+  height: 166px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
 .badges {
   list-style-type: none;
   margin: 0;
   padding: 40px 0;
   text-align: center;
-  background: white;
   .badge {
     width: 100px;
     height: 75px;
@@ -24,9 +33,4 @@
   line-height: 16px;
   transform: translate(-50%, 5px);
   opacity: 0;
-}
-
-.badges-wrapper {
-  height: 166px;
-  background: white;
 }

@@ -1,6 +1,10 @@
 .section {
   color: white;
   overflow: hidden;
+  &-content {
+    position: relative;
+    z-index: 5;
+  }
   &.ecobee {
     background-color: #5dbe7b;
     .hero-title {

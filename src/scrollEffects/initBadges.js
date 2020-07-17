@@ -3,8 +3,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const played = []
 
-function init (section) {
-  gsap.utils.toArray(`.${section} .badges-wrapper`).forEach(wrapper => {
+function init () {
+  gsap.utils.toArray('.badges-wrapper').forEach(wrapper => {
     ScrollTrigger.create({
       trigger: wrapper,
       onUpdate: update,
@@ -21,10 +21,11 @@ function update (e) {
     const badges = document.querySelector('.badges')
     el.appendChild(badges)
   }
-  if (shouldPlayAnimation(e, section)) {
-    played.push(section)
-    window.lottie.play(section)
-    gsap.to(`.badge--${section} .badge-label`, {
+  const animationName = el.dataset.play
+  if (shouldPlayAnimation(e, animationName)) {
+    played.push(animationName)
+    window.lottie.play(animationName)
+    gsap.to(`.badge--${animationName} .badge-label`, {
       opacity: 1,
       y: 0,
       duration: 1.5,
@@ -33,8 +34,8 @@ function update (e) {
   }
 }
 
-function shouldPlayAnimation (e, section) {
-  return played.indexOf(section) === -1 && e.progress > 0.2 && e.progress !== 1 && section === window.state.scene
+function shouldPlayAnimation (e, animationName) {
+  return played.indexOf(animationName) === -1 && e.progress > 0.2 && e.progress !== 1 && animationName === window.state.scene
 }
 
 export default init

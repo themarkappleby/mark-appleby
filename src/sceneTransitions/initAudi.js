@@ -20,6 +20,10 @@ function audi (chest) {
       }, 2000)
       chest.gotoAndPlay('audi')
       var tl = gsap.timeline()
+      tl.to('.audi .badges-wrapper', {
+        opacity: 0,
+        duration: 0.5
+      })
       tl.to('.audi .hero-white', {
         opacity: 0,
         duration: 2,

@@ -20,6 +20,10 @@ function contact (chest) {
       }, 2000)
       chest.gotoAndPlay('contact')
       var tl = gsap.timeline()
+      tl.to('.contact .badges-wrapper', {
+        opacity: 0,
+        duration: 0.5
+      })
       tl.to('.contact .hero-white', {
         opacity: 0,
         duration: 2,

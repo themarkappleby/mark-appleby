@@ -20,6 +20,10 @@ function worldvision (chest) {
       }, 1500)
       chest.gotoAndPlay('worldvision')
       var tl = gsap.timeline()
+      tl.to('.worldvision .badges-wrapper', {
+        opacity: 0,
+        duration: 0.5
+      })
       tl.to('.worldvision .hero-white', {
         opacity: 0,
         duration: 2,
