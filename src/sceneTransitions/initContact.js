@@ -2,9 +2,11 @@ import gsap from 'gsap'
 import { scrollToBottom, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import initScrollEffects from '../scrollEffects'
+import initScrollIndicator from './initScrollIndicator'
 
 function contact (chest) {
   return () => {
+    const scrollIndicator = document.querySelector('.contact .hero-scroll')
     scrollToBottom(() => {
       window.setTimeout(() => {
         hide('.worldvision .hero')
@@ -23,11 +25,12 @@ function contact (chest) {
         duration: 2,
         ease: 'power1.easeOut'
       }, 0.5)
-      tl.from('.contact .hero-scroll', {
+      tl.from(scrollIndicator, {
         opacity: 0,
         duration: 3
       }, 2.5)
       tl.play()
+      initScrollIndicator(scrollIndicator)
       window.state.set('scene', 'contact')
     })
   }

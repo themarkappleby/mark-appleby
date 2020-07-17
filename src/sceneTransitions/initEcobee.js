@@ -2,11 +2,13 @@ import gsap from 'gsap'
 import { show } from '../utils/showHide'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import initScrollEffects from '../scrollEffects'
+import initScrollIndicator from './initScrollIndicator'
 
 const SIDE_BY_SIDE_BP = 1000
 
 function ecobee (chest) {
   return () => {
+    const scrollIndicator = document.querySelector('.ecobee .hero-scroll')
     chest.gotoAndPlay('ecobee')
     window.setTimeout(() => {
       show('.ecobee .section-content')
@@ -49,11 +51,12 @@ function ecobee (chest) {
       duration: 2,
       ease: 'power1.easeOut'
     }, 0.5)
-    tl.from('.ecobee .hero-scroll', {
+    tl.from(scrollIndicator, {
       opacity: 0,
       duration: 3
     }, 2.5)
     tl.play()
+    initScrollIndicator(scrollIndicator)
     window.state.set('scene', 'ecobee')
   }
 }

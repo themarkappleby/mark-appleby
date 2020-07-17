@@ -2,9 +2,11 @@ import gsap from 'gsap'
 import { scrollToBottom, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import initScrollEffects from '../scrollEffects'
+import initScrollIndicator from './initScrollIndicator'
 
 function worldvision (chest) {
   return () => {
+    const scrollIndicator = document.querySelector('.worldvision .hero-scroll')
     scrollToBottom(() => {
       window.setTimeout(() => {
         hide('.audi .hero')
@@ -23,11 +25,12 @@ function worldvision (chest) {
         duration: 2,
         ease: 'power1.easeOut'
       }, 0.5)
-      tl.from('.worldvision .hero-scroll', {
+      tl.from(scrollIndicator, {
         opacity: 0,
         duration: 3
       }, 2.5)
       tl.play()
+      initScrollIndicator(scrollIndicator)
       window.state.set('scene', 'worldvision')
     })
   }
