@@ -7,8 +7,9 @@ import { getNextScene } from './utils'
 const FRAME_RATE = 20 / 1000
 const LOOK_AT_EASING = 0.02
 const LOOK_AT_DISTANCE = 2.5
+const MOUSE_Y_LIMIT = 0.5
 
-let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, mouseover, pickHelperX, pickHelperY
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, mouseover, pickHelperX, pickHelperY, root
 
 let clicked = false
 
@@ -142,6 +143,7 @@ function loadGLTF (path, cb) {
 function initScene (gltfScene) {
   scene = new THREE.Scene()
   scene.children = gltfScene.children
+  root = scene.getObjectByName('root')
   initCubeMap()
   initFloor()
   initShadows()
@@ -166,18 +168,18 @@ function initShadows () {
 
 function setupLayers (scene) {
   // Use: chest.renderer.info.render.triangles to audit
-  const layerRoots = [
+  const layerParts = [
     ['vine', 'small vine', 'Vine', 'Vine_Small'],
     ['audi_body'],
     ['goat', 'Goat'],
     ['mug_left', 'mug_right', 'clink', 'balloon_red', 'balloon_green', 'balloon_blue', 'Beer_Mug_Left', 'Beer_Mug_Right']
   ]
-  layerRoots.forEach((rootItems, index) => {
-    rootItems.forEach(root => {
-      root = scene.getObjectByName(root)
-      if (root) {
-        root.layers.set(index + 1)
-        root.traverse(node => {
+  layerParts.forEach((partItems, index) => {
+    partItems.forEach(item => {
+      item = scene.getObjectByName(item)
+      if (item) {
+        item.layers.set(index + 1)
+        item.traverse(node => {
           node.layers.set(index + 1)
         })
       }
@@ -264,7 +266,7 @@ function initMouseTracking () {
 function mouseMoveTracking () {
   const raycaster = new THREE.Raycaster()
   target = new THREE.Vector3()
-  target.z = 50
+  target.z = LOOK_AT_DISTANCE
   window.addEventListener('mousemove', event => {
     mouseX = event.clientX
     mouseY = event.clientY
@@ -408,25 +410,6 @@ function getClipAction (name, clips) {
   return scene.mixer.clipAction(clip)
 }
 
-function render () {
-  if (mouse) {
-    const root = scene.getObjectByName('root')
-    target.x += (mouse.x - target.x) * LOOK_AT_EASING
-    target.y += (mouse.y - target.y) * LOOK_AT_EASING
-    target.z = LOOK_AT_DISTANCE
-    const yLimit = 0.5
-    if (target.y < yLimit * -1) target.y = yLimit * -1
-    if (target.y > yLimit) target.y = yLimit
-    root.lookAt(target)
-  }
-  if (targetWeight !== undefined) {
-    animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
-  }
-  scene.mixer.update(FRAME_RATE)
-  renderer.render(scene, camera)
-  requestAnimationFrame(render)
-}
-
 function clickHandler () {
   if (!clicked) {
     clicked = true
@@ -464,6 +447,22 @@ function mouseoverHandler (hovering, x, y) {
       window.particles.startMouseTracking()
     }
   }
+}
+
+function render () {
+  if (mouse) {
+    target.x += (mouse.x - target.x) * LOOK_AT_EASING
+    target.y += (mouse.y - target.y) * LOOK_AT_EASING
+    if (target.y < MOUSE_Y_LIMIT * -1) target.y = MOUSE_Y_LIMIT * -1
+    if (target.y > MOUSE_Y_LIMIT) target.y = MOUSE_Y_LIMIT
+    root.lookAt(target)
+  }
+  if (targetWeight !== undefined) {
+    animations.hover.weight += (targetWeight - animations.hover.weight) * 0.1
+  }
+  scene.mixer.update(FRAME_RATE)
+  renderer.render(scene, camera)
+  requestAnimationFrame(render)
 }
 
 export default init

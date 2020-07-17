@@ -8,12 +8,15 @@ import initScrollIndicators from './initScrollIndicators'
 
 function init (section) {
   flush()
-  initScreenshotScrolling(section)
-  initCardIntros(section)
-  initBadges(section)
   initAppleby(section)
-  initParallax(section)
-  initScrollIndicators(section)
+  initBadges(section)
+  if (!isFirefox()) {
+    // TODO: For some reason Firefox performance with these animations is terrible. Needs further investigation but disabling them for now.
+    initScreenshotScrolling(section)
+    initCardIntros(section)
+    initParallax(section)
+    initScrollIndicators(section)
+  }
 }
 
 function flush () {
@@ -22,6 +25,11 @@ function flush () {
       trigger.kill()
     }
   })
+}
+
+function isFirefox () {
+  var browser = navigator.userAgent.toLowerCase()
+  return browser.indexOf('firefox') > -1
 }
 
 function isHero (trigger) {
