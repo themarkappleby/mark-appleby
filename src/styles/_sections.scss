@@ -15,6 +15,10 @@
     .project-previewFrame {
       border-color: #1d7d16;
     }
+    .project-previewItem {
+      bottom: 40px;
+      left: 0;
+    }
     .card-item a:hover {
       color: #5dbe7b;
     }
@@ -32,6 +36,11 @@
     }
     .project-previewFrame {
       border-color: #322121;
+    }
+    .project-previewItem {
+      bottom: 20px;
+      left: -20px;
+      width: 240px;
     }
     .card-item a:hover {
       color: #91251e;
@@ -67,6 +76,11 @@
     }
     .project-previewFrame {
       border-color: #322121;
+    }
+    .project-previewItem {
+      bottom: 0;
+      left: -20px;
+      width: 196px;
     }
     .card-item a:hover {
       color: #2b6596;

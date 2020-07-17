@@ -32,7 +32,8 @@ function screenshotScrolling (section) {
       gsap.to(bkg, {
         scrollTrigger: {
           trigger: bkg,
-          scrub: true
+          scrub: true,
+          end: 'center center'
         },
         yPercent: -80,
         opacity: 0.8,

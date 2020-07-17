@@ -16,7 +16,6 @@
       padding-left: 0;
     }
     &Frame {
-      max-width: 510px;
       overflow: hidden;
       border-width: 8px;
       border-style: solid;
@@ -25,10 +24,14 @@
       transform: perspective(1000px) rotateY(10deg);
       margin: 0 auto;
       position: relative;
+      @media (max-width: 960px) {
+        max-width: 510px;
+      }
       img {
         position: absolute;
         top: 0;
         left: 0;
+        width: 100%;
       }
       &:before {
         content: '';
@@ -53,6 +56,14 @@
     @media (max-width: 960px) {
       transform: translate(-50%, -50%) scale(0.7);
       opacity: 1;
+    }
+  }
+  &-previewItem {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @media (max-width: 960px) {
+      display: none;
     }
   }
 }
