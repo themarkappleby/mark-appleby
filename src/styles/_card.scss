@@ -24,9 +24,30 @@
   &-item {
     margin-bottom: 25px;
     a {
-      transition: color 0.2s ease-in-out;
       text-decoration: none;
+      animation: none;
+      &:hover, &:focus {
+        animation: rainbow 3s ease-in-out infinite alternate;
+      }
     }
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    color: black;
+  }
+  10% {
+    color: #0dafb7;
+  }
+  40% {
+    color: #eabc36;
+  }
+  70% {
+    color: #e154ed;
+  }
+  100% {
+    color: #62d628;
   }
 }
 
