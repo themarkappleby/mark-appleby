@@ -8,7 +8,7 @@ function screenshotScrolling (section) {
         trigger: frame,
         scrub: 0.25,
         start: 'top bottom',
-        end: 'bottom top'
+        end: '25% center'
       }
     })
     if (window.innerWidth > 960) {
@@ -21,9 +21,8 @@ function screenshotScrolling (section) {
         rotationY: -20
       }, 0)
     }
-    tl.to(image, {
-      yPercent: -25,
-      delay: 0.2
+    tl.from(image, {
+      yPercent: -40
     }, 0)
   })
 
