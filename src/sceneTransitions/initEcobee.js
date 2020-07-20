@@ -13,6 +13,9 @@ function ecobee (chest) {
     window.setTimeout(() => {
       show('.ecobee .section-content')
       show('.audi .hero')
+      const home = document.querySelector('.home')
+      home.style.width = home.clientWidth + 'px'
+      home.style.height = home.clientHeight + 'px'
       hide('.home-copy')
       document.querySelector('.ecobee .hero-title').classList.add('hero-title--intro')
       initScrollEffects('ecobee')
