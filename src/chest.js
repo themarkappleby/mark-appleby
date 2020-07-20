@@ -124,6 +124,7 @@ function initRenderer (container) {
   renderer.toneMappingExposure = 2.2
   renderer.setPixelRatio(window.devicePixelRatio)
   canvas = renderer.domElement
+  canvas.classList.add('hero-chestCanvas')
   container.appendChild(canvas)
 }
 
