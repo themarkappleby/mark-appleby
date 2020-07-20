@@ -9,6 +9,7 @@ const FRAME_RATE = 20 / 1000
 const LOOK_AT_EASING = 0.02
 const LOOK_AT_DISTANCE = 2.5
 const MOUSE_Y_LIMIT = 0.5
+const ENTER_KEY_CODE = 13
 
 let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, root
 
@@ -341,20 +342,27 @@ function initClickHandlers () {
         window.particles.stopEmitter
       )
     }
-    clickTarget.addEventListener('click', e => {
-      e.target.parentNode.removeChild(e.target)
-      const nextSceneName = getNextScene()
-      const index = window.state.sceneOrder.indexOf(nextSceneName)
-      camera.layers.enable(index)
-      if (index > 1) {
-        camera.layers.disable(index - 1)
-      }
-      window.transitions[nextSceneName]()
-      if (window.particles) {
-        window.particles.stopEmitter()
+    clickTarget.addEventListener('click', clickEvent)
+    clickTarget.addEventListener('keydown', e => {
+      if (e.keyCode && e.keyCode === ENTER_KEY_CODE) {
+        clickEvent(e)
       }
     })
   })
+}
+
+function clickEvent (e) {
+  e.target.parentNode.removeChild(e.target)
+  const nextSceneName = getNextScene()
+  const index = window.state.sceneOrder.indexOf(nextSceneName)
+  camera.layers.enable(index)
+  if (index > 1) {
+    camera.layers.disable(index - 1)
+  }
+  window.transitions[nextSceneName]()
+  if (window.particles) {
+    window.particles.stopEmitter()
+  }
 }
 
 function render () {

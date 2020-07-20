@@ -1,0 +1,45 @@
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+.focusRing {
+  position: fixed;
+  transition: all 0.2s ease-in-out;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  transform: translate3d(50vw, 50vh, 0) scale(0);
+  border: 20px solid black;
+  border-radius: 30px;
+  animation: rainbowOutline 3s ease-in-out infinite alternate;
+  opacity: 0;
+  pointer-events: none;
+  &--show {
+    opacity: 0.8;
+  }
+  &--instant {
+    transition: none;
+  }
+}
+
+@keyframes rainbowOutline {
+  0% {
+    border-color: black;
+  }
+  10% {
+    border-color: #0dafb7;
+  }
+  40% {
+    border-color: #eabc36;
+  }
+  70% {
+    border-color: #e154ed;
+  }
+  100% {
+    border-color: #62d628;
+  }
+}

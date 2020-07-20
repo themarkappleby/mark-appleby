@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import { show } from '../utils/showHide'
+import { show, hide } from '../utils/showHide'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import initScrollEffects from '../scrollEffects'
 import initScrollIndicator from './initScrollIndicator'
@@ -13,6 +13,7 @@ function ecobee (chest) {
     window.setTimeout(() => {
       show('.ecobee .section-content')
       show('.audi .hero')
+      hide('.home-copy')
       document.querySelector('.ecobee .hero-title').classList.add('hero-title--intro')
       initScrollEffects('ecobee')
       ScrollTrigger.refresh()

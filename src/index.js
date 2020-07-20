@@ -5,6 +5,7 @@ import { state as initState } from './utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from 'gsap'
 import './styles/styles.scss'
+import a11y from './a11y'
 
 const PASSWORD_PROTECT = true
 const PASSWORD = 'd3adb33f'
@@ -40,6 +41,7 @@ function init () {
       'contact'
     ]
   })
+  a11y()
   load().then(() => {
     window.scrollTo(0, 0)
     window.transitions.intro().then(() => {
