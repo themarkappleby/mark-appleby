@@ -242,6 +242,12 @@ function mouseMoveTracking () {
     mouse = getRelativeMousePosition(mouseX, mouseY)
     targetWeight = 1 - getMouseDistanceFromCenter()
   })
+  window.addEventListener('touchmove', event => {
+    mouseX = event.targetTouches[0].clientX
+    mouseY = event.targetTouches[0].clientY
+    mouse = getRelativeMousePosition(mouseX, mouseY)
+    targetWeight = 1 - getMouseDistanceFromCenter()
+  })
 }
 
 function mouseScrollTracking () {
@@ -325,14 +331,16 @@ function getClipAction (name, clips) {
 
 function initClickHandlers () {
   gsap.utils.toArray('.hero-target').forEach(clickTarget => {
-    clickTarget.addEventListener(
-      'mouseover',
-      window.particles.startEmitter
-    )
-    clickTarget.addEventListener(
-      'mouseout',
-      window.particles.stopEmitter
-    )
+    if (window.particles) {
+      clickTarget.addEventListener(
+        'mouseover',
+        window.particles.startEmitter
+      )
+      clickTarget.addEventListener(
+        'mouseout',
+        window.particles.stopEmitter
+      )
+    }
     clickTarget.addEventListener('click', e => {
       e.target.parentNode.removeChild(e.target)
       const nextSceneName = getNextScene()
