@@ -1,5 +1,6 @@
 /* global requestAnimationFrame */
 
+import gsap from 'gsap'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { getNextScene } from './utils'
@@ -9,9 +10,7 @@ const LOOK_AT_EASING = 0.02
 const LOOK_AT_DISTANCE = 2.5
 const MOUSE_Y_LIMIT = 0.5
 
-let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, mouseover, pickHelperX, pickHelperY, root
-
-let clicked = false
+let renderer, canvas, camera, scene, animations, target, targetWeight, mouse, mouseX, mouseY, root
 
 function init (params, cb) {
   return new Promise((resolve, reject) => {
@@ -21,8 +20,6 @@ function init (params, cb) {
       initScene(gltf.scene)
       initAnimations(gltf.animations)
       if (window.state.scene !== 'loading') {
-        scene.add(initPickHelper())
-        calculatePickHelperCenter()
         initMouseTracking()
       }
       render()
@@ -34,9 +31,7 @@ function init (params, cb) {
         gotoAndPlay,
         gotoAndStop,
         setWeight,
-        resize,
-        enablePickHelper,
-        disablePickHelper
+        resize
       })
     })
   })
@@ -49,8 +44,6 @@ function gotoAndPlay (animation) {
     animations.hover.weight = 0
     window.setTimeout(() => {
       animations.intro.fadeOut(1)
-      scene.add(initPickHelper())
-      calculatePickHelperCenter()
       initMouseTracking()
     }, 1000)
   } else {
@@ -84,29 +77,6 @@ function setWeight (animation, weight) {
   } else {
     animations.hover.reset()
     animations.hover.play()
-  }
-  if (weight) {
-    disablePickHelper()
-  } else {
-    enablePickHelper()
-  }
-}
-
-function enablePickHelper () {
-  if (scene) {
-    const pickHelper = scene.getObjectByName('pickHelper')
-    if (pickHelper) {
-      pickHelper.position.z = 1
-    }
-  }
-}
-
-function disablePickHelper () {
-  if (scene) {
-    const pickHelper = scene.getObjectByName('pickHelper')
-    if (pickHelper) {
-      pickHelper.position.z = 1000
-    }
   }
 }
 
@@ -255,17 +225,15 @@ function resize () {
     camera.updateProjectionMatrix()
   }
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
-  calculatePickHelperCenter()
 }
 
 function initMouseTracking () {
   mouseMoveTracking()
   mouseScrollTracking()
-  mouseClickTracking()
+  initClickHandlers()
 }
 
 function mouseMoveTracking () {
-  const raycaster = new THREE.Raycaster()
   target = new THREE.Vector3()
   target.z = LOOK_AT_DISTANCE
   window.addEventListener('mousemove', event => {
@@ -273,13 +241,6 @@ function mouseMoveTracking () {
     mouseY = event.clientY
     mouse = getRelativeMousePosition(mouseX, mouseY)
     targetWeight = 1 - getMouseDistanceFromCenter()
-    const pickHelper = scene.getObjectByName('pickHelper')
-    if (pickHelper) {
-      raycaster.setFromCamera(new THREE.Vector2(mouse.x, mouse.y), camera)
-      var intersects = raycaster.intersectObjects([pickHelper])
-      mouseover = intersects.length > 0
-      mouseoverHandler(mouseover, pickHelperX, pickHelperY)
-    }
   })
 }
 
@@ -287,14 +248,6 @@ function mouseScrollTracking () {
   window.addEventListener('scroll', event => {
     mouse = getRelativeMousePosition(mouseX, mouseY)
     targetWeight = 1 - getMouseDistanceFromCenter()
-  })
-}
-
-function mouseClickTracking () {
-  window.addEventListener('click', event => {
-    if (mouseover) {
-      clickHandler()
-    }
   })
 }
 
@@ -307,19 +260,6 @@ function getMouseDistanceFromCenter () {
   distance = (x + y) / 2
   if (distance > 1) distance = 1
   return distance
-}
-
-function initPickHelper () {
-  const geometry = new THREE.BoxGeometry(1.8, 1.5, 2)
-  const material = new THREE.MeshBasicMaterial({
-    color: 0x44aa88,
-    opacity: 0,
-    transparent: true
-  })
-  const pickHelper = new THREE.Mesh(geometry, material)
-  pickHelper.position.set(-0.05, 0.6, 1)
-  pickHelper.name = 'pickHelper'
-  return pickHelper
 }
 
 function getRelativeMousePosition (x, y) {
@@ -337,34 +277,6 @@ function getRelativeCanvasPosition (x, y) {
     y: (y - rect.top) * canvas.height / rect.height
   }
 }
-
-function calculatePickHelperCenter () {
-  if (scene) {
-    const pickHelper = scene.getObjectByName('pickHelper')
-    if (pickHelper) {
-      const center = toScreenPosition(pickHelper)
-      pickHelperX = center.x
-      pickHelperY = center.y
-    }
-  }
-}
-
-function toScreenPosition (obj) {
-  // ref: https://stackoverflow.com/a/27410603/918060
-  var vector = new THREE.Vector3()
-  const size = canvas.getBoundingClientRect()
-  var widthHalf = size.width / 2
-  var heightHalf = size.height / 2
-  obj.updateMatrixWorld()
-  vector.setFromMatrixPosition(obj.matrixWorld)
-  vector.project(camera)
-  vector.x = (vector.x * widthHalf) + widthHalf + size.left
-  vector.y = -(vector.y * heightHalf) + heightHalf
-  return {
-    x: vector.x,
-    y: vector.y
-  }
-};
 
 function initAnimations (clips) {
   animations = {}
@@ -411,43 +323,30 @@ function getClipAction (name, clips) {
   return scene.mixer.clipAction(clip)
 }
 
-function clickHandler () {
-  if (!clicked) {
-    clicked = true
-    window.setTimeout(() => { clicked = false }, 3000)
-    const nextSceneName = getNextScene()
-    const index = window.state.sceneOrder.indexOf(nextSceneName)
-    camera.layers.enable(index)
-    if (index > 1) {
-      camera.layers.disable(index - 1)
-    }
-    window.transitions[nextSceneName]()
-    if (window.particles) {
-      window.particles.stopMouseTracking()
-      window.particles.stopEmitter()
-    }
-    disablePickHelper()
-  }
-}
-
-function mouseoverHandler (hovering, x, y) {
-  if (hovering) {
-    document.querySelectorAll('.hero-chest').forEach(el => {
-      el.style.cursor = 'pointer'
+function initClickHandlers () {
+  gsap.utils.toArray('.hero-target').forEach(clickTarget => {
+    clickTarget.addEventListener(
+      'mouseover',
+      window.particles.startEmitter
+    )
+    clickTarget.addEventListener(
+      'mouseout',
+      window.particles.stopEmitter
+    )
+    clickTarget.addEventListener('click', e => {
+      e.target.parentNode.removeChild(e.target)
+      const nextSceneName = getNextScene()
+      const index = window.state.sceneOrder.indexOf(nextSceneName)
+      camera.layers.enable(index)
+      if (index > 1) {
+        camera.layers.disable(index - 1)
+      }
+      window.transitions[nextSceneName]()
+      if (window.particles) {
+        window.particles.stopEmitter()
+      }
     })
-    if (window.particles) {
-      window.particles.startEmitter(x, y)
-      window.particles.stopMouseTracking()
-    }
-  } else {
-    document.querySelectorAll('.hero-chest').forEach(el => {
-      el.style.cursor = 'default'
-    })
-    if (window.particles) {
-      window.particles.stopEmitter()
-      window.particles.startMouseTracking()
-    }
-  }
+  })
 }
 
 function render () {

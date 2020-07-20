@@ -69,7 +69,10 @@ function initResizeTracking () {
   })
 }
 
-function startEmitter (x, y) {
+function startEmitter () {
+  const target = canvas.closest('.hero').querySelector('.hero-target').getBoundingClientRect()
+  x = target.x + target.width / 2
+  y = target.y + target.height / 2
   const SPREAD = 10
   if (!emitting) {
     emitting = true
