@@ -41,6 +41,7 @@ let distance = 0
 let x = 0
 let y = 0
 let emitter = null
+let rect
 
 function init (el) {
   if (window.innerWidth > 960) {
@@ -49,6 +50,8 @@ function init (el) {
     initParticles()
     initMouseTracking()
     initResizeTracking()
+    initScrollTracking()
+    rect = canvas.getBoundingClientRect()
     return {
       canvas,
       startEmitter,
@@ -66,6 +69,13 @@ function initResizeTracking () {
   window.addEventListener('resize', () => {
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = window.innerHeight
+    rect = canvas.getBoundingClientRect()
+  })
+}
+
+function initScrollTracking () {
+  window.addEventListener('scroll', () => {
+    rect = canvas.getBoundingClientRect()
   })
 }
 
@@ -103,10 +113,9 @@ function stopMouseTracking () {
 
 function initMouseTracking () {
   window.addEventListener('mousemove', event => {
-    const wrapper = canvas.closest('.hero-particles')
     if (mouseTracking) {
-      x = event.clientX - (wrapper.offsetLeft - (wrapper.clientWidth / 2))
-      y = event.clientY
+      x = event.clientX - rect.x
+      y = event.clientY - rect.y
       distance = diff(x, m.pos.x) + diff(y, m.pos.y)
       if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
         for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
