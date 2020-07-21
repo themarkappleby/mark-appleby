@@ -6,9 +6,12 @@ import initScrollIndicator from './initScrollIndicator'
 
 function audi (chest) {
   return () => {
+    alert('transition audi 1')
     const scrollIndicator = document.querySelector('.audi .hero-scroll')
     scrollToBottom(() => {
+      alert('transition audi 2')
       window.setTimeout(() => {
+        alert('transition audi 3')
         hide('.ecobee .hero')
         hide('.ecobee .section-content')
         show('.audi .section-content')
