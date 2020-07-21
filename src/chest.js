@@ -253,8 +253,14 @@ function mouseMoveTracking () {
 
 function mouseScrollTracking () {
   window.addEventListener('scroll', event => {
-    mouse = getRelativeMousePosition(mouseX, mouseY)
-    targetWeight = 1 - getMouseDistanceFromCenter()
+    const tempMouse = getRelativeMousePosition(mouseX, mouseY)
+    if (tempMouse.x && tempMouse.y) {
+      mouse = tempMouse
+    }
+    const tempTargetWeight = 1 - getMouseDistanceFromCenter()
+    if (tempTargetWeight) {
+      targetWeight = tempTargetWeight
+    }
   })
 }
 

@@ -4,7 +4,6 @@ import loadLottie from './loadLottie'
 import loadMotext from './loadMotext'
 import initTransitions from '../sceneTransitions'
 import initParticles from '../particles'
-import initSwapChests from '../scrollEffects/initSwapChests'
 import initBadges from '../scrollEffects/initBadges'
 
 function load () {
@@ -20,7 +19,6 @@ function load () {
       })
       loadChest(60).then(() => {
         window.transitions = initTransitions()
-        initSwapChests()
         initBadges()
         addProgress(10)
         resolve()

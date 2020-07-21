@@ -1,15 +1,15 @@
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import initAppleby from './initAppleby'
-// import initBadges from './initBadges'
 import initCardIntros from './initCardIntros'
 import initParallax from './initParallax'
 import initScreenshotScrolling from './initScreenshotScrolling'
 import initScrollIndicators from './initScrollIndicators'
+import initSwapChests from './initSwapChests'
 
 function init (section) {
   flush()
   initAppleby(section)
-  // initBadges(section)
+  initSwapChests(section)
   if (!isFirefox()) {
     // TODO: For some reason Firefox performance with these animations is terrible. Needs further investigation but disabling them for now.
     initScreenshotScrolling(section)
@@ -21,7 +21,7 @@ function init (section) {
 
 function flush () {
   ScrollTrigger.getAll().forEach(trigger => {
-    if (!isHero(trigger) && !isBadges(trigger)) {
+    if (!isBadges(trigger)) {
       trigger.kill()
     }
   })
@@ -30,10 +30,6 @@ function flush () {
 function isFirefox () {
   var browser = navigator.userAgent.toLowerCase()
   return browser.indexOf('firefox') > -1
-}
-
-function isHero (trigger) {
-  return trigger.trigger.classList.contains('hero-chest')
 }
 
 function isBadges (trigger) {
