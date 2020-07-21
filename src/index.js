@@ -10,6 +10,8 @@ import a11y from './a11y'
 const PASSWORD_PROTECT = true
 const PASSWORD = 'd3adb33f'
 
+console.log('%cHowdy 👋! Thanks for stopping by. Having any questions about my code? Feel free to shoot me an email at themarkappleby@gmail.com', 'background: #222; color: #eabc36; font-size: 20px; padding: 20px;')
+
 if (PASSWORD_PROTECT) {
   const form = document.querySelector('form.password')
   form.style.display = 'flex'
