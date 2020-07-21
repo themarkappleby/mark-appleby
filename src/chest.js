@@ -355,6 +355,8 @@ function clickEvent (e) {
   e.target.parentNode.removeChild(e.target)
   const nextSceneName = getNextScene()
   const index = window.state.sceneOrder.indexOf(nextSceneName)
+  alert(nextSceneName)
+  alert(index)
   camera.layers.enable(index)
   if (index > 1) {
     camera.layers.disable(index - 1)
