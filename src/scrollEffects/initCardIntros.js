@@ -3,16 +3,25 @@ import gsap from 'gsap'
 function cardIntros (section) {
   if (window.innerWidth > 960) {
     gsap.utils.toArray(`.${section} .card`).forEach(card => {
-      gsap.from(card, {
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: card,
-          toggleActions: 'restart reset restart reset'
-        },
+          start: 'top 75%'
+        }
+      })
+      tl.from(card, {
         y: 50,
         scale: 1.1,
         opacity: 0,
-        duration: 1.5,
+        duration: 0.7,
         ease: 'power1'
+      })
+      tl.from(card.querySelectorAll('.card-item'), {
+        opacity: 0,
+        y: 16,
+        duration: 0.4,
+        stagger: 0.2,
+        ease: 'power1.out'
       })
     })
   }

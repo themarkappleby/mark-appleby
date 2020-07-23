@@ -54,7 +54,7 @@ function gotoAndPlay (animation) {
       animations[animation].play()
     }
     animations[animation].weight = 1
-    animations.hover.fadeOut(0.5)
+    animations.hover.fadeOut(0.2)
   }
 }
 
@@ -257,17 +257,19 @@ function mouseScrollTracking () {
     if (tempMouse.x && tempMouse.y) {
       mouse = tempMouse
     }
-    const tempTargetWeight = 1 - getMouseDistanceFromCenter()
-    if (tempTargetWeight) {
-      targetWeight = tempTargetWeight
+    if (mouse) {
+      const tempTargetWeight = 1 - getMouseDistanceFromCenter()
+      if (tempTargetWeight) {
+        targetWeight = tempTargetWeight
+      }
     }
   })
 }
 
 function getMouseDistanceFromCenter () {
   let distance = 0
-  let x = mouse.x
-  let y = mouse.y
+  let x = mouse.x * 2
+  let y = mouse.y * 2
   if (x < 0) x *= -1
   if (y < 0) y *= -1
   distance = (x + y) / 2

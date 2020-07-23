@@ -4,13 +4,19 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 gsap.registerPlugin(ScrollToPlugin)
 
 function scrollToBottom (cb) {
+  const distance = distanceFromBottom()
+  const duration = distance * 0.003
   gsap.to(window, {
-    duration: 0.5,
-    scrollTo: {
-      y: 'max'
-    },
+    duration,
+    scrollTo: { y: 'max' },
     onComplete: cb
   })
+}
+
+function distanceFromBottom () {
+  const scrolled = window.scrollY + window.innerHeight
+  const height = document.body.scrollHeight
+  return height - scrolled
 }
 
 export default scrollToBottom
