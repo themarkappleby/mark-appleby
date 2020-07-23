@@ -5,7 +5,7 @@ import { state as initState } from './utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from 'gsap'
 import './styles/styles.scss'
-import a11y from './a11y'
+import a11y from './misc/a11y'
 
 const PASSWORD_PROTECT = true
 const PASSWORD = 'd3adb33f'

@@ -3,7 +3,7 @@
 import gsap from 'gsap'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { getNextScene } from './utils'
+import { getNextScene } from '../utils'
 
 const FRAME_RATE = 20 / 1000
 const LOOK_AT_EASING = 0.02

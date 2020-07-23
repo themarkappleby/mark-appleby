@@ -3,6 +3,7 @@ import { scrollToBottom, show, hide } from '../utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import initScrollEffects from '../scrollEffects'
 import initScrollIndicator from './initScrollIndicator'
+import initDrawingCanvas from '../misc/initDrawingCanvas'
 
 function contact (chest) {
   return () => {
@@ -15,6 +16,7 @@ function contact (chest) {
           hide('.worldvision .section-content')
           show('.contact .section-content')
           show('.footer')
+          initDrawingCanvas()
           document.querySelector('.contact .hero-title').classList.add('hero-title--intro')
           window.scrollTo(0, 0)
           initScrollEffects('contact')

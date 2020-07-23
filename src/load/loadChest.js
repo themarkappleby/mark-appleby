@@ -1,6 +1,6 @@
 /* global window */
 
-import initChest from '../chest'
+import initChest from '../misc/chest'
 import { addProgress } from './progress'
 
 function loadChest (progress, chestClickHandler, chestMouseoverHandler) {
