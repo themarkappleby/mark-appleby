@@ -3,18 +3,20 @@ let canvas, ctx, drawing, x, y, color, marker
 const COLORS = ['black', '#0dafb7', '#eabc36', '#e154ed', '#62d628']
 
 function initDrawingCanvas () {
-  canvas = document.querySelector('.card-drawing')
-  marker = document.querySelector('.card-drawingMarker')
-  ctx = canvas.getContext('2d')
-  canvas.addEventListener('mousedown', startDrawing)
-  canvas.addEventListener('mouseup', stopDrawing)
-  canvas.addEventListener('mousemove', draw)
-  canvas.addEventListener('mouseenter', showMarker)
-  canvas.addEventListener('mouseleave', hideMarker)
-  window.addEventListener('mousemove', moveMarker)
-  window.addEventListener('resize', resize)
-  color = COLORS[0]
-  resize()
+  if (window.innerWidth > 960) {
+    canvas = document.querySelector('.card-drawing')
+    marker = document.querySelector('.card-drawingMarker')
+    ctx = canvas.getContext('2d')
+    canvas.addEventListener('mousedown', startDrawing)
+    canvas.addEventListener('mouseup', stopDrawing)
+    canvas.addEventListener('mousemove', draw)
+    canvas.addEventListener('mouseenter', showMarker)
+    canvas.addEventListener('mouseleave', hideMarker)
+    window.addEventListener('mousemove', moveMarker)
+    window.addEventListener('resize', resize)
+    color = COLORS[0]
+    resize()
+  }
 }
 
 function showMarker () {
@@ -37,7 +39,6 @@ function getPosition (event) {
 }
 
 function moveMarker (event) {
-  console.log(event)
   marker.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`
 }
 
