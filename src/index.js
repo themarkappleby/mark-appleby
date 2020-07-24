@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import gsap from 'gsap'
 import './styles/styles.scss'
 import a11y from './misc/a11y'
+import 'mailgo/dist/mailgo.min.js'
 
 const PASSWORD_PROTECT = true
 const PASSWORD = 'd3adb33f'
