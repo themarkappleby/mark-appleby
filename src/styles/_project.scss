@@ -20,9 +20,8 @@
     }
     &Frame {
       overflow: hidden;
-      border-width: 8px;
+      border-width: 4px;
       border-style: solid;
-      border: none;
       background-color: white;
       box-shadow: 0 0 100px rgba(white, 0.8);
       transform: perspective(1000px) rotateY(10deg);

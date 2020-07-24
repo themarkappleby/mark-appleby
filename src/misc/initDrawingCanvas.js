@@ -1,6 +1,6 @@
 let canvas, ctx, drawing, x, y, color
 
-const COLORS = ['black', '#0dafb7', '#eabc36', '#e154ed', '#62d628']
+const COLORS = ['#0dafb7', '#eabc36', '#e154ed', '#62d628', '#000000']
 
 function initDrawingCanvas () {
   if (window.innerWidth > 960) {

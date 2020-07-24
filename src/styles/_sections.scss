@@ -20,7 +20,7 @@
       background-image: url('/assets/ecobee-background.png');
     }
     .project-previewFrame {
-      border-color: #1d7d16;
+      border-color: darken(#5dbe7b, 10);
     }
     .project-previewItem {
       bottom: 40px;
@@ -39,7 +39,7 @@
       background-image: url('/assets/audi-background.png');
     }
     .project-previewFrame {
-      border-color: #322121;
+      border-color: darken(#91251e, 10);
     }
     .project-previewItem {
       bottom: 20px;
@@ -76,7 +76,7 @@
       background-image: url('/assets/worldvision-background.png');
     }
     .project-previewFrame {
-      border-color: #322121;
+      border-color: darken(#2b6596, 10);
     }
     .project-previewItem {
       bottom: 0;
