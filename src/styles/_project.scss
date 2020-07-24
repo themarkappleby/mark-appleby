@@ -15,6 +15,9 @@
       margin-top: 80px;
       padding-left: 0;
     }
+    @media (max-width: 500px) {
+      margin-top: 60px;
+    }
     &Frame {
       overflow: hidden;
       border-width: 8px;
@@ -24,8 +27,10 @@
       transform: perspective(1000px) rotateY(10deg);
       margin: 0 auto;
       position: relative;
+      z-index: 2;
       @media (max-width: 960px) {
         max-width: 510px;
+        transform: none;
       }
       img {
         position: absolute;
@@ -52,6 +57,7 @@
     background-size: cover;
     background-position: center center;
     opacity: 0;
+    z-index: 1;
     filter: blur(3px);
     @media (max-width: 960px) {
       transform: translate(-50%, -50%) scale(0.7);
@@ -62,6 +68,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    z-index: 3;
     @media (max-width: 960px) {
       display: none;
     }

@@ -6,6 +6,7 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     writeToDisk: true,
-    index: 'index.html'
+    index: 'index.html',
+    host: '0.0.0.0'
   }
 })
