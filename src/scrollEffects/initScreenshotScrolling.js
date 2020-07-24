@@ -7,9 +7,10 @@ function screenshotScrolling (section) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: frame,
+          markers: true,
           scrub: true,
           start: 'top bottom',
-          end: '25% center'
+          end: '60% center'
         }
       })
       if (window.innerWidth > 960) {
@@ -23,7 +24,7 @@ function screenshotScrolling (section) {
         }, 0)
       }
       tl.from(image, {
-        yPercent: -40
+        yPercent: -50
       }, 0)
     })
 
