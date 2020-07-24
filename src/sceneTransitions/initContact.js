@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import initScrollEffects from '../scrollEffects'
 import initScrollIndicator from './initScrollIndicator'
 import initDrawingCanvas from '../misc/initDrawingCanvas'
+import mailgo from 'mailgo'
 
 function contact (chest) {
   return () => {
@@ -21,6 +22,7 @@ function contact (chest) {
           window.scrollTo(0, 0)
           initScrollEffects('contact')
           ScrollTrigger.refresh()
+          mailgo()
         }, 2000)
         var tl = gsap.timeline()
         tl.to('.contact .badges-wrapper', {
