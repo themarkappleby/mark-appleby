@@ -7,6 +7,9 @@
   }
   &.ecobee {
     background-color: #5dbe7b;
+    .hero-target {
+      display: none;
+    }
     .hero-title {
       color: #eeff97;
     }

@@ -31,6 +31,9 @@ function intro (chest) {
         window.setTimeout(() => {
           chest.gotoAndPlay('intro')
           window.state.set('scene', 'intro')
+          window.setTimeout(() => {
+            document.querySelector('.ecobee .hero-target').style.display = 'block'
+          }, 1000)
         }, 2500)
       })
     })
