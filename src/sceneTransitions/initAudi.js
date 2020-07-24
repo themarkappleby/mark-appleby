@@ -17,6 +17,9 @@ function audi (chest) {
           show('.worldvision .hero')
           document.querySelector('.audi .hero-title').classList.add('hero-title--intro')
           window.scrollTo(0, 0)
+          document.querySelector('.worldvision .badges-wrapper').appendChild(
+            document.querySelector('.badges')
+          )
           initScrollEffects('audi')
           ScrollTrigger.refresh(true)
         }, 2000)

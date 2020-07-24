@@ -17,6 +17,9 @@ function worldvision (chest) {
           show('.contact .hero')
           document.querySelector('.worldvision .hero-title').classList.add('hero-title--intro')
           window.scrollTo(0, 0)
+          document.querySelector('.contact .badges-wrapper').appendChild(
+            document.querySelector('.badges')
+          )
           initScrollEffects('worldvision')
           ScrollTrigger.refresh()
         }, 1500)

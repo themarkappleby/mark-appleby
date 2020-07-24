@@ -5,11 +5,13 @@ import initParallax from './initParallax'
 import initScreenshotScrolling from './initScreenshotScrolling'
 import initScrollIndicators from './initScrollIndicators'
 import initSwapChests from './initSwapChests'
+import initBadges from './initBadges'
 
 function init (section) {
   flush()
   initAppleby(section)
   initSwapChests(section)
+  initBadges(section)
   if (!isFirefox()) {
     // TODO: For some reason Firefox performance with these animations is terrible. Needs further investigation but disabling them for now.
     initScreenshotScrolling(section)
@@ -21,19 +23,13 @@ function init (section) {
 
 function flush () {
   ScrollTrigger.getAll().forEach(trigger => {
-    if (!isBadges(trigger)) {
-      trigger.kill()
-    }
+    trigger.kill()
   })
 }
 
 function isFirefox () {
   var browser = navigator.userAgent.toLowerCase()
   return browser.indexOf('firefox') > -1
-}
-
-function isBadges (trigger) {
-  return trigger.trigger.classList.contains('badges-wrapper')
 }
 
 export default init
