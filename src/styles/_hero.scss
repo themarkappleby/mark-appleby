@@ -45,10 +45,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    cursor: pointer;
-    cursor: url(/assets/key.png) 0 0, pointer;
     height: 30%;
     z-index: 2;
+    animation: key 0.5s infinite alternate;
   }
   &-white {
     background-color: white;
@@ -127,5 +126,23 @@
 @media (max-width: 768px) {
   .hero-scroll {
     bottom: 80px;
+  }
+}
+
+@keyframes key {
+  0% {
+    cursor: url(/assets/key-1.png) 0 0, pointer;
+  }
+  25% {
+    cursor: url(/assets/key-2.png) 0 0, pointer;
+  }
+  50% {
+    cursor: url(/assets/key-3.png) 0 0, pointer;
+  }
+  75% {
+    cursor: url(/assets/key-4.png) 0 0, pointer;
+  }
+  100% {
+    cursor: url(/assets/key-5.png) 0 0, pointer;
   }
 }
