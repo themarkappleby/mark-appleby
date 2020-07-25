@@ -21,7 +21,11 @@ function ecobee (chest) {
         document.querySelector('.ecobee .hero-title').classList.add('hero-title--intro')
         initScrollEffects('ecobee')
         ScrollTrigger.refresh()
+        if (window.particles) {
+          window.particles.updateColors('ecobee')
+        }
       }, 1500)
+      document.querySelector('.ecobee .hero-particles').style.zIndex = 1
       var tl = gsap.timeline()
       tl.to('.home-copy', {
         opacity: 0,

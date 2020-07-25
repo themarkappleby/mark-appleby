@@ -27,8 +27,14 @@ function moveChest (e) {
   }
   if (section === window.state.scene) {
     chest.setWeight(window.state.scene, 1)
+    if (particles) {
+      particles.updateColors(section)
+    }
   } else {
     chest.setWeight(window.state.scene, 0)
+    if (particles) {
+      particles.updateColors('default')
+    }
   }
 }
 

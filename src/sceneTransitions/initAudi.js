@@ -22,6 +22,9 @@ function audi (chest) {
           )
           initScrollEffects('audi')
           ScrollTrigger.refresh(true)
+          if (window.particles) {
+            window.particles.updateColors('audi')
+          }
         }, 2000)
         var tl = gsap.timeline()
         tl.to('.audi .badges-wrapper', {

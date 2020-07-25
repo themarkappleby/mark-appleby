@@ -22,6 +22,9 @@ function worldvision (chest) {
           )
           initScrollEffects('worldvision')
           ScrollTrigger.refresh()
+          if (window.particles) {
+            window.particles.updateColors('worldvision')
+          }
         }, 1500)
         var tl = gsap.timeline()
         tl.to('.worldvision .badges-wrapper', {

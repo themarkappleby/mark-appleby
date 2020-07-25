@@ -6,7 +6,7 @@ let ctx = null
 const inactive = []
 const active = []
 
-const MAX_PARTICLES = 1000
+const MAX_PARTICLES = 100
 const TERMINAL_VELOCITY = 10
 const GRAVITY = 0.05
 const DAMPENING = 8
@@ -18,7 +18,44 @@ const DECAY_FACTOR = 3
 const MIN_DISTANCE = 0 // 20
 const PARTICLE_MULTIPLIER = 5
 const VARIATION = 1.5
-const COLORS = ['#0dafb7', '#eabc36', '#e154ed', '#62d628', 'black']
+const COLORS = {
+  default: [
+    '#0dafb7',
+    '#eabc36',
+    '#e154ed',
+    '#62d628',
+    '#000000'
+  ],
+  ecobee: [
+    '#f9f2a0',
+    '#f6eb28',
+    '#92e964',
+    '#64df89',
+    '#41b348'
+  ],
+  audi: [
+    '#FFCD9D',
+    '#FFB2B2',
+    '#EF947E',
+    '#B36541',
+    '#CD3328'
+  ],
+  worldvision: [
+    '#FDCA4D',
+    '#F2922D',
+    '#C0F6EE',
+    '#5ABED7',
+    '#4DA4ED'
+  ],
+  contact: [
+    '#F9EACC',
+    '#FFCF5A',
+    '#FFEC20',
+    '#FF8147',
+    '#FB880E'
+  ]
+}
+let scheme = 'default'
 
 window.inactive = inactive
 window.active = active
@@ -57,7 +94,8 @@ function init (el) {
       startEmitter,
       stopEmitter,
       startMouseTracking,
-      stopMouseTracking
+      stopMouseTracking,
+      updateColors
     }
   }
 }
@@ -144,7 +182,7 @@ function initParticles () {
   let cnt = 1
   for (let i = 1; i <= MAX_PARTICLES; i++) {
     inactive.push({
-      color: rand(COLORS),
+      color: rand(COLORS.default),
       life: wiggle(LIFE, VARIATION),
       size: SIZE,
       grav: 0,
@@ -167,6 +205,7 @@ function resetParticle (particle, params) {
   particle.life = wiggle(LIFE, VARIATION)
   particle.grav = 0
   particle.rot = 0
+  particle.color = rand(COLORS[scheme])
   particle.size = SIZE
   particle.pos.x = params.pos.x
   particle.pos.y = params.pos.y
@@ -225,6 +264,13 @@ function step () {
     })
     window.requestAnimationFrame(step)
   }
+}
+
+function updateColors (colorScheme) {
+  scheme = colorScheme
+  inactive.forEach(particle => {
+    particle.color = rand(COLORS[scheme])
+  })
 }
 
 export default init

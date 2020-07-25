@@ -22,6 +22,9 @@ function contact (chest) {
           window.scrollTo(0, 0)
           initScrollEffects('contact')
           ScrollTrigger.refresh()
+          if (window.particles) {
+            window.particles.updateColors('contact')
+          }
           mailgo()
         }, 2000)
         var tl = gsap.timeline()
