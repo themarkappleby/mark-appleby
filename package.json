@@ -5,7 +5,12 @@
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
+  "browserslist": [
+    "defaults",
+    "IE 11"
+  ],
   "dependencies": {
+    "core-js": "2",
     "css-loader": "^3.4.2",
     "focus-visible": "^5.1.0",
     "gsap": "^3.2.0",
