@@ -4322,10 +4322,10 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-motext@^1.3.11:
-  version "1.3.11"
-  resolved "https://registry.yarnpkg.com/motext/-/motext-1.3.11.tgz#ecda8433e81c8bfc504b69e74f3ecee216b44877"
-  integrity sha512-jmtEamcG58otdIPR2TZitv5FeEVnx55N7b4ysk3jz3s+XtbpxBwJb7FmVGhmPoeknw3KrjM0Hce82w33IYsaIQ==
+motext@^1.3.12:
+  version "1.3.12"
+  resolved "https://registry.yarnpkg.com/motext/-/motext-1.3.12.tgz#853c3665a88b4db1c777ab7e0283a50b2167e273"
+  integrity sha512-knK/Zit+nyORsZ56oFm+hCfCFHfgS+G0xugzX9wp04V8v4YRRfgXfSOijLQ6PecEv5vs430Q+LvzitlSY4N5Ow==
   dependencies:
     core-js "^3.6.5"
     gsap "^3.3.4"
