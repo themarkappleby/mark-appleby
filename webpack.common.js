@@ -25,12 +25,20 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            plugins: [
+              [
+                '@babel/plugin-transform-runtime',
+                {
+                  corejs: 2
+                }
+              ]
+            ],
             presets: [
               [
                 '@babel/preset-env',
                 {
                   useBuiltIns: 'entry',
-                  corejs: '2.x'
+                  corejs: 2
                 }
               ]
             ]
