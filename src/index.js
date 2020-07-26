@@ -1,5 +1,5 @@
-/* global alert */
-
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import load from './load'
 import { state as initState } from './utils'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'

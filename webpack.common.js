@@ -21,27 +21,11 @@ module.exports = {
     rules: [
       {
         test: /\.m?js$/,
-        exclude: /node_modules\/(?!(three)\/).*/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: [
-              [
-                '@babel/plugin-transform-runtime',
-                {
-                  corejs: 2
-                }
-              ]
-            ],
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  useBuiltIns: 'entry',
-                  corejs: 2
-                }
-              ]
-            ]
+            presets: ['@babel/preset-env']
           }
         }
       },
