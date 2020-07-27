@@ -4,6 +4,7 @@ let logoPool = []
 const activeLogos = []
 let running = false
 const mouse = {}
+let trackedEvent = false
 
 function init (el) {
   document.onmousemove = e => {
@@ -16,6 +17,10 @@ function init (el) {
 
   const trigger = document.querySelector('[data-action="emit-logos"]')
   trigger.onclick = e => {
+    if (!trackedEvent && window.gtag) {
+      window.gtag('event', 'Logo Emitter Clicked')
+      trackedEvent = true
+    }
     e.target.classList.add('pulse')
     window.setTimeout(() => {
       e.target.classList.remove('pulse')

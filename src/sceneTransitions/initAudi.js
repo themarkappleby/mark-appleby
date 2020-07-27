@@ -9,6 +9,9 @@ function audi (chest) {
     const scrollIndicator = document.querySelector('.audi .hero-scroll')
     scrollToBottom(() => {
       chest.gotoAndPlay('audi')
+      if (window.gtag) {
+        window.gtag('event', 'Chest - Audi')
+      }
       window.setTimeout(() => {
         show('.audi .hero-title')
         window.setTimeout(() => {

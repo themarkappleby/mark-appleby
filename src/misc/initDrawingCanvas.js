@@ -2,6 +2,8 @@ let canvas, ctx, drawing, x, y, color
 
 const COLORS = ['#0dafb7', '#eabc36', '#e154ed', '#62d628', '#000000']
 
+let trackedEvent = false
+
 function initDrawingCanvas () {
   if (window.innerWidth > 960) {
     canvas = document.querySelector('.card-drawing')
@@ -29,6 +31,10 @@ function getPosition (event) {
 function startDrawing (event) {
   drawing = true
   getPosition(event)
+  if (!trackedEvent && window.gtag) {
+    window.gtag('event', 'Canvas Drawing')
+    trackedEvent = true
+  }
 }
 
 function stopDrawing () {

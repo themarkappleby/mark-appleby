@@ -9,6 +9,9 @@ const SIDE_BY_SIDE_BP = 1000
 function ecobee (chest) {
   return () => {
     const scrollIndicator = document.querySelector('.ecobee .hero-scroll')
+    if (window.gtag) {
+      window.gtag('event', 'Chest - ecobee')
+    }
     chest.gotoAndPlay('ecobee')
     window.setTimeout(() => {
       show('.ecobee .hero-title')

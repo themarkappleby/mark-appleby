@@ -9,6 +9,9 @@ function worldvision (chest) {
     const scrollIndicator = document.querySelector('.worldvision .hero-scroll')
     scrollToBottom(() => {
       chest.gotoAndPlay('worldvision')
+      if (window.gtag) {
+        window.gtag('event', 'Chest - World Vision')
+      }
       window.setTimeout(() => {
         show('.worldvision .hero-title')
         window.setTimeout(() => {

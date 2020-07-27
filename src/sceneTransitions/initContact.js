@@ -11,6 +11,9 @@ function contact (chest) {
     const scrollIndicator = document.querySelector('.contact .hero-scroll')
     scrollToBottom(() => {
       chest.gotoAndPlay('contact')
+      if (window.gtag) {
+        window.gtag('event', 'Chest - Contact')
+      }
       window.setTimeout(() => {
         show('.contact .hero-title')
         window.setTimeout(() => {

@@ -11,6 +11,9 @@ function init (section) {
       onEnter: e => {
         if (!played && e.progress < 1) {
           window.lottie.play('appleby')
+          if (window.gtag) {
+            window.gtag('event', 'Appleby Logo Appeared')
+          }
           played = true
         }
       }
