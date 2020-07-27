@@ -27,18 +27,18 @@ const COLORS = {
     '#000000'
   ],
   ecobee: [
-    '#f9f2a0',
-    '#f6eb28',
+    '#D6E2D7',
     '#92e964',
     '#64df89',
-    '#41b348'
+    '#41b348',
+    '#305734'
   ],
   audi: [
-    '#FFCD9D',
-    '#FFB2B2',
-    '#EF947E',
-    '#B36541',
-    '#CD3328'
+    '#FFFAFA',
+    '#CD3328',
+    '#C70000',
+    '#C1C1C1',
+    '#5A0808'
   ],
   worldvision: [
     '#FDCA4D',
@@ -46,13 +46,6 @@ const COLORS = {
     '#C0F6EE',
     '#5ABED7',
     '#4DA4ED'
-  ],
-  contact: [
-    '#F9EACC',
-    '#FFCF5A',
-    '#FFEC20',
-    '#FF8147',
-    '#FB880E'
   ]
 }
 let scheme = 'default'
