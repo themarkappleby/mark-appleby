@@ -41,7 +41,7 @@ function init () {
 
 function handledLinkedIn () {
   if (!trackedEvent) {
-    window.gtag('event', 'LinkedIn Clicked')
+    window.gtag('event', 'LinkedIn Clicked - Home')
     trackedEvent = true
     document.querySelector('.home-linkedin').removeEventListener('click', handledLinkedIn)
   }

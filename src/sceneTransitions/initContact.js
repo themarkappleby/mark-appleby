@@ -6,6 +6,8 @@ import initScrollIndicator from './initScrollIndicator'
 import initDrawingCanvas from '../misc/initDrawingCanvas'
 import mailgo from 'mailgo'
 
+let trackedEvent = false
+
 function contact (chest) {
   return () => {
     const scrollIndicator = document.querySelector('.contact .hero-scroll')
@@ -27,6 +29,9 @@ function contact (chest) {
           initScrollEffects('contact')
           ScrollTrigger.refresh()
           mailgo()
+          if (window.gtag) {
+            document.querySelector('.footer-linkedin').addEventListener('click', handledLinkedIn)
+          }
         }, 2000)
         var tl = gsap.timeline()
         tl.to('.contact .badges-wrapper', {
@@ -47,6 +52,14 @@ function contact (chest) {
         window.state.set('scene', 'contact')
       }, 2000)
     })
+  }
+}
+
+function handledLinkedIn () {
+  if (!trackedEvent) {
+    window.gtag('event', 'LinkedIn Clicked - Footer')
+    trackedEvent = true
+    document.querySelector('.footer-linkedin').removeEventListener('click', handledLinkedIn)
   }
 }
 
