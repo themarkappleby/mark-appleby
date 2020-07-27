@@ -12,6 +12,7 @@ function contact (chest) {
     scrollToBottom(() => {
       chest.gotoAndPlay('contact')
       window.setTimeout(() => {
+        show('.contact .hero-title')
         window.setTimeout(() => {
           hide('.worldvision .hero')
           hide('.worldvision .section-content')

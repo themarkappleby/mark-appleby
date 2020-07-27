@@ -10,6 +10,7 @@ function worldvision (chest) {
     scrollToBottom(() => {
       chest.gotoAndPlay('worldvision')
       window.setTimeout(() => {
+        show('.worldvision .hero-title')
         window.setTimeout(() => {
           hide('.audi .hero')
           hide('.audi .section-content')

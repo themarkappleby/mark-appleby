@@ -10,6 +10,7 @@ function audi (chest) {
     scrollToBottom(() => {
       chest.gotoAndPlay('audi')
       window.setTimeout(() => {
+        show('.audi .hero-title')
         window.setTimeout(() => {
           hide('.ecobee .hero')
           hide('.ecobee .section-content')

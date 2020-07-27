@@ -11,6 +11,7 @@ function ecobee (chest) {
     const scrollIndicator = document.querySelector('.ecobee .hero-scroll')
     chest.gotoAndPlay('ecobee')
     window.setTimeout(() => {
+      show('.ecobee .hero-title')
       window.setTimeout(() => {
         show('.ecobee .section-content')
         show('.audi .hero')
