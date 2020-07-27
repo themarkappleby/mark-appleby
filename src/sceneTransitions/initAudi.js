@@ -21,6 +21,7 @@ function audi (chest) {
           document.querySelector('.worldvision .badges-wrapper').appendChild(
             document.querySelector('.badges')
           )
+          document.querySelector('.badge--audi .badge-label').textContent = 'Audi'
           initScrollEffects('audi')
           ScrollTrigger.refresh(true)
           if (window.particles) {

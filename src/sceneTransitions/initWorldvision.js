@@ -21,6 +21,7 @@ function worldvision (chest) {
           document.querySelector('.contact .badges-wrapper').appendChild(
             document.querySelector('.badges')
           )
+          document.querySelector('.badge--worldvision .badge-label').textContent = 'World Vision'
           initScrollEffects('worldvision')
           ScrollTrigger.refresh()
           if (window.particles) {
