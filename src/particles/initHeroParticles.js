@@ -27,7 +27,7 @@ const COLORS = {
     '#000000'
   ],
   ecobee: [
-    '#D6E2D7',
+    '#F7FCF9',
     '#92e964',
     '#64df89',
     '#41b348',
@@ -44,8 +44,8 @@ const COLORS = {
     '#FDCA4D',
     '#F2922D',
     '#C0F6EE',
-    '#5ABED7',
-    '#4DA4ED'
+    '#4DA4ED',
+    '#18446A'
   ]
 }
 let scheme = 'default'

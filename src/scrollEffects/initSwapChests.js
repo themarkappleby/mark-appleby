@@ -2,6 +2,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getNextScene } from '../utils'
 
 function init (section) {
+  if (section === 'contact') return
   ScrollTrigger.create({
     trigger: `.${section} .hero-chest`,
     onEnterBack: moveChest
