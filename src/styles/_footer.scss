@@ -4,6 +4,9 @@
   &-linkedin {
     display: inline-block;
     text-decoration: none;
+    &:hover, &:focus {
+      color: black;
+    }
   }
   &-logo {
     display: block;
