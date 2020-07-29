@@ -83,6 +83,14 @@
       left: -20px;
       width: 196px;
     }
+    .worldvision-url {
+      @media (max-width: 500px) {
+        overflow: hidden;
+        a {
+          white-space: nowrap;
+        }
+      }
+    }
   }
   &.contact {
     background-color: #ddaf40;
