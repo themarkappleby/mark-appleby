@@ -9,10 +9,10 @@ function cardIntros (section) {
           start: 'top 75%'
         }
       })
-      tl.from(card, {
-        y: 50,
-        scale: 1.1,
-        opacity: 0,
+      tl.to(card, {
+        y: 0,
+        scale: 1,
+        opacity: 1,
         duration: 0.7,
         ease: 'power1'
       })
@@ -23,6 +23,17 @@ function cardIntros (section) {
         stagger: 0.2,
         ease: 'power1.out'
       })
+
+      if (section !== 'contact') {
+        gsap.to(`.${section} .card-image`, {
+          scale: 1,
+          scrollTrigger: {
+            end: '80% center',
+            trigger: card,
+            scrub: 1
+          }
+        })
+      }
     })
   }
 }

@@ -92,8 +92,9 @@
     .hero-scroll {
       fill: #fff264;
     }
-    @media (max-width: 960px) {
-      .card-image {
+    .card-image {
+      transform: scale(1);
+      @media (max-width: 960px) {
         object-position: top center;
       }
     }

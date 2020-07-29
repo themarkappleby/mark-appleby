@@ -6,9 +6,12 @@
   overflow: hidden;
   position: relative;
   z-index: 2;
+  transform: translate(0, 50px) scale(1.1);
+  opacity: 0;
   &-imageWrapper {
     position: relative;
     width: 34%;
+    overflow: hidden;
   }
   &-image {
     position: absolute;
@@ -16,6 +19,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    transform: scale(1.5);
     object-fit: cover;
     object-position: center center;
   }
@@ -67,6 +71,8 @@
 @media (max-width: 960px) {
   .card {
     flex-direction: column-reverse;
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
     &-imageWrapper {
       display: none;
     }

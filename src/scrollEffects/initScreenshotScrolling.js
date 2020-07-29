@@ -7,7 +7,7 @@ function screenshotScrolling (section) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: frame,
-          scrub: true,
+          scrub: 0.5,
           start: 'top bottom',
           end: '60% center'
         }
