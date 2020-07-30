@@ -58,7 +58,6 @@
     background-position: center center;
     opacity: 0;
     z-index: 1;
-    filter: blur(3px);
     @media (max-width: 960px) {
       transform: translate(-50%, -50%) scale(0.7);
       opacity: 1;
