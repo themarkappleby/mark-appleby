@@ -4,7 +4,6 @@ import motext from 'motext'
 function intro (chest) {
   const titleAnimation = motext.init('.home-title', {
     strokeWidth: 7,
-    strokeLinejoin: 'miter',
     revealAmount: -10,
     revealEase: 'power4',
     staggerAmount: 0.03

@@ -31,29 +31,17 @@
     margin-bottom: 25px;
     a {
       text-decoration: none;
-      animation: none;
-      &:hover, &:focus {
-        animation: rainbow 3s ease-in-out infinite alternate;
+      transition: 
+        color 0.2s ease-in-out,
+        background-size 0.5s ease-out;
+      background-position: center 1.13em;
+      background-repeat: no-repeat;
+      text-shadow: 3px 1px 0 white, -3px 1px 0 white;
+      background-size: 0 0;
+      &:hover, &[data-focus-visible-added] {
+        background-size: 100% 3px;
       }
     }
-  }
-}
-
-@keyframes rainbow {
-  0% {
-    color: black;
-  }
-  10% {
-    color: #0dafb7;
-  }
-  40% {
-    color: #eabc36;
-  }
-  70% {
-    color: #e154ed;
-  }
-  100% {
-    color: #62d628;
   }
 }
 

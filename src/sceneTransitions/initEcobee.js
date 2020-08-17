@@ -44,8 +44,9 @@ function ecobee (chest) {
         }, 0)
         tl.to('.ecobee .hero-chest', {
           left: '-25%',
+          top: '47%',
           marginLeft: 0,
-          duration: 2,
+          duration: 3,
           ease: 'power1.easeOut'
         }, 0)
       } else {
