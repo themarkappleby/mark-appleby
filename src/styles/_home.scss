@@ -60,7 +60,7 @@
     font-size: 22px;
     a {
       text-decoration: none;
-      background-image: linear-gradient(#f2f9ff, #F2F9FF);
+      background-image: linear-gradient(#ebf4fc, #ebf4fc);
       background-position: center center;
       background-repeat: no-repeat;
       text-shadow:
@@ -69,21 +69,19 @@
         0 2px 0 white,
         2px -2px 0 white,
         -2px -2px 0 white,
-        0 -2px 0 white;
-      background-size: 100% 0;
-      display: inline-block;
-      transition:
-        color 0.2s ease-in-out,
-        background-size 0.4s ease-out;
+        0 -2px 0 white
+        ;
+      background-size: 80% 0;
+      display: inline;
+      transition: all 0.2s ease-in-out;
       font-weight: bold;
       &:hover, &[data-focus-visible-added] {
-        background-size: 100% 40px;
+        background-size: 100% 100%;
         color: #1292ff;
       }
     }
   }
   &-logos-trigger {
-    display: inline-block;
     user-select: none;
   }
   &-logos img {
