@@ -83,6 +83,9 @@
   }
   &-logos-trigger {
     user-select: none;
+    span {
+      display: inline-block;
+    }
   }
   &-logos img {
     position: fixed;
