@@ -57,7 +57,8 @@
     max-width: 525px;
     line-height: 44px;
     font-size: 24px;
-    > span, > a {
+    user-select: none;
+    > span > span, > a {
       opacity: 0; /* animated in by gsap */
     }
     a {

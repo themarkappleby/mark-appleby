@@ -2,6 +2,7 @@ import gsap from 'gsap'
 import motext from 'motext'
 
 function intro (chest) {
+  prepHomeText()
   const titleAnimation = motext.init('.home-title', {
     strokeWidth: 7,
     revealAmount: -10,
@@ -23,12 +24,12 @@ function intro (chest) {
         window.setTimeout(() => {
           gsap.to('.home-text > a', {
             opacity: 1,
-            duration: 3
+            duration: 6
           })
-          gsap.to('.home-text > span', {
-            delay: 0.4,
+          gsap.to('.home-text > span > span', {
+            delay: 'random(0, 1.2)',
             opacity: 1,
-            duration: 3
+            duration: 'random(3, 6)'
           })
         }, 1300)
         window.setTimeout(() => {
@@ -45,6 +46,18 @@ function intro (chest) {
       })
     })
   }
+}
+
+function prepHomeText () {
+  const el = gsap.utils.toArray(document.querySelectorAll('.home-text > span'))
+  el.forEach(span => {
+    let newHTML = ''
+    const text = span.innerHTML.split('')
+    text.forEach(char => {
+      newHTML += `<span aria-hidden="true">${char}</span>`
+    })
+    span.innerHTML = newHTML
+  })
 }
 
 export default intro
