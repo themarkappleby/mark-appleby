@@ -23,6 +23,7 @@
   position: relative;
   z-index: 2;
   transform: translateX(40px);
+  cursor: url(/assets/wand.png) 11 14, default;
   &-wrapper {
     position: relative;
     max-width: 1400px;

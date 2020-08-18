@@ -27,9 +27,9 @@ function intro (chest) {
             duration: 6
           })
           gsap.to('.home-text > span > span', {
-            delay: 'random(0, 1.2)',
+            delay: 'random(0, 1)',
             opacity: 1,
-            duration: 'random(3, 6)'
+            duration: 'random(2, 3)'
           })
         }, 1300)
         window.setTimeout(() => {
