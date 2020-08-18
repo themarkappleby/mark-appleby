@@ -66,6 +66,12 @@
       padding: 40px;
       width: 100%;
     }
+    &-item a {
+      background-size: 0 3px, 100% 0;
+      &:hover, &[data-focus-visible-added] {
+        background-size: 100% 3px, 100% 0;
+      }
+    }
   }
 }
 

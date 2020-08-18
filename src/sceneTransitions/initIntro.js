@@ -24,7 +24,7 @@ function intro (chest) {
         window.setTimeout(() => {
           gsap.to('.home-text > a', {
             opacity: 1,
-            duration: 6
+            duration: 4.5
           })
           gsap.to('.home-text > span > span', {
             delay: 'random(0, 1)',

@@ -56,8 +56,8 @@
   }
   &-text {
     max-width: 525px;
-    line-height: 44px;
     font-size: 24px;
+    line-height: 44px;
     user-select: none;
     > span > span, > a {
       opacity: 0; /* animated in by gsap */
@@ -179,6 +179,10 @@
   .home-title {
     font-size: 50px;
   }
+  .home-text {
+    font-size: 20px;
+    line-height: 38px;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -224,6 +228,12 @@
   .home-text {
     font-size: 16px;
     line-height: 24px;
+    a {
+      background-size: 80% 0, 100% 1px;
+      &:hover, &[data-focus-visible-added] {
+        background-size: 100% 100%, 100% 1px;
+      }
+    }
   }
   .home-wrapper {
     padding: 0;
