@@ -21,7 +21,15 @@ function intro (chest) {
         loading.parentNode.removeChild(loading)
         titleAnimation.play()
         window.setTimeout(() => {
-          gsap.to('.home-text', { opacity: 1, duration: 3 })
+          gsap.to('.home-text > a', {
+            opacity: 1,
+            duration: 3
+          })
+          gsap.to('.home-text > span', {
+            delay: 0.4,
+            opacity: 1,
+            duration: 3
+          })
         }, 1300)
         window.setTimeout(() => {
           gsap.to('.ecobee .hero-horizon', { opacity: 0.1, duration: 2.5 })

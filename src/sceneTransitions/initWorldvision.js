@@ -38,8 +38,7 @@ function worldvision (chest) {
         })
         tl.to('.worldvision .hero-white', {
           opacity: 0,
-          duration: 2,
-          ease: 'power1.easeOut'
+          duration: 2
         }, 0.5)
         tl.from(scrollIndicator, {
           opacity: 0,

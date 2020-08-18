@@ -37,23 +37,20 @@ function ecobee (chest) {
       })
       if (window.outerWidth >= SIDE_BY_SIDE_BP) {
         tl.to('.home, .home-overlay', {
-          left: '-25%',
+          left: '-18%',
           opacity: 0,
-          duration: 2,
-          ease: 'power1.easeOut'
+          duration: 2
         }, 0)
         tl.to('.ecobee .hero-chest', {
           left: '-25%',
           top: '47%',
           marginLeft: 0,
-          duration: 3,
-          ease: 'power1.easeOut'
+          duration: 3
         }, 0)
       } else {
         tl.to('.home-wrapper', {
           bottom: '-25%',
-          duration: 2,
-          ease: 'power1.easeOut'
+          duration: 2
         }, 0)
         tl.to('.hero-horizon', {
           height: '50%',
@@ -62,8 +59,7 @@ function ecobee (chest) {
       }
       tl.to('.ecobee .hero-white', {
         opacity: 0,
-        duration: 2,
-        ease: 'power1.easeOut'
+        duration: 2
       }, 0.5)
       tl.from(scrollIndicator, {
         opacity: 0,

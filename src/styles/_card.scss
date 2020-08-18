@@ -31,15 +31,13 @@
     margin-bottom: 25px;
     a {
       text-decoration: none;
-      transition: 
-        color 0.2s ease-in-out,
-        background-size 0.5s ease-out;
-      background-position: center 1.13em;
+      transition: color 0.2s ease-in-out, background-size 0.2s ease-in;
+      background-size: 0 4px, 100% 0;
+      background-position: center 1.13em, center 1.15em;
       background-repeat: no-repeat;
-      text-shadow: 3px 1px 0 white, -3px 1px 0 white;
-      background-size: 0 0;
+      text-shadow: 3px 2px 0 white, -3px 2px 0 white, 0 3px white;
       &:hover, &[data-focus-visible-added] {
-        background-size: 100% 3px;
+        background-size: 100% 4px, 100% 0;
       }
     }
   }

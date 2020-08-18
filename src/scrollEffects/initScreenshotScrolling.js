@@ -9,7 +9,7 @@ function screenshotScrolling (section) {
           trigger: frame,
           scrub: 0.5,
           start: 'top bottom',
-          end: '60% center'
+          end: '20% center'
         }
       })
       if (window.innerWidth > 960) {

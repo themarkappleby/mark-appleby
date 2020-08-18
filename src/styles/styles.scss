@@ -46,6 +46,33 @@ html, body {
   }
 }
 
+body.wand {
+  animation: wandDefault 0.6s infinite;
+}
+@keyframes wandDefault {
+  0% {
+    cursor: url(/assets/wand-0.png) 11 14, default;
+  }
+  15% {
+    cursor: url(/assets/wand-1.png) 11 14, default;
+  }
+  30% {
+    cursor: url(/assets/wand-2.png) 11 14, default;
+  }
+  45% {
+    cursor: url(/assets/wand-3.png) 11 14, default;
+  }
+  60% {
+    cursor: url(/assets/wand-4.png) 11 14, default;
+  }
+  75% {
+    cursor: url(/assets/wand-5.png) 11 14, default;
+  }
+  100% {
+    cursor: url(/assets/wand-0.png) 11 14, default;
+  }
+}
+
 .container {
   max-width: 1150px;
   padding: 0 100px;
