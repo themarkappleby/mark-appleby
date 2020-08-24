@@ -22,6 +22,7 @@ html, body, .home {
 .card-content .button,
 .hero-scrollArrow,
 .footer-linkedin {
+  cursor: url(/assets/wand-4.png) 8.5 11, pointer;
   animation: wand 0.6s infinite;
 }
 
@@ -50,6 +51,7 @@ html, body, .home {
 }
 
 body.wand {
+  cursor: url(/assets/wand-4.png) 8.5 11, default;
   animation: wandDefault 0.6s infinite;
 }
 @keyframes wandDefault {
