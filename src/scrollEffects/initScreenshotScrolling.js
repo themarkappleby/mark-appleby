@@ -35,6 +35,7 @@ function screenshotScrolling (section) {
             scrub: true,
             end: 'center center'
           },
+          force3D: false,
           yPercent: -80,
           opacity: 0.8,
           scale: 1.2
