@@ -130,41 +130,23 @@
 }
 
 .motext-word {
-  margin-bottom: 0.2em;
+  margin-bottom: 0.15em;
+}
+
+.motext-letter {
+  margin-right: -0.12em;
 }
 
 .motext-letter--L {
-  margin-right: -0.04em;
+  margin-right: -0.16em;
 }
 
-.motext-letter--e {
-  margin-right: -0.03em;
-  margin-bottom: 0;
-}
-
-.motext-letter--m {
-  margin-right: 0;
-}
-
-.motext-letter--t {
-  margin-left: -0.02em;
-}
-
-.motext-letter--o {
-  margin-right: -0.02em;
+.motext-letter--k + .motext-letter--e {
+  margin-left: -0.1em;
 }
 
 .motext-letter--f {
-  margin-right: -0.01em;
-}
-
-.motext-letter--u {
-  margin-right: -0.01em;
-}
-
-.motext-letter--apostrophe {
-  margin-left: -0.03em;
-  margin-right: -0.05em;
+  margin-right: -0.18em;
 }
 
 // ================================================

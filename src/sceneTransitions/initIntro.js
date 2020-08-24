@@ -4,8 +4,8 @@ import motext from 'motext'
 function intro (chest) {
   prepHomeText()
   const titleAnimation = motext.init('.home-title', {
-    strokeWidth: 7,
     revealAmount: -10,
+    revealDuration: 0.5,
     revealEase: 'power4',
     staggerAmount: 0.03
   })
@@ -24,25 +24,25 @@ function intro (chest) {
         window.setTimeout(() => {
           gsap.to('.home-text > a', {
             opacity: 1,
-            duration: 4.5
+            duration: 1.5
           })
           gsap.to('.home-text > span > span', {
-            delay: 'random(0, 1)',
+            delay: 'random(0, 0.7)',
             opacity: 1,
-            duration: 'random(2, 3)'
+            duration: 'random(0.5, 1.5)'
           })
-        }, 1300)
+        }, 3000)
         window.setTimeout(() => {
-          gsap.to('.ecobee .hero-horizon', { opacity: 0.1, duration: 2.5 })
+          gsap.to('.ecobee .hero-horizon', { opacity: 0.1, duration: 3 })
           resolve()
-        }, 3500)
+        }, 5500)
         window.setTimeout(() => {
           chest.gotoAndPlay('intro')
           window.state.set('scene', 'intro')
           window.setTimeout(() => {
             document.querySelector('.ecobee .hero-target').style.display = 'block'
           }, 1000)
-        }, 2500)
+        }, 4000)
       })
     })
   }
