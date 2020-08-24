@@ -9,7 +9,7 @@
 */
 
 /*!
- * CSSPlugin 3.4.2
+ * CSSPlugin 3.5.0
  * https://greensock.com
  *
  * Copyright 2008-2020, GreenSock. All rights reserved.
@@ -29,7 +29,7 @@
 */
 
 /*!
- * GSAP 3.4.2
+ * GSAP 3.5.0
  * https://greensock.com
  *
  * @license Copyright 2008-2020, GreenSock. All rights reserved.

@@ -2,12 +2,14 @@ import { rand } from '../utils'
 
 let canvas = null
 let ctx = null
+let wandTimer = null
 
 const inactive = []
 const active = []
 
-const MAX_PARTICLES = 100
+const MAX_PARTICLES = 150
 const TERMINAL_VELOCITY = 10
+const MAX_VEOLCITY = 10
 const GRAVITY = 0.05
 const DAMPENING = 8
 const FRICTION = 1.01
@@ -70,6 +72,8 @@ const m = {
 let distance = 0
 let x = 0
 let y = 0
+let eventX = 0
+let eventY = 0
 let emitter = null
 let rect
 
@@ -100,12 +104,6 @@ function initResizeTracking () {
   window.addEventListener('resize', () => {
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = window.innerHeight
-    rect = canvas.getBoundingClientRect()
-  })
-}
-
-function initScrollTracking () {
-  window.addEventListener('scroll', () => {
     rect = canvas.getBoundingClientRect()
   })
 }
@@ -144,21 +142,65 @@ function stopMouseTracking () {
 
 function initMouseTracking () {
   window.addEventListener('mousemove', event => {
-    if (mouseTracking) {
-      x = event.clientX - rect.x
-      y = event.clientY - rect.y
-      distance = diff(x, m.pos.x) + diff(y, m.pos.y)
-      if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
-        for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
-          m.vel.x = wiggle((x - m.pos.x) / DAMPENING, VARIATION)
-          m.vel.y = wiggle((y - m.pos.y) / DAMPENING, VARIATION)
-          emit(m)
-        }
-      }
-      m.pos.x = x
-      m.pos.y = y
+    eventX = event.clientX
+    eventY = event.clientY
+    x = eventX - rect.x
+    y = eventY - rect.y
+    if (mouseTracking && withinCanvas()) {
+      handleInteraction()
     }
   })
+}
+
+function initScrollTracking () {
+  window.addEventListener('scroll', () => {
+    rect = canvas.getBoundingClientRect()
+    y = eventY - rect.top
+    if (mouseTracking && withinCanvas()) {
+      handleInteraction()
+    }
+  })
+}
+
+function handleInteraction () {
+  document.body.classList.add('wand')
+  clearTimeout(wandTimer)
+  wandTimer = window.setTimeout(() => {
+    document.body.classList.remove('wand')
+  }, 500)
+  distance = diff(x, m.pos.x) + diff(y, m.pos.y)
+  if (distance > MIN_DISTANCE && m.pos.x !== 0 && m.pos.y !== 0) {
+    for (let i = 1; i <= PARTICLE_MULTIPLIER; i++) {
+      m.vel.x = wiggle((x - m.pos.x) / DAMPENING, VARIATION)
+      m.vel.y = wiggle((y - m.pos.y) / DAMPENING, VARIATION)
+      capVelocity()
+      emit(m)
+    }
+  }
+  m.pos.x = x
+  m.pos.y = y
+}
+
+function capVelocity () {
+  if (m.vel.x > MAX_VEOLCITY) {
+    m.vel.x = MAX_VEOLCITY
+  } else if (m.vel.x < MAX_VEOLCITY * -1) {
+    m.vel.x = MAX_VEOLCITY * -1
+  }
+  if (m.vel.y > MAX_VEOLCITY) {
+    m.vel.y = MAX_VEOLCITY
+  } else if (m.vel.y < MAX_VEOLCITY * -1) {
+    m.vel.y = MAX_VEOLCITY * -1
+  }
+}
+
+function withinCanvas () {
+  return (
+    eventX > rect.x &&
+    eventX < rect.width &&
+    eventY > rect.y &&
+    eventY < rect.height + rect.y
+  )
 }
 
 function wiggle (value, amount) {

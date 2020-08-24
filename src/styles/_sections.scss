@@ -7,6 +7,14 @@
   }
   &.ecobee {
     background-color: #5dbe7b;
+    .card-item a {
+      background-image:
+        linear-gradient(#a7d7b6, #a7d7b6),
+        linear-gradient(#ddd, #ddd);
+      &:hover, &:focus {
+        color: #5dbe7b;
+      }
+    }
     .hero-target {
       display: none;
     }
@@ -29,6 +37,14 @@
   }
   &.audi {
     background-color: #91251e;
+    .card-item a {
+      background-image:
+      linear-gradient( #E3C6C3, #E3C6C3),
+      linear-gradient( #ddd, #ddd);
+      &:hover, &:focus {
+        color: #9D3E37;
+      }
+    }
     .hero-title {
       color: #ffe0c2;
     }
@@ -49,6 +65,14 @@
   }
   &.worldvision {
     background-color: #2b6596;
+    .card-item a {
+      background-image:
+        linear-gradient( #D1ECF3, #D1ECF3),
+        linear-gradient( #ddd, #ddd);
+      &:hover, &:focus {
+        color: #5abed7;
+      }
+    }
     .hero-title {
       color: #5abed7;
       font-size: 260px;

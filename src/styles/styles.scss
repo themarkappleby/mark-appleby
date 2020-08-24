@@ -13,6 +13,71 @@ html, body {
   }
 }
 
+html, body, .home {
+  cursor: url(/assets/wand.png) 8.5 11, default;
+}
+
+.home-text a,
+.card-item a,
+.card-content .button,
+.hero-scrollArrow,
+.footer-linkedin {
+  cursor: url(/assets/wand-4.png) 8.5 11, pointer;
+  animation: wand 0.6s infinite;
+}
+
+@keyframes wand {
+  0% {
+    cursor: url(/assets/wand-0.png) 8.5 11, pointer;
+  }
+  15% {
+    cursor: url(/assets/wand-1.png) 8.5 11, pointer;
+  }
+  30% {
+    cursor: url(/assets/wand-2.png) 8.5 11, pointer;
+  }
+  45% {
+    cursor: url(/assets/wand-3.png) 8.5 11, pointer;
+  }
+  60% {
+    cursor: url(/assets/wand-4.png) 8.5 11, pointer;
+  }
+  75% {
+    cursor: url(/assets/wand-5.png) 8.5 11, pointer;
+  }
+  100% {
+    cursor: url(/assets/wand-0.png) 8.5 11, pointer;
+  }
+}
+
+body.wand {
+  cursor: url(/assets/wand-4.png) 8.5 11, default;
+  animation: wandDefault 0.6s infinite;
+}
+@keyframes wandDefault {
+  0% {
+    cursor: url(/assets/wand-0.png) 8.5 11, default;
+  }
+  15% {
+    cursor: url(/assets/wand-1.png) 8.5 11, default;
+  }
+  30% {
+    cursor: url(/assets/wand-2.png) 8.5 11, default;
+  }
+  45% {
+    cursor: url(/assets/wand-3.png) 8.5 11, default;
+  }
+  60% {
+    cursor: url(/assets/wand-4.png) 8.5 11, default;
+  }
+  75% {
+    cursor: url(/assets/wand-5.png) 8.5 11, default;
+  }
+  100% {
+    cursor: url(/assets/wand-0.png) 8.5 11, default;
+  }
+}
+
 .container {
   max-width: 1150px;
   padding: 0 100px;

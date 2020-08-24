@@ -13,15 +13,13 @@ function cardIntros (section) {
         y: 0,
         scale: 1,
         opacity: 1,
-        duration: 0.7,
-        ease: 'power1'
+        duration: 0.7
       })
       tl.from(card.querySelectorAll('.card-item'), {
         opacity: 0,
         y: 16,
         duration: 0.4,
-        stagger: 0.2,
-        ease: 'power1.out'
+        stagger: 0.2
       })
 
       if (section !== 'contact') {

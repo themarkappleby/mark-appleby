@@ -47,6 +47,7 @@
     transform: translate(-50%, -50%);
     height: 30%;
     z-index: 2;
+    cursor: url(/assets/key-1.png) 0 0, pointer;
     animation: key 0.3s infinite alternate;
   }
   &-white {
@@ -73,7 +74,6 @@
     transform: translate(-50%, 0);
     width: 40px;
     animation: scroll 2s ease-in-out 0s infinite alternate;
-    cursor: pointer;
   }
 }
 

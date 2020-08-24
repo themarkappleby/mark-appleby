@@ -6,6 +6,7 @@ import initScreenshotScrolling from './initScreenshotScrolling'
 import initScrollIndicators from './initScrollIndicators'
 import initSwapChests from './initSwapChests'
 import initBadges from './initBadges'
+import initProjectIntro from './initProjectIntro'
 
 function init (section) {
   flush()
@@ -16,6 +17,7 @@ function init (section) {
   initCardIntros(section)
   initParallax(section)
   initScrollIndicators(section)
+  initProjectIntro(section)
 }
 
 function flush () {

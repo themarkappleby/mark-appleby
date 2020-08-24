@@ -5,6 +5,7 @@
   .hero-chest {
     position: relative;
     transform: translate(0, -50%);
+    top: 43%;
     left: 0;
     z-index: 3;
     width: 50%;
@@ -21,6 +22,7 @@
   align-items: center;
   position: relative;
   z-index: 2;
+  transform: translateX(40px);
   &-wrapper {
     position: relative;
     max-width: 1400px;
@@ -52,12 +54,42 @@
     padding-left: 50px;
   }
   &-text {
-    opacity: 0; /* animated in by gsap */
-    max-width: 490px;
+    max-width: 525px;
+    font-size: 24px;
+    line-height: 44px;
+    user-select: none;
+    > span > span, > a {
+      opacity: 0; /* animated in by gsap */
+    }
+    a {
+      text-decoration: none;
+      background-image: linear-gradient(#ebf4fc, #ebf4fc), linear-gradient(black, black);
+      background-position: center center, center calc(100% - 2px);
+      background-repeat: no-repeat, repeat-x;
+      background-size: 80% 0, 100% 2px;
+      text-shadow:
+        2px 2px 0 white,
+        -2px 2px 0 white,
+        0 2px 0 white,
+        2px -2px 0 white,
+        -2px -2px 0 white,
+        0 -2px 0 white
+        ;
+      display: inline;
+      transition:
+        background-size 0.2s ease-in-out,
+        color 0.2s ease-in-out;
+      &:hover, &[data-focus-visible-added] {
+        background-size: 100% 100%, 100% 2px;
+        color: #1292ff;
+      }
+    }
   }
   &-logos-trigger {
-    display: inline-block;
     user-select: none;
+    span {
+      display: inline-block;
+    }
   }
   &-logos img {
     position: fixed;
@@ -98,12 +130,23 @@
 }
 
 .motext-word {
-  margin-right: 0.3em;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.15em;
+}
+
+.motext-letter {
+  margin-right: -0.12em;
 }
 
 .motext-letter--L {
-  margin-right: 0.02em;
+  margin-right: -0.16em;
+}
+
+.motext-letter--k + .motext-letter--e {
+  margin-left: -0.1em;
+}
+
+.motext-letter--f {
+  margin-right: -0.18em;
 }
 
 // ================================================
@@ -111,8 +154,15 @@
 // ================================================
 
 @media (max-width: 1250px) {
+  .home {
+    transform: none;
+  }
   .home-title {
     font-size: 50px;
+  }
+  .home-text {
+    font-size: 20px;
+    line-height: 38px;
   }
 }
 
@@ -159,6 +209,12 @@
   .home-text {
     font-size: 16px;
     line-height: 24px;
+    a {
+      background-size: 80% 0, 100% 1px;
+      &:hover, &[data-focus-visible-added] {
+        background-size: 100% 100%, 100% 1px;
+      }
+    }
   }
   .home-wrapper {
     padding: 0;
