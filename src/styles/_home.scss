@@ -131,6 +131,7 @@
 
 .motext-word {
   margin-bottom: 0.15em;
+  margin-right: 0.3em;
 }
 
 .motext-letter {
@@ -139,6 +140,14 @@
 
 .motext-letter--L {
   margin-right: -0.16em;
+}
+
+.motext-letter--L + .motext-letter--e {
+  margin-right: -0.16em;
+}
+
+.motext-letter--apostrophe {
+  margin-right: -0.19em;
 }
 
 .motext-letter--k + .motext-letter--e {
