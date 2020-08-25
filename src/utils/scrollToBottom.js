@@ -8,9 +8,12 @@ function scrollToBottom (cb) {
   const duration = distance * 0.003
   gsap.to(window, {
     duration,
-    scrollTo: { y: 'max' },
-    onComplete: cb
+    scrollTo: {
+      y: 'max',
+      autoKill: false
+    }
   })
+  window.setTimeout(cb, duration)
 }
 
 function distanceFromBottom () {
