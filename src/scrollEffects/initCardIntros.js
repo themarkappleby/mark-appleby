@@ -21,17 +21,6 @@ function cardIntros (section) {
         duration: 0.4,
         stagger: 0.2
       })
-
-      if (section !== 'contact') {
-        gsap.to(`.${section} .card-image`, {
-          scale: 1,
-          scrollTrigger: {
-            end: '80% center',
-            trigger: card,
-            scrub: 1
-          }
-        })
-      }
     })
   }
 }
