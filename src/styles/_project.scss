@@ -3,6 +3,9 @@
     max-width: 385px;
     position: relative;
     z-index: 2;
+    img, h3, p {
+      will-change: transform, opacity;
+    }
   }
   &-logo {
     margin-bottom: 36px;

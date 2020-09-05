@@ -19,6 +19,8 @@
     left: 0;
     width: 100%;
     height: 100%;
+    transform: scale(1.5);
+    will-change: transform;
     object-fit: cover;
     object-position: center center;
   }
@@ -28,6 +30,7 @@
   }
   &-item {
     margin-bottom: 25px;
+    will-change: transform, opacity;
     a {
       text-decoration: none;
       transition: color 0.2s ease-in-out, background-size 0.2s ease-in;
