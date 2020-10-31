@@ -12,6 +12,7 @@ function ecobee (chest) {
     if (window.gtag) {
       window.gtag('event', 'Chest - ecobee')
     }
+    document.querySelector('.home-wrapper').style.transform = 'none'
     chest.gotoAndPlay('ecobee')
     window.setTimeout(() => {
       show('.ecobee .hero-title')
